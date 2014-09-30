@@ -26,7 +26,7 @@
         android:id="@+id/textView"
         android:layout_toBottomOf="@+id/imageView"
         android:layout_weight="0.10"
-        android:font_size="500dp"/>
+        android:textSize="40dp"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -34,7 +34,9 @@
         android:text="New Project"
         android:id="@+id/button1"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10" />
+        android:textSize="30dp"
+        android:layout_weight="0.10"
+        android:onClick="NewProject"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -42,7 +44,8 @@
         android:text="Browse Styles"
         android:id="@+id/button2"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10" />
+        android:textSize="30dp"
+        android:layout_weight="0.10"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -50,6 +53,7 @@
         android:text="Current Projects"
         android:id="@+id/button3"
         android:layout_gravity="center_horizontal"
+        android:textSize="30dp"
         android:layout_weight="0.10" />
 
 </LinearLayout>

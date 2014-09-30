@@ -3,6 +3,8 @@
 
     <string name="app_name">Dog Sweater</string>
     <string name="hello_world">Dog Yarn It</string>
+    <string name="profileText">Profile</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_profile">Profile</string>
 
 </resources>
