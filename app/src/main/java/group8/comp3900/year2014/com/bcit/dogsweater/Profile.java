@@ -1,9 +1,11 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Profile extends Activity {
@@ -32,5 +34,12 @@ public class Profile extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void createNew(View view) {
+
+        Intent in = new Intent(this, ProfileName.class);
+        startActivity(in);
+        return;
     }
 }

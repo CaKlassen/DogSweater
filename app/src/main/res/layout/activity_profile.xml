@@ -30,7 +30,8 @@
         android:layout_gravity="center_horizontal"
         android:text="Create New"
         android:id="@+id/button2"
-        android:layout_weight="0.20" />
+        android:layout_weight="0.20"
+        android:onClick="createNew"/>
 
     <Space
         android:layout_width="match_parent"
