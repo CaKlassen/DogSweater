@@ -22,18 +22,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10"
-        />
+        android:layout_weight="0.10" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:text="Create New"
-        android:id="@+id/createNewProfile"
-        android:layout_weight="0.20"
-        android:onClick="CreateNewProfile"
-        android:textSize="30dp"/>
+        android:id="@+id/button2"
+        android:layout_weight="0.20" />
 
     <Space
         android:layout_width="match_parent"
@@ -46,9 +43,8 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:text="Choose Existing"
-        android:id="@+id/chooseExistingData"
-        android:layout_weight="0.20"
-        android:textSize="30dp"/>
+        android:id="@+id/button"
+        android:layout_weight="0.20" />
 
     <Space
         android:layout_width="match_parent"
