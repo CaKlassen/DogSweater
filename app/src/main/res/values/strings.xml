@@ -5,6 +5,16 @@
     <string name="hello_world">Dog Yarn It</string>
     <string name="profileText">Profile</string>
     <string name="action_settings">Settings</string>
+    <string name="newProfile">New Profile</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_dog_profile_creation">DogProfileCreation</string>
+    <string name="Next">Next</string>
+
+    <string-array name="units">
+        <item>cm</item>
+        <item>inches</item>
+    </string-array>
+
+    <string name="title_activity_profile_name">ProfileName</string>
 
 </resources>

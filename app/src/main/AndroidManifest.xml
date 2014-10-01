@@ -20,6 +20,14 @@
             android:name=".Profile"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".DogProfileCreation"
+            android:label="@string/title_activity_dog_profile_creation" >
+        </activity>
+        <activity
+            android:name=".ProfileName"
+            android:label="@string/title_activity_profile_name" >
+        </activity>
     </application>
 
 </manifest>

@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
     public void NewProject(View v)
     {
-        Intent in = new Intent(this, Profile.class);
+        Intent in = new Intent(this, ProfileName.class);
         startActivity(in);
         return;
 

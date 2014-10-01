@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/textView"
-        android:layout_toBottomOf="@+id/imageView"
         android:layout_weight="0.10"
         android:textSize="40dp"/>
 
@@ -32,17 +31,25 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="New Project"
-        android:id="@+id/button1"
+        android:id="@+id/newProj"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp"
         android:layout_weight="0.10"
         android:onClick="NewProject"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Current Projects"
+        android:id="@+id/currentProjBut"
+        android:layout_gravity="center_horizontal"
+        android:textSize="30dp"
+        android:layout_weight="0.10" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Browse Styles"
-        android:id="@+id/button2"
+        android:text="Manage Profiles"
+        android:id="@+id/manageProfBut"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp"
         android:layout_weight="0.10"/>
@@ -50,10 +57,11 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Current Projects"
-        android:id="@+id/button3"
+        android:text="Info"
+        android:id="@+id/nformation"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp"
-        android:layout_weight="0.10" />
+        android:layout_weight="0.10"/>
+
 
 </LinearLayout>
