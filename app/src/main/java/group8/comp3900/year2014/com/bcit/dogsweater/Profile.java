@@ -1,36 +1,44 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+public class Profile
+{
+    private String name;
+    private Measurements measurements;
 
-
-public class Profile extends Activity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+    public Profile( String name )
+    {
+        this( name, new Measurements() );
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile, menu);
-        return true;
+    public Profile( String name, Measurements measurements )
+    {
+        setName( name );
+        setMeasurements( measurements );
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void setName( String name )
+    {
+        if( name == null )
+            throw new NullPointerException( "Name cannot be null!" );
+        if( name.length() <= 0 )
+            throw new IllegalArgumentException( "Name cannot be empty!" );
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setMeasurements( Measurements m )
+    {
+        if( m == null )
+            throw new NullPointerException( "Cannot have null measurements!" );
+        measurements = m;
+    }
+
+    public Measurements getMeasurements()
+    {
+        return measurements;
     }
 }
