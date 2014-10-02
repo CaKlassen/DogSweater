@@ -3,7 +3,6 @@
 
     <!-- App meta data -->
     <string name="appName">Dog Yarn It</string>
-
     <!-- Page titles -->
     <string name="mainTitle">Dog Yarn It</string>
     <string name="profileTitle">Profile</string>
@@ -11,8 +10,9 @@
     <string name="profileCreationTitle">Measurements</string>
     <string name="settingsTitle">Settings</string>
     <string name="yarnTitle">Yarn</string>
-
-
+    <string name="action_settings">settings</string>
+    <string name="title_activity_yarn_selection">Yarn Selection</string>
+    <string name="title_activity_style">Style</string>
     <!-- Button text -->
     <string name="newProjectButton">New Project</string>
     <string name="currentProjectsButton">Current Projects</string>
@@ -20,24 +20,49 @@
     <string name="informationButton">Information</string>
     <string name="createNewButton">Create New</string>
     <string name="chooseExistingButton">Choose Existing</string>
-    <string name="needYarnButton">I need yarn</string>
-    <string name="haveYarnButton">I have yarn</string>
-
+    <string name="needYarnButton">I Need Yarn</string>
+    <string name="haveYarnButton">I Have Yarn</string>
     <string name="nextButton">Next</string>
-
     <!-- App Page text -->
     <string name="nameProfileText">Name your profile:</string>
-
-
     <!-- Settings button text -->
     <string name="settingsSettingsButton">Settings</string>
+    <string name="yarnSelection">Yarn Selection </string>
 
-
-    <!-- Spinner text -->
+    <!-- Unit Spinner  text -->
     <string-array name="units">
         <item>cm</item>
         <item>inches</item>
     </string-array>
 
+    <!-- Color Spinner text -->
+    <string-array name="colors">
+        <item>red</item>
+        <item>blue</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>yellow</item>
+        <item>purple</item>
+        <item>black</item>
+        <item>white</item>
+    </string-array>
+
+    <!-- Types of Yarn Spinner text -->
+    <string-array name="types">
+        <item>baby</item>
+        <item>DK</item>
+        <item>Light Worsted</item>
+        <item>Worsted</item>
+        <item>Afghan</item>
+        <item>Aran</item>
+        <item>Chunky</item>
+        <item>Craft</item>
+        <item>Rug</item>
+        <item>Bulky</item>
+        <item>Roving</item>
+    </string-array>
+
+    <string name="title_activity_materials">Materials</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

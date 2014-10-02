@@ -8,19 +8,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class Profile extends Activity {
+public class YarnSelection extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_yarn_selection);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-      //  getMenuInflater().inflate(R.menu.profile, menu);
+        getMenuInflater().inflate(R.menu.yarn_selection, menu);
         return true;
     }
 
@@ -36,10 +36,10 @@ public class Profile extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void createNew(View view) {
-
-        Intent in = new Intent(this, ProfileName.class);
+    public void next(View v){
+        Intent in = new Intent(this, Style.class );
         startActivity(in);
-        return;
     }
+
+
 }

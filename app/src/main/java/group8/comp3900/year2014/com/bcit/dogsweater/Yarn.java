@@ -1,9 +1,11 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Yarn extends Activity {
@@ -33,4 +35,11 @@ public class Yarn extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void needYarn(View v ) {
+        Intent in = new Intent(this, YarnSelection.class);
+        startActivity(in);
+    }
+
+
 }

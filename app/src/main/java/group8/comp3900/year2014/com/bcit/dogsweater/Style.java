@@ -6,21 +6,39 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Materials;
 
 
-public class Profile extends Activity {
+public class Style extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_style);
+
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        final GridAdapter gridadapter = new GridAdapter(this);
+        gridview.setAdapter(gridadapter);
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+              Intent in = new Intent(getApplicationContext(), Materials.class );
+                startActivity(in);
+            }
+        });
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-      //  getMenuInflater().inflate(R.menu.profile, menu);
+        getMenuInflater().inflate(R.menu.style, menu);
         return true;
     }
 
@@ -34,12 +52,5 @@ public class Profile extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void createNew(View view) {
-
-        Intent in = new Intent(this, ProfileName.class);
-        startActivity(in);
-        return;
     }
 }

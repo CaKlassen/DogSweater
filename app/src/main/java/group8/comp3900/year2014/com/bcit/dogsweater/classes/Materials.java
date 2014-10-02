@@ -1,26 +1,24 @@
-package group8.comp3900.year2014.com.bcit.dogsweater;
+package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
-
-public class Profile extends Activity {
+public class Materials extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_materials);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-      //  getMenuInflater().inflate(R.menu.profile, menu);
+        getMenuInflater().inflate(R.menu.materials, menu);
         return true;
     }
 
@@ -34,12 +32,5 @@ public class Profile extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void createNew(View view) {
-
-        Intent in = new Intent(this, ProfileName.class);
-        startActivity(in);
-        return;
     }
 }

@@ -32,6 +32,18 @@
             android:name=".Yarn"
             android:label="@string/yarnTitle" >
         </activity>
+        <activity
+            android:name=".YarnSelection"
+            android:label="@string/title_activity_yarn_selection" >
+        </activity>
+        <activity
+            android:name=".Style"
+            android:label="@string/title_activity_style" >
+        </activity>
+        <activity
+            android:name=".classes.Materials"
+            android:label="@string/title_activity_materials" >
+        </activity>
     </application>
 
 </manifest>
