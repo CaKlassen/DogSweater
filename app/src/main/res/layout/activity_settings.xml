@@ -9,7 +9,7 @@
     tools:context="group8.comp3900.year2014.com.bcit.dogsweater.Settings">
 
     <TextView
-        android:text="@string/hello_world"
+        android:text="@string/mainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

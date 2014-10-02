@@ -16,20 +16,20 @@
         android:layout_weight="0.10" />
 
     <TextView
-        android:text="@string/newProfile"
+        android:text="@string/profileNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/profileText"
         android:layout_weight="0.20"
-        android:textSize="40dp"/>
+        android:textSize="40sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="Name the profile:"
+        android:text="@string/nameProfileText"
         android:id="@+id/textView"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_weight="0.05"
         android:orientation="vertical"
         />
@@ -40,7 +40,7 @@
         android:id="@+id/measureA"
         android:layout_weight="0.10"
         android:orientation="vertical"
-        android:textSize="50dp"
+        android:textSize="50sp"
         />
 
     <Space
@@ -56,9 +56,9 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Next"
+        android:text="@string/nextButton"
         android:id="@+id/Next"
         android:layout_gravity="bottom"
-        android:onClick="DogMeasurements"/>
+        android:onClick="dogMeasurements"/>
 
 </LinearLayout>

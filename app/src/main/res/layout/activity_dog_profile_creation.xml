@@ -10,13 +10,13 @@
     tools:context="group8.comp3900.year2014.com.bcit.dogsweater.DogProfileCreation">
 
     <TextView
-        android:text="@string/newProfile"
+        android:text="@string/profileCreationTitle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/profileText"
         android:layout_weight="0.20"
-        android:textSize="40dp"/>
+        android:textSize="40sp"/>
 
 
     <ImageView
@@ -34,16 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.40"
         >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="A:"
-            android:id="@+id/textView"
-            android:textSize="30dp"
-            android:layout_weight="0.13"
-            android:orientation="horizontal"
-            />
 
         <EditText
             android:layout_width="0dp"
@@ -68,8 +58,9 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Next"
+        android:text="@string/nextButton"
         android:id="@+id/Next"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:onClick="next"/>
 
 </LinearLayout>

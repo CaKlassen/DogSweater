@@ -19,48 +19,48 @@
         />
 
     <TextView
-        android:text="@string/hello_world"
+        android:text="@string/mainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/textView"
+        android:id="@+id/mainTitle"
         android:layout_weight="0.10"
-        android:textSize="40dp"/>
+        android:textSize="40sp"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="New Project"
-        android:id="@+id/newProjBut"
+        android:text="@string/newProjectButton"
+        android:id="@+id/newProjectButton"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_weight="0.10"
-        android:onClick="NewProject"/>
+        android:onClick="newProject"/>
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Current Projects"
-        android:id="@+id/currentProjBut"
+        android:text="@string/currentProjectsButton"
+        android:id="@+id/currentProjectsButton"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_weight="0.10" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Manage Profiles"
-        android:id="@+id/manageProfBut"
+        android:text="@string/manageProfilesButton"
+        android:id="@+id/manageProfilesButton"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_weight="0.10"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Info"
-        android:id="@+id/informationBut"
+        android:text="@string/informationButton"
+        android:id="@+id/informationButton"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_weight="0.10"/>
 
 

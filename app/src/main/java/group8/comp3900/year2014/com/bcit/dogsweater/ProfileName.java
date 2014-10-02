@@ -36,9 +36,11 @@ public class ProfileName extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void DogMeasurements(View v)
+    public void dogMeasurements(View v)
     {
         Intent in = new Intent(this, DogProfileCreation.class);
         startActivity(in);
+
+        return;
     }
 }

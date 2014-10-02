@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Dog Sweater</string>
-    <string name="hello_world">Dog Yarn It</string>
-    <string name="profileText">Profile</string>
-    <string name="action_settings">Settings</string>
-    <string name="newProfile">New Profile</string>
-    <string name="title_activity_profile">Profile</string>
-    <string name="title_activity_dog_profile_creation">DogProfileCreation</string>
-    <string name="Next">Next</string>
+    <!-- App meta data -->
+    <string name="appName">Dog Yarn It</string>
 
+    <!-- Page titles -->
+    <string name="mainTitle">Dog Yarn It</string>
+    <string name="profileTitle">Profile</string>
+    <string name="profileNameTitle">Profile Name</string>
+    <string name="profileCreationTitle">Measurements</string>
+    <string name="settingsTitle">Settings</string>
+    <string name="yarnTitle">Yarn</string>
+
+
+    <!-- Button text -->
+    <string name="newProjectButton">New Project</string>
+    <string name="currentProjectsButton">Current Projects</string>
+    <string name="manageProfilesButton">Manage Profiles</string>
+    <string name="informationButton">Information</string>
+    <string name="createNewButton">Create New</string>
+    <string name="chooseExistingButton">Choose Existing</string>
+    <string name="needYarnButton">I need yarn</string>
+    <string name="haveYarnButton">I have yarn</string>
+
+    <string name="nextButton">Next</string>
+
+    <!-- App Page text -->
+    <string name="nameProfileText">Name your profile:</string>
+
+
+    <!-- Settings button text -->
+    <string name="settingsSettingsButton">Settings</string>
+
+
+    <!-- Spinner text -->
     <string-array name="units">
         <item>cm</item>
         <item>inches</item>
     </string-array>
 
-    <string name="title_activity_profile_name">ProfileName</string>
 
 </resources>
