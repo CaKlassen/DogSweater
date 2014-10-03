@@ -42,4 +42,11 @@ public class Profile extends Activity {
         startActivity(in);
         return;
     }
+
+    public void profileSelection(View v)
+    {
+        Intent in = new Intent(this, ProfileSelection.class);
+        startActivity(in);
+        return;
+    }
 }

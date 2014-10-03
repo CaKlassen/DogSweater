@@ -44,6 +44,18 @@
             android:name=".Materials"
             android:label="@string/title_activity_materials" >
         </activity>
+        <activity
+            android:name=".PatternInstructions"
+            android:label="@string/title_activity_pattern" >
+        </activity>
+        <activity
+            android:name=".ProjectPattern"
+            android:label="@string/title_activity_project_pattern" >
+        </activity>
+        <activity
+            android:name=".ProfileSelection"
+            android:label="@string/title_activity_profile_selection" >
+        </activity>
     </application>
 
 </manifest>

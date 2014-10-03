@@ -2,12 +2,12 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -48,15 +48,6 @@ public class Materials extends Activity {
         // Assign adapter to ListView
         listView.setAdapter(dataAdapter);
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                // When clicked, show a toast with the TextView text
-                Material material = (Material) parent.getItemAtPosition(position);
-            }
-        });
-
     }
 
     private class MyCustomAdapter extends ArrayAdapter<Material>
@@ -82,28 +73,24 @@ public class Materials extends Activity {
             ViewHolder holder = null;
             Log.v("ConvertView", String.valueOf(position));
 
-            if (convertView == null)
-            {
-                LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (convertView == null) {
+                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = vi.inflate(R.layout.material_info, null);
 
                 holder = new ViewHolder();
                 holder.name = (CheckBox) convertView.findViewById(R.id.checkBox1);
                 convertView.setTag(holder);
 
-                holder.name.setOnClickListener( new View.OnClickListener()
-                {
-                    public void onClick(View v)
-                    {
-                        CheckBox cb = (CheckBox) v ;
+                holder.name.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        CheckBox cb = (CheckBox) v;
                         Material material = (Material) cb.getTag();
-                        Toast.makeText(getApplicationContext(), "Clicked on Checkbox: " + cb.getText() +" is " + cb.isChecked(),
+                        Toast.makeText(getApplicationContext(), "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked(),
                                 Toast.LENGTH_LONG).show();
                         material.setSelected(cb.isChecked());
                     }
                 });
-            }
-            else {
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
@@ -116,5 +103,10 @@ public class Materials extends Activity {
 
         }
 
+    }
+    public void startInstructions(View v)
+    {
+        Intent in = new Intent(this, ProjectPattern.class);
+        startActivity(in);
     }
 }

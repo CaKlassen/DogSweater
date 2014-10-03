@@ -13,6 +13,8 @@
     <string name="action_settings">settings</string>
     <string name="title_activity_yarn_selection">Yarn Selection</string>
     <string name="title_activity_style">Style</string>
+    <string name="title_activity_materials">Materials</string>
+    <string name="title_activity_pattern">Pattern</string>
     <!-- Button text -->
     <string name="newProjectButton">New Project</string>
     <string name="currentProjectsButton">Current Projects</string>
@@ -28,6 +30,9 @@
     <!-- Settings button text -->
     <string name="settingsSettingsButton">Settings</string>
     <string name="yarnSelection">Yarn Selection </string>
+
+    <!-- Instructions text -->
+    <string name="instructions">Instructions</string>
 
     <!-- Unit Spinner  text -->
     <string-array name="units">
@@ -62,7 +67,8 @@
         <item>Roving</item>
     </string-array>
 
-    <string name="title_activity_materials">Materials</string>
+    <string name="title_activity_project_pattern">ProjectPattern</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_profile_selection">ProfileSelection</string>
 
 </resources>

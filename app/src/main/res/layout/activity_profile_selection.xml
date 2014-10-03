@@ -1,5 +1,5 @@
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/styleGridView"
+    android:id="@+id/profileGridView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"

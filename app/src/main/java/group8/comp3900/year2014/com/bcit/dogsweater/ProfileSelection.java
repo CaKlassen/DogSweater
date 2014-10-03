@@ -12,14 +12,15 @@ import android.widget.GridView;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridAdapter;
 
 
-public class Style extends Activity {
+public class ProfileSelection extends Activity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_style);
+        setContentView(R.layout.activity_profile_selection);
 
-        GridView gridview = (GridView) findViewById(R.id.styleGridView);
+        GridView gridview = (GridView) findViewById(R.id.profileGridView);
         final GridAdapter gridadapter = new GridAdapter(this);
         gridview.setAdapter(gridadapter);
 
@@ -27,7 +28,7 @@ public class Style extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-              Intent in = new Intent(getApplicationContext(), Materials.class );
+                Intent in = new Intent(getApplicationContext(), Materials.class);
                 startActivity(in);
             }
         });
@@ -53,3 +54,4 @@ public class Style extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
