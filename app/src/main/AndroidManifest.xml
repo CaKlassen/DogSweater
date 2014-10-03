@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="group8.comp3900.year2014.com.bcit.dogsweater" >
 
+    <!-- for taking pictures of your dog -->
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
