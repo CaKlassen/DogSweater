@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridAdapter;
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.Materials;
 
 
 public class Style extends Activity {

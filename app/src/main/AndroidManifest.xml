@@ -41,7 +41,7 @@
             android:label="@string/title_activity_style" >
         </activity>
         <activity
-            android:name=".classes.Materials"
+            android:name=".Materials"
             android:label="@string/title_activity_materials" >
         </activity>
     </application>
