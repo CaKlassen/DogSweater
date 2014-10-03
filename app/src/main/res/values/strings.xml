@@ -49,7 +49,7 @@
 
     <!-- Types of Yarn Spinner text -->
     <string-array name="types">
-        <item>baby</item>
+        <item>Baby</item>
         <item>DK</item>
         <item>Light Worsted</item>
         <item>Worsted</item>
