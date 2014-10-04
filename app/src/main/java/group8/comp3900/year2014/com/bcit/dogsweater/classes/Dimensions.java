@@ -82,11 +82,27 @@ public class Dimensions
      * @return          void
      *
      * sets the value of the measurement with key associated with the passed key
-     *     to the passed value
+     * to the passed value
      */
     public void setMeasurement( String key, double value ) throws JSONException
     {
         setMeasurement( key, value, Unit.getDefaultUnit() );
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 1 2014
+     * @revisions       none
+     * @param           key   key used to identify the measurement
+     * @return          value of the measurement identified by the passed
+     *                  identifier ( key )
+     *
+     * returns the value of the dimension identified by the passed key. the
+     * units used will be in Unit.defaultUnits
+     */
+    public double getMeasurement( String key )
+    {
+        return getMeasurement(key, Unit.getDefaultUnit());
     }
 
     /**
@@ -99,33 +115,21 @@ public class Dimensions
      * @param           unit   units that value is passed in
      * @return          void
      *
-     * sets the value of the measurement with key associated with the passed key
-     *     to the passed value in the passed units ( unit )
+     * sets the value of the dimension identified by the passed key to the
+     * passed value in the passed unit
      */
     public void setMeasurement( String key, double value, Unit unit )
             throws JSONException
     {
+        // validate parameters
         if (key == null || unit == null)
             throw new NullPointerException("Neither key or unit parameters "
                     + "can be null!");
-        JSONObject o = new JSONObject();
-        o.put( Measurement.KEY_VALUE, unit.convert( Unit.INCHES, value ) );
-        mStorage.put( key, o );
-    }
 
-    /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @param           key   key used to identify the measurement
-     * @return          value of the measurement identified by the passed
-     *                  identifier ( key )
-     *
-     * returns the value of the measurement identified by the passed key
-     */
-    public double getMeasurement( String key )
-    {
-        return getMeasurement( key, Unit.getDefaultUnit() );
+        // add the measurement to mStorage
+        JSONObject o = new JSONObject();
+        o.put( Dimension.KEY_VALUE, unit.convert( Unit.INCHES, value ) );
+        mStorage.put( key, o );
     }
 
     /**
@@ -138,18 +142,21 @@ public class Dimensions
      * @return          value of the measurement identified by the passed
      *                  identifier ( key ) in the passed units ( unit )
      *
-     * returns the value of the measurement identified by the passed key in the
+     * returns the value of the dimension identified by the passed key in the
      * passed units ( unit )
      */
     public double getMeasurement( String key, Unit unit )
     {
         try {
+            // get and return the measurement with the key that matches the
+            // passed key
             JSONObject o = mStorage.getJSONObject( key );
-            double measurementValue = o.getDouble( Measurement.KEY_VALUE );
+            double measurementValue = o.getDouble( Dimension.KEY_VALUE );
             return Unit.getDefaultUnit().convert( unit, measurementValue );
         }
         catch ( JSONException e )
         {
+            // exception thrown, passed key probably doesn't exist
             throw new NoSuchElementException("There is no measurement "
                     + "associated with the passed key: \"" + key + "\".");
         }
@@ -197,7 +204,7 @@ public class Dimensions
         {
             mStorage = new JSONObject( stringified );
         }
-        catch (JSONException e)
+        catch ( JSONException e )
         {
             throw new IllegalArgumentException("Parameter stringified was not "
                     + "formatted correctly.");
@@ -231,10 +238,10 @@ public class Dimensions
             m.setMeasurement( "Bye", 13 );
             Dimensions m2 = new Dimensions(m.stringify());
 
-            System.out.println( m2.getMeasurement( "Hello" ) );
+            System.out.println( m2.getMeasurement("Hello") );
             //System.out.println( m.getMeasurement( "Helloo" ) );
-            System.out.println( m2.getMeasurement( "No", Unit.CENTIMETRES ) );
-            System.out.println( m.getMeasurement( "Bye", Unit.INCHES ) );
+            System.out.println( m2.getMeasurement("No", Unit.CENTIMETRES) );
+            System.out.println( m.getMeasurement("Bye", Unit.INCHES) );
         }
         catch ( Exception e )
         {
@@ -242,7 +249,7 @@ public class Dimensions
         }
     }
 
-    public static class Measurement
+    public static class Dimension
     {
         // class variables
         /** key to value of the measurement in inches */
