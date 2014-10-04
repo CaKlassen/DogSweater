@@ -10,19 +10,19 @@ public class Profile
 {
     private Uri imageURI = null;
     private String name;
-    private Measurements measurements;
+    private Dimensions dimensions;
     private Uri measurementsURI = null;
 
     public Profile( String name )
     {
-        this( name, new Measurements() );
+        this( name, new Dimensions() );
     }
 
-    public Profile( String name, Measurements measurements )
+    public Profile( String name, Dimensions dimensions)
     {
         imageURI = null;
         setName( name );
-        setMeasurements( measurements );
+        setDimensions(dimensions);
         measurementsURI = null;
     }
 
@@ -49,16 +49,16 @@ public class Profile
         return name;
     }
 
-    public void setMeasurements( Measurements m )
+    public void setDimensions(Dimensions m)
     {
         if( m == null )
             throw new NullPointerException( "Cannot have null measurements!" );
-        measurements = m;
+        dimensions = m;
     }
 
-    public Measurements getMeasurements()
+    public Dimensions getDimensions()
     {
-        return measurements;
+        return dimensions;
     }
 
     public void setMeasurementsURI( Uri newMeasurementsUri )

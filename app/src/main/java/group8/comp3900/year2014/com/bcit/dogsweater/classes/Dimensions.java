@@ -1,15 +1,27 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
-import java.util.InvalidPropertiesFormatException;
 import java.util.NoSuchElementException;
 
 import org.json.JSONObject;
 import org.json.JSONException;
 
 /**
- * Created by Eric on 2014-10-01.
+ * @author          Eric Tsang
+ * @date            October 1 2014
+ * @revisions
+ *
+ * October 3 2014
+ * changed the name of this class from "Measurements" to "Dimensions"
+ *
+ * @param           stringified   a string created with the
+ *                  Measurements.stringify method
+ * @return          an instance of Measurements with the exact same
+ *                  measurements, and associated values as the Measurements
+ *                  instance that was stringified
+ *
+ * instantiates an instance of Dimensions
  */
-public class Measurements
+public class Dimensions
 {
 
     // declare instance variables
@@ -35,7 +47,7 @@ public class Measurements
      *
      * instantiates an instance of Measurements
      */
-    public Measurements( String stringified )
+    public Dimensions(String stringified)
     {
         parseStringified(stringified);
     }
@@ -48,7 +60,7 @@ public class Measurements
      *
      * instantiates an instance of Measurements
      */
-    public Measurements()
+    public Dimensions()
     {
         mStorage = new JSONObject();
     }
@@ -210,14 +222,14 @@ public class Measurements
      */
     public static void main( String[] args )
     {
-        Measurements m = new Measurements();
+        Dimensions m = new Dimensions();
 
         try
         {
             m.setMeasurement( "Hello", 11 );
             m.setMeasurement( "No", 12 );
             m.setMeasurement( "Bye", 13 );
-            Measurements m2 = new Measurements(m.stringify());
+            Dimensions m2 = new Dimensions(m.stringify());
 
             System.out.println( m2.getMeasurement( "Hello" ) );
             //System.out.println( m.getMeasurement( "Helloo" ) );
@@ -232,10 +244,6 @@ public class Measurements
 
     public static class Measurement
     {
-
-
-
-
         // class variables
         /** key to value of the measurement in inches */
         public static final String KEY_VALUE = "KEY_VALUE";
