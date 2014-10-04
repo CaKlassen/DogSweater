@@ -127,9 +127,7 @@ public class Dimensions
                     + "can be null!");
 
         // add the measurement to mStorage
-        JSONObject o = new JSONObject();
-        o.put( Dimension.KEY_VALUE, unit.convert( Unit.INCHES, value ) );
-        mStorage.put( key, o );
+        mStorage.put( key, unit.convert( Unit.INCHES, value ) );
     }
 
     /**
@@ -150,8 +148,7 @@ public class Dimensions
         try {
             // get and return the measurement with the key that matches the
             // passed key
-            JSONObject o = mStorage.getJSONObject( key );
-            double measurementValue = o.getDouble( Dimension.KEY_VALUE );
+            double measurementValue = mStorage.getDouble( key );
             return Unit.getDefaultUnit().convert( unit, measurementValue );
         }
         catch ( JSONException e )
@@ -248,12 +245,4 @@ public class Dimensions
             e.printStackTrace();
         }
     }
-
-    public static class Dimension
-    {
-        // class variables
-        /** key to value of the measurement in inches */
-        public static final String KEY_VALUE = "KEY_VALUE";
-    }
-
 }
