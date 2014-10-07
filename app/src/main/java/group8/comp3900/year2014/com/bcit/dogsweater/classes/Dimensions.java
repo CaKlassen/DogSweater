@@ -2,6 +2,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
 import java.util.NoSuchElementException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
@@ -84,9 +85,9 @@ public class Dimensions
      * sets the value of the measurement with key associated with the passed key
      * to the passed value
      */
-    public void setMeasurement( String key, double value ) throws JSONException
+    public void setDimension(String key, double value) throws JSONException
     {
-        setMeasurement( key, value, Unit.getDefaultUnit() );
+        setDimension(key, value, Unit.getDefaultUnit());
     }
 
     /**
@@ -100,9 +101,57 @@ public class Dimensions
      * returns the value of the dimension identified by the passed key. the
      * units used will be in Unit.defaultUnits
      */
-    public double getMeasurement( String key )
+    public double getDimension(String key)
     {
-        return getMeasurement(key, Unit.getDefaultUnit());
+        return getDimension(key, Unit.getDefaultUnit());
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 7 2014
+     * @revisions       none
+     * @return          String array of all keys
+     *
+     * returns a string array of all keys saved in this instance
+     */
+    public String[] getDimensionKeys()
+    {
+        JSONArray names = mStorage.names(); // all measurements keys
+        int len = names.length();           // used in for loop
+        String[] keys = new String[len];    // will contain all measurement keys
+
+        // populate the keys array with the keys
+        for (int i = 0; i < names.length(); i++) {
+            try {
+                keys[i] = names.getString(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // return...
+        return keys;
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 7 2014
+     * @revisions       none
+     * @param           key   key used to identify to the measurement
+     * @return          void
+     *
+     * removes the key-value pair; throws a NoSuchElementException when the key
+     * cannot be found
+     */
+    public void deleteDimension(String key)
+    {
+        try {
+            mStorage.get( key );
+        } catch (JSONException e) {
+            throw new NoSuchElementException( "There is no measurement "
+                    + "associated with the passed key: \"" + key + "\".");
+        }
+        mStorage.remove(key);
     }
 
     /**
@@ -118,7 +167,7 @@ public class Dimensions
      * sets the value of the dimension identified by the passed key to the
      * passed value in the passed unit
      */
-    public void setMeasurement( String key, double value, Unit unit )
+    public void setDimension(String key, double value, Unit unit)
             throws JSONException
     {
         // validate parameters
@@ -143,7 +192,7 @@ public class Dimensions
      * returns the value of the dimension identified by the passed key in the
      * passed units ( unit )
      */
-    public double getMeasurement( String key, Unit unit )
+    public double getDimension(String key, Unit unit)
     {
         try {
             // get and return the measurement with the key that matches the
@@ -154,8 +203,8 @@ public class Dimensions
         catch ( JSONException e )
         {
             // exception thrown, passed key probably doesn't exist
-            throw new NoSuchElementException("There is no measurement "
-                    + "associated with the passed key: \"" + key + "\".");
+            throw new NoSuchElementException( "There is no measurement "
+                    + "associated with the passed key: \"" + key + "\"." );
         }
     }
 
@@ -230,15 +279,14 @@ public class Dimensions
 
         try
         {
-            m.setMeasurement( "Hello", 11 );
-            m.setMeasurement( "No", 12 );
-            m.setMeasurement( "Bye", 13 );
+            m.setDimension("Hello", 11);
+            m.setDimension("No", 12);
+            m.setDimension("Bye", 13);
             Dimensions m2 = new Dimensions(m.stringify());
 
-            System.out.println( m2.getMeasurement("Hello") );
-            //System.out.println( m.getMeasurement( "Helloo" ) );
-            System.out.println( m2.getMeasurement("No", Unit.CENTIMETRES) );
-            System.out.println( m.getMeasurement("Bye", Unit.INCHES) );
+            System.out.println( m2.getDimension("Hello") );
+            System.out.println( m2.getDimension("No", Unit.CENTIMETRES) );
+            System.out.println( m.getDimension("Bye", Unit.INCHES) );
         }
         catch ( Exception e )
         {
