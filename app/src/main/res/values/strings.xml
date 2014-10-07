@@ -71,4 +71,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_profile_selection">ProfileSelection</string>
 
+    <!-- Colors -->
+    <color name="gridBackground">#ffb6c1</color>
+
 </resources>
