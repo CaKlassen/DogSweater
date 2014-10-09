@@ -48,4 +48,32 @@ public class MainActivity extends Activity {
 
     }
 
+    public void currentProjects(View v)
+    {
+        Intent in = new Intent(this, currentProjects.class);
+        startActivity(in);
+
+        return;
+
+    }
+
+    public void manageProfiles(View v)
+    {
+        Intent in = new Intent(this, ManageProfiles.class);
+        startActivity(in);
+
+        return;
+
+    }
+
+    public void info(View v)
+    {
+        Intent in = new Intent(this, Info.class);
+        startActivity(in);
+
+        return;
+
+    }
+
+
 }

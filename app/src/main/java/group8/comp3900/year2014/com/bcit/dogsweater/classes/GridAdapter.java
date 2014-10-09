@@ -18,7 +18,8 @@ public class GridAdapter extends BaseAdapter {
     private Integer[] imageIds = {
             R.drawable.dog_silhouette_sweater,
             R.drawable.dog_silhouette,
-            R.drawable.dog_diagram
+            R.drawable.dog_diagram,
+            R.drawable.sample_profie
     };
 
     public GridAdapter(Context c) {

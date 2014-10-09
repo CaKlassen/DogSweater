@@ -43,7 +43,8 @@
         android:id="@+id/currentProjectsButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10" />
+        android:layout_weight="0.10"
+        android:onClick="currentProjects"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -52,7 +53,8 @@
         android:id="@+id/manageProfilesButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10"/>
+        android:layout_weight="0.10"
+        android:onClick="manageProfiles"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -61,7 +63,8 @@
         android:id="@+id/informationButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10"/>
+        android:layout_weight="0.10"
+        android:onClick="info"/>
 
 
 </LinearLayout>

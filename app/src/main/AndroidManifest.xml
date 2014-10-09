@@ -3,8 +3,9 @@
     package="group8.comp3900.year2014.com.bcit.dogsweater" >
 
     <!-- for taking pictures of your dog -->
-    <uses-feature android:name="android.hardware.camera"
-                  android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -59,6 +60,18 @@
         <activity
             android:name=".ProfileSelection"
             android:label="@string/title_activity_profile_selection" >
+        </activity>
+        <activity
+            android:name=".currentProjects"
+            android:label="@string/title_activity_current_projects" >
+        </activity>
+        <activity
+            android:name=".ManageProfiles"
+            android:label="@string/title_activity_manage_profiles" >
+        </activity>
+        <activity
+            android:name=".Info"
+            android:label="@string/title_activity_info" >
         </activity>
     </application>
 

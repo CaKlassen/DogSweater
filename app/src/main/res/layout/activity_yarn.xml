@@ -45,7 +45,8 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/haveYarnButton"
         android:id="@+id/button"
-        android:layout_weight="0.20" />
+        android:layout_weight="0.20"
+        android:onClick="haveYarn"/>
 
     <Space
         android:layout_width="match_parent"

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     >
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="40sp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center"
+        android:id="@+id/popupTitle" />
 
     <ImageView
         android:id="@+id/largeView"
@@ -18,6 +28,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.40"
-        android:text="Sample text woop."/>
+        android:layout_weight="0.10"
+        android:text="This sporty number will give your best pal added warmth on winter walks. The neck adjusts with a drawstring for an easy fit!"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextButton"
+        android:layout_weight="0.005"
+        android:layout_gravity="right"
+        android:onClick="Next"/>
+
+
 </LinearLayout>

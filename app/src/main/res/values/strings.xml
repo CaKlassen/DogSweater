@@ -15,6 +15,10 @@
     <string name="title_activity_style">Style</string>
     <string name="title_activity_materials">Materials</string>
     <string name="title_activity_pattern">Pattern</string>
+    <string name="title_activity_current_projects">currentProjects</string>
+    <string name="title_activity_manage_profiles">ManageProfiles</string>
+    <string name="title_activity_info">Info</string>
+
     <!-- Button text -->
     <string name="newProjectButton">New Project</string>
     <string name="currentProjectsButton">Current Projects</string>
@@ -72,6 +76,8 @@
     <string name="title_activity_profile_selection">ProfileSelection</string>
 
     <!-- Colors -->
-    <color name="gridBackground">#ffb6c1</color>
+    <color name="gridBackground">#fce8ff</color>
 
+    <!-- AboutInfo Page -->
+    <string name="about_astor">All About Astor Tsang:</string>
 </resources>

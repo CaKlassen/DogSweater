@@ -27,10 +27,10 @@ public class ProfileSelection extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                InfoPopup popup = new InfoPopup(v.getContext(), "dog_diagram.png");
-                // Intent in = new Intent(getApplicationContext(), Yarn.class);
+                InfoPopup popup = new InfoPopup(v.getContext(), "sample_profie", "group8.comp3900.year2014.com.bcit.dogsweater.Yarn", "PROFILE" );
+            }
+        // Intent in = new Intent(getApplicationContext(), Yarn.class);
             //startActivity(in);
-        }
         });
     }
 
@@ -53,5 +53,6 @@ public class ProfileSelection extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
 

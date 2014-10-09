@@ -1,7 +1,6 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,8 +26,7 @@ public class Style extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-              Intent in = new Intent(getApplicationContext(), Materials.class );
-                startActivity(in);
+                InfoPopup popup = new InfoPopup(v.getContext(), "style01", "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE" );
             }
         });
     }
