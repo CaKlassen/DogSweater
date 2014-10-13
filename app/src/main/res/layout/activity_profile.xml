@@ -22,13 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10" />
+        android:layout_weight="0.1" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/createNewButton"
+        android:textSize="30sp"
         android:id="@+id/button2"
         android:layout_weight="0.20"
         android:onClick="createNew"/>
@@ -37,17 +38,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05" />
+        android:layout_weight="0.025" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/chooseExistingButton"
+        android:textSize="30sp"
         android:id="@+id/button"
         android:layout_weight="0.20"
-        android:onClick="profileSelection"
-        />
+        android:onClick="profileSelection" />
 
     <Space
         android:layout_width="match_parent"
@@ -55,11 +56,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.25" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.25" />
 
 
 </LinearLayout>

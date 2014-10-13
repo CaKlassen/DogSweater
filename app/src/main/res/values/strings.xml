@@ -3,21 +3,24 @@
 
     <!-- App meta data -->
     <string name="appName">Dog Yarn It</string>
+
     <!-- Page titles -->
     <string name="mainTitle">Dog Yarn It</string>
     <string name="profileTitle">Profile</string>
     <string name="profileNameTitle">Profile Name</string>
-    <string name="profileCreationTitle">Measurements</string>
+    <string name="profileCreationTitle">Dimensions</string>
     <string name="settingsTitle">Settings</string>
     <string name="yarnTitle">Yarn</string>
-    <string name="action_settings">settings</string>
+    <string name="action_settings">Settings</string>
     <string name="title_activity_yarn_selection">Yarn Selection</string>
-    <string name="title_activity_style">Style</string>
+    <string name="title_activity_style">Archetypes</string>
     <string name="title_activity_materials">Materials</string>
     <string name="title_activity_pattern">Pattern</string>
-    <string name="title_activity_current_projects">currentProjects</string>
-    <string name="title_activity_manage_profiles">ManageProfiles</string>
+    <string name="title_activity_current_projects">Current Projects</string>
+    <string name="title_activity_manage_profiles">Manage Profiles</string>
     <string name="title_activity_info">Info</string>
+    <string name="title_activity_project_pattern">Pattern</string>
+    <string name="title_activity_profile_selection">Profile Selection</string>
 
     <!-- Button text -->
     <string name="newProjectButton">New Project</string>
@@ -29,19 +32,30 @@
     <string name="needYarnButton">I Need Yarn</string>
     <string name="haveYarnButton">I Have Yarn</string>
     <string name="nextButton">Next</string>
+
+    <!-- Image Description text -->
+    <string name="imageDescLogo">Dog Yarn It Logo</string>
+    <string name="imageDescDimension">Dog Dimension</string>
+
     <!-- App Page text -->
     <string name="nameProfileText">Name your profile:</string>
+    <string name="yarnTypeText">Yarn Type:</string>
+
+    <!-- Text box hints -->
+    <string name="hintNameProfile">Profile name</string>
+    <string name="hintDimension">Dimension</string>
+
     <!-- Settings button text -->
     <string name="settingsSettingsButton">Settings</string>
-    <string name="yarnSelection">Yarn Selection </string>
+    <string name="yarnSelection">Yarn Selection</string>
 
     <!-- Instructions text -->
     <string name="instructions">Instructions</string>
 
     <!-- Unit Spinner  text -->
     <string-array name="units">
-        <item>cm</item>
-        <item>inches</item>
+        <item>Metric</item>
+        <item>Imperial</item>
     </string-array>
 
     <!-- Color Spinner text -->
@@ -70,10 +84,6 @@
         <item>Bulky</item>
         <item>Roving</item>
     </string-array>
-
-    <string name="title_activity_project_pattern">ProjectPattern</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_profile_selection">ProfileSelection</string>
 
     <!-- Colors -->
     <color name="gridBackground">#fce8ff</color>

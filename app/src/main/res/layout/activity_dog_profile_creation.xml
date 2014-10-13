@@ -24,6 +24,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.60"
         android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/imageDescDimension"
         android:id="@+id/imageView"
         android:src="@drawable/dog_diagram"
         />
@@ -32,27 +33,29 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.40"
+        android:paddingTop="30dp"
+        android:layout_weight="0.20"
         >
 
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
+            android:textSize="30sp"
+            android:hint="@string/hintDimension"
             android:id="@+id/measureA"
-            android:layout_weight="0.13"
             android:orientation="horizontal"
             />
 
-        <Spinner
+        <!--<Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
             android:drawSelectorOnTop="true"
             android:entries="@array/units"
             android:layout_weight="0.13"
-            />
+            />-->
     </LinearLayout>
 
     <Button
@@ -60,6 +63,8 @@
         android:layout_height="wrap_content"
         android:text="@string/nextButton"
         android:id="@+id/Next"
+        android:textSize="30sp"
+        android:layout_weight="0.05"
         android:layout_gravity="bottom"
         android:onClick="next"/>
 

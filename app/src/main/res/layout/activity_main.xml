@@ -14,18 +14,19 @@
         android:layout_height="0dp"
         android:layout_weight="0.60"
         android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/imageDescLogo"
         android:id="@+id/imageView"
         android:src="@drawable/dog_silhouette_sweater"
         />
 
-    <TextView
+   <!-- <TextView
         android:text="@string/mainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/mainTitle"
         android:layout_weight="0.10"
-        android:textSize="40sp"/>
+        android:textSize="40sp"/>-->
 
     <Button
         android:layout_width="fill_parent"
@@ -34,7 +35,7 @@
         android:id="@+id/newProjectButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10"
+        android:layout_weight="0.05"
         android:onClick="newProject"/>
     <Button
         android:layout_width="fill_parent"
@@ -43,7 +44,7 @@
         android:id="@+id/currentProjectsButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10"
+        android:layout_weight="0.05"
         android:onClick="currentProjects"/>
 
     <Button
@@ -53,7 +54,7 @@
         android:id="@+id/manageProfilesButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10"
+        android:layout_weight="0.05"
         android:onClick="manageProfiles"/>
 
     <Button
@@ -63,7 +64,7 @@
         android:id="@+id/informationButton"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
-        android:layout_weight="0.10"
+        android:layout_weight="0.05"
         android:onClick="info"/>
 
 

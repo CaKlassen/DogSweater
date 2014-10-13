@@ -22,13 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/gridBackground"
-        android:layout_weight="0.6"
+        android:layout_weight="0.5"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.10"
+        android:layout_weight="0.20"
+        android:textSize="20sp"
         android:text="This sporty number will give your best pal added warmth on winter walks. The neck adjusts with a drawstring for an easy fit!"/>
 
     <Button
@@ -36,7 +37,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nextButton"
-        android:layout_weight="0.005"
+        android:layout_weight="0.01"
         android:layout_gravity="right"
         android:onClick="Next"/>
 

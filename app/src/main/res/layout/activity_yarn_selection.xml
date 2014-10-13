@@ -15,52 +15,35 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/yarnText"
-        android:layout_weight="0.25"
+        android:layout_weight="0.1"
         android:textSize="40sp"/>
-
-    <TextView
-        android:text="Color:"
-        android:layout_width="85dp"
-        android:layout_height="0dp"
-        android:id="@+id/yarnColor"
-        android:layout_weight="0.08"
-        android:textSize="20sp"/>
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/colors"
-        android:entries="@array/colors"
-        android:layout_weight="0.145"
-        android:textSize="50sp"
-        android:ellipsize="marquee"/>
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1" />
+        android:layout_weight="0.05" />
 
     <TextView
-        android:text="Yarn Type:"
+        android:text="@string/yarnTypeText"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:id="@+id/yarnType"
-        android:layout_weight="0.08"
-        android:textSize="20sp"/>
+        android:layout_weight="0.1"
+        android:textSize="30sp"/>
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/types"
         android:entries="@array/types"
         android:ellipsize="marquee"
-        android:layout_weight="0.140"
-        android:textSize="50sp"/>
+        android:layout_weight="0.1"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/nextButton"
         android:id="@+id/Next"
+        android:textSize="30sp"
+        android:layout_weight="0.05"
         android:layout_gravity="bottom"
         android:onClick="next"/>
 

@@ -4,11 +4,14 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Materials"
-        android:textSize="20sp" />
+    <TextView
+        android:text="@string/title_activity_materials"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/materialsText"
+        android:layout_weight="0.20"
+        android:textSize="40sp"/>
 
     <ListView android:id="@+id/listView1"
         android:layout_width="fill_parent"
@@ -22,6 +25,8 @@
         android:text="@string/nextButton"
         android:id="@+id/Next"
         android:layout_gravity="bottom"
+        android:layout_weight="0.05"
+        android:textSize="30sp"
         android:onClick="startInstructions"
         />
 

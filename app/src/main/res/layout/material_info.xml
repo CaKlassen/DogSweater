@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/checkBox1"
         android:layout_alignBottom="@+id/checkBox1"
-        android:layout_toRightOf="@+id/checkBox1"
+        android:layout_toEndOf="@+id/checkBox1"
+        android:textSize="30sp"
         android:text="" />
 
 </RelativeLayout>
