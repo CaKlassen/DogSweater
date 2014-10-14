@@ -24,7 +24,6 @@ import org.json.JSONException;
  */
 public class Dimensions
 {
-
     // declare instance variables
     /** underlying object used to save measurement information */
     private JSONObject mStorage;

@@ -22,22 +22,24 @@ public class GridAdapter extends BaseAdapter {
             R.drawable.sample_profie
     };
 
-    public GridAdapter(Context c) {
-        context = c;
-    }
+    public GridAdapter(Context c) { context = c; }
 
+    @Override
     public int getCount() {
         return imageIds.length;
     }
 
+    @Override
     public Object getItem(int position) {
         return imageIds[position];
     }
 
+    @Override
     public long getItemId(int position) {
         return 0;
     }
 
+    @Override
     public View getView(int position, View view, ViewGroup parent) {
         ImageView iview;
         if (view == null) {
