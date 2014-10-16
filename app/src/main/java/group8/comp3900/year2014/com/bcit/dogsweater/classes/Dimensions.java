@@ -9,18 +9,8 @@ import org.json.JSONException;
 /**
  * @author          Eric Tsang
  * @date            October 1 2014
- * @revisions
- *
- * October 3 2014
- * changed the name of this class from "Measurements" to "Dimensions"
- *
- * @param           stringified   a string created with the
- *                  Measurements.stringify method
- * @return          an instance of Measurements with the exact same
- *                  measurements, and associated values as the Measurements
- *                  instance that was stringified
- *
- * instantiates an instance of Dimensions
+ * @revision        October 3 2014 - changed the name of this class from
+ * "Measurements" to "Dimensions"
  */
 public class Dimensions
 {

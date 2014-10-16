@@ -87,6 +87,25 @@ public class ProfileDataSource {
         return profiles;
     }
 
+    public Profile getProfile(long profileId) {
+
+        Profile profile;
+
+        Cursor cursor = database.query( DogYarnItSQLHelper.TABLE_PROFILES
+                , columns                                   // columns
+                , "ID = ?"                                  // where clause
+                , new String[] {Long.toString(profileId)}   // where params
+                , null
+                , null
+                , null );
+
+        cursor.moveToFirst();
+        profile = cursorToProfile(cursor);
+        cursor.close();
+
+        return profile;
+    }
+
     private Profile cursorToProfile(Cursor cursor) {
         Profile profile = new Profile( cursor.getString (
                                          cursor.getColumnIndex (

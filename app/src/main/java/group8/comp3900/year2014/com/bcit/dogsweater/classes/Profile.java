@@ -30,31 +30,25 @@ public class Profile
         this( name, dimensions, (Uri)null );
     }
 
-    public Profile( String name, Dimensions dimensions, Uri imageURI ) {
-
-        setName( name );
-        setDimensions( dimensions );
-        setImageURI( imageURI );
-    }
-
     public Profile( String name, String dimensions, Uri imageURI ) {
 
-        setName( name );
-        setDimensions( new Dimensions( dimensions ) );
-        setImageURI( imageURI );
+        this( name, new Dimensions( dimensions ), imageURI );
     }
 
     public Profile( String name, Dimensions dimensions, String imageURI ) {
 
-        setName( name );
-        setDimensions( dimensions );
-        setImageURI( imageURI );
+        this( name, dimensions, Uri.parse( imageURI ) );
     }
 
     public Profile( String name, String dimensions, String imageURI ) {
 
+        this( name, new Dimensions( dimensions ), imageURI );
+    }
+
+    public Profile( String name, Dimensions dimensions, Uri imageURI ) {
+
         setName( name );
-        setDimensions( new Dimensions( dimensions ) );
+        setDimensions( dimensions );
         setImageURI( imageURI );
     }
 
