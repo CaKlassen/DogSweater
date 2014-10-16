@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.CurrentProjectPopup;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectGridAdapter;
 
 public class currentProjects extends Activity {
 
@@ -17,15 +18,19 @@ public class currentProjects extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_projects);
 
+        //Get a handle to the project grid view
         GridView gridview = (GridView) findViewById(R.id.projectGridView);
-        final GridAdapter gridadapter = new GridAdapter(this);
-        gridview.setAdapter(gridadapter);
 
+        //Add the gridadapter to the grid
+        final ProjectGridAdapter gridAdapter = new ProjectGridAdapter(this);
+        gridview.setAdapter(gridAdapter);
+
+        //Add an onclick listener for each grid square added
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                InfoPopup popup = new InfoPopup(v.getContext(), "sample_profie", "group8.comp3900.year2014.com.bcit.dogsweater.pattern", "PROJECT" );
+                CurrentProjectPopup popup = new CurrentProjectPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.pattern", "PROJECT" );
             }
         });
     }

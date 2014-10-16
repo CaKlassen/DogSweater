@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.InfoPopup;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.StyleGridAdapter;
 
 
 public class Style extends Activity {
@@ -19,14 +20,14 @@ public class Style extends Activity {
         setContentView(R.layout.activity_style);
 
         GridView gridview = (GridView) findViewById(R.id.styleGridView);
-        final GridAdapter gridadapter = new GridAdapter(this);
-        gridview.setAdapter(gridadapter);
+        final StyleGridAdapter gridAdapter = new StyleGridAdapter(this);
+        gridview.setAdapter(gridAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                InfoPopup popup = new InfoPopup(v.getContext(), "style01", "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE" );
+                InfoPopup popup = new InfoPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE" );
             }
         });
     }

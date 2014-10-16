@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.InfoPopup;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileGridAdapter;
 
 
 public class ProfileSelection extends Activity {
@@ -20,17 +21,15 @@ public class ProfileSelection extends Activity {
         setContentView(R.layout.activity_profile_selection);
 
         GridView gridview = (GridView) findViewById(R.id.profileGridView);
-        final GridAdapter gridadapter = new GridAdapter(this);
-        gridview.setAdapter(gridadapter);
+        final ProfileGridAdapter gridAdapter = new ProfileGridAdapter(this);
+        gridview.setAdapter(gridAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                InfoPopup popup = new InfoPopup(v.getContext(), "sample_profie", "group8.comp3900.year2014.com.bcit.dogsweater.Yarn", "PROFILE" );
+                InfoPopup popup = new InfoPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Yarn", "PROFILE" );
             }
-        // Intent in = new Intent(getApplicationContext(), Yarn.class);
-            //startActivity(in);
         });
     }
 

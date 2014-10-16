@@ -1,4 +1,4 @@
-package group8.comp3900.year2014.com.bcit.dogsweater.classes;
+package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,30 +8,33 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
-/**
+/****************************************************************
  * Created by Rhea on 02/10/2014.
- */
-public class GridAdapter extends BaseAdapter {
+ * Use for PROFILE grid's and popups.
+ ****************************************************************/
+public class ProfileGridAdapter extends BaseAdapter {
     private Context context;
-    private Integer[] imageIds = {
-            R.drawable.dog_silhouette_sweater,
-            R.drawable.dog_silhouette,
-            R.drawable.dog_diagram,
-            R.drawable.sample_profie
-    };
+    private ArrayList<Integer> imageIds = new ArrayList<Integer>();
+    int numImages = 0;
 
-    public GridAdapter(Context c) { context = c; }
+    public ProfileGridAdapter(Context c) {
+        context = c;
+        buildImageList();
+
+    }
 
     @Override
     public int getCount() {
-        return imageIds.length;
+        return imageIds.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return imageIds[position];
+        return imageIds.get(position);
     }
 
     @Override
@@ -51,7 +54,20 @@ public class GridAdapter extends BaseAdapter {
         } else {
             iview = (ImageView) view;
         }
-        iview.setImageResource(imageIds[position]);
+        iview.setImageResource(imageIds.get(position));
         return iview;
     }
+
+    //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
+    public void buildImageList()
+    {
+        imageIds.add(numImages, R.drawable.sample_profie );
+        numImages++;
+    }
+
+    public ArrayList<Integer> getImageList()
+    {
+        return imageIds;
+    }
+
 }
