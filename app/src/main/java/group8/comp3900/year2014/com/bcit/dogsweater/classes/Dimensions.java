@@ -246,6 +246,25 @@ public class Dimensions
         }
     }
 
+    /**
+     * @author          Chris Klassen
+     * @date            October 17 2014
+     * @revisions       none
+     * @param           expression   a string passed in from an Archetype
+     *                               step that must be calculated and returned.
+     * @return          String       the calculated expression result
+     *
+     * returns the result of an expression passed in containing dimension
+     * variables.
+     */
+    public String parseExpression( String expression )
+    {
+        String result = "";
+
+
+        return result;
+    }
+
 
 
 
