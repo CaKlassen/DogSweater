@@ -16,18 +16,17 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
 /****************************************************************
  * Created by Rhea on 02/10/2014.
- * Use for STYLE grid's and popups.
+ * Use for PROFILE grid's and popups.
  ****************************************************************/
-public class StyleGridAdapter extends BaseAdapter {
+public class ProfileSelectionGridAdapter extends BaseAdapter {
     private Context context;
-    //list of image resource ID's for population of the grid
     private ArrayList<Integer> imageIds = new ArrayList<Integer>();
     int numImages = 0;
 
-
-    public StyleGridAdapter(Context c) {
+    public ProfileSelectionGridAdapter(Context c) {
         context = c;
         buildImageList();
+
     }
 
     @Override
@@ -70,26 +69,34 @@ public class StyleGridAdapter extends BaseAdapter {
         iview.setPadding(5, 5, 5, 5);
         iview.setImageResource(imageIds.get(position));
 
-        tv.setText("Style");
+        if (position == 0)
+        {
+            tv.setText("New Profile");
+        }
+        else
+        {
+            tv.setText("Temp Pup");
+        }
 
         return llview;
     }
 
-
-
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildImageList()
     {
-        imageIds.add(numImages, R.drawable.style01 );
+        if (numImages == 0)
+        {
+            imageIds.add(numImages, R.drawable.plus );
+            numImages++;
+
+        }
+        imageIds.add(numImages, R.drawable.sample_profie );
         numImages++;
-
-
     }
 
     public ArrayList<Integer> getImageList()
     {
         return imageIds;
     }
-
 
 }

@@ -1,6 +1,7 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.InfoPopup;
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileGridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileSelectionGridAdapter;
 
 
 public class ProfileSelection extends Activity {
@@ -21,14 +22,22 @@ public class ProfileSelection extends Activity {
         setContentView(R.layout.activity_profile_selection);
 
         GridView gridview = (GridView) findViewById(R.id.profileGridView);
-        final ProfileGridAdapter gridAdapter = new ProfileGridAdapter(this);
+        final ProfileSelectionGridAdapter gridAdapter = new ProfileSelectionGridAdapter(this);
         gridview.setAdapter(gridAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                InfoPopup popup = new InfoPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Yarn", "PROFILE" );
+                if (position == 0)
+                {
+                    Intent in = new Intent(getApplicationContext(), ProfileName.class);
+                    startActivity(in);
+                }
+                else
+                {
+                    InfoPopup popup = new InfoPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Yarn", "PROFILE" );
+                }
             }
         });
     }

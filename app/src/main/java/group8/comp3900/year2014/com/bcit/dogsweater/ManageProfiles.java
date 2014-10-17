@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ManageInfoPopup;
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileGridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileManagementGridAdapter;
 
 
 public class ManageProfiles extends Activity {
@@ -21,7 +21,7 @@ public class ManageProfiles extends Activity {
 
 
         GridView gridview = (GridView) findViewById(R.id.manageProfilesGridView);
-        final ProfileGridAdapter gridAdapter = new ProfileGridAdapter(this);
+        final ProfileManagementGridAdapter gridAdapter = new ProfileManagementGridAdapter(this);
         gridview.setAdapter(gridAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

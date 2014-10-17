@@ -56,8 +56,6 @@ public class InfoPopup extends Dialog {
         TextView title =  (TextView) findViewById(R.id.popupTitle);
         title.setText(Title);
 
-
-
         //Set onclick listener to next screen
         Button nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setText("SELECT THIS " + Title);
