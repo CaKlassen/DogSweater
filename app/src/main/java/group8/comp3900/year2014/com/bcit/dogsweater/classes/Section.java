@@ -9,12 +9,24 @@ public class Section {
     private String name;
     private ArrayList<Step> stepList;
 
-    public Section(String n ) {
+    public Section(String n) {
         name = n;
-        stepList = new ArrayList<Step>(1);
+    }
+
+    public Section(String n, ArrayList<Step> a) {
+        name = n;
+        stepList = a;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Step getStep(int step) {
+        return stepList.get(step);
+    }
+
+    public void initializeStepList(ArrayList<Step> a) {
+        stepList = a;
     }
 }
