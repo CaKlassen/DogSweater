@@ -57,15 +57,7 @@ public class Style {
     public String getStep(int section, int step, Dimensions d) {
         String text = sectionList.get(section).getStep(step).getText();
 
-        // TODO: dynamically insert variables into step
-        for (int i = 0; i < text.length(); i++) {
-            // If we hit a variable insert
-            if (text.charAt(i) == '[') {
-                // Replace the variable with the proper variable
-            }
-        }
-
-        return text;
+        return d.parseExpression(text);
     }
 
     /**
@@ -108,7 +100,7 @@ public class Style {
 
         // Section 1
         sList = new ArrayList<Step>(1);
-        sList.add(new Step("This is the first step."));
+        sList.add(new Step("This is [AA] the first step."));
         sList.add(new Step("This is the second step."));
         sList.add(new Step("This is the third step."));
 
