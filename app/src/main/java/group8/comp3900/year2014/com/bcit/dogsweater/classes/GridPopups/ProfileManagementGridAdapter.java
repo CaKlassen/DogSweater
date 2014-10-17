@@ -2,7 +2,6 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,12 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
  * Created by Rhea on 02/10/2014.
  * Use for PROFILE grid's and popups.
  ****************************************************************/
-public class ProfileGridAdapter extends BaseAdapter {
+public class ProfileManagementGridAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Integer> imageIds = new ArrayList<Integer>();
     int numImages = 0;
 
-    public ProfileGridAdapter(Context c) {
+    public ProfileManagementGridAdapter(Context c) {
         context = c;
         buildImageList();
 
@@ -67,7 +66,6 @@ public class ProfileGridAdapter extends BaseAdapter {
         //Apply the images and layout constraints to the imageView
         iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
         iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iview.setBackgroundColor(Color.rgb(255, 255, 255));
         iview.setPadding(5, 5, 5, 5);
         iview.setImageResource(imageIds.get(position));
 

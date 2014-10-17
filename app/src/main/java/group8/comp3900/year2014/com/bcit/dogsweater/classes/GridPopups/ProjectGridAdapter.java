@@ -2,7 +2,6 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +65,6 @@ public class ProjectGridAdapter extends BaseAdapter {
             //Apply the images and layout constraints to the imageView
             iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
             iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            iview.setBackgroundColor(Color.rgb(255, 255, 255));
             iview.setPadding(5, 5, 5, 5);
             iview.setImageResource(imageIds.get(position));
 

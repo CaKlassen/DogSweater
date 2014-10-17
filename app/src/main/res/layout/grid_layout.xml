@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/gridImage"
-        android:layout_weight="0.8"/>
+        android:layout_weight="0.8" />
 
     <TextView
         android:layout_width="match_parent"
