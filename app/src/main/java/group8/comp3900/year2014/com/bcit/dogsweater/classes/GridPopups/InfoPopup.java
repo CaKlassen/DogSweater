@@ -42,7 +42,7 @@ public class InfoPopup extends Dialog {
         int w = dm.widthPixels;
         int h = dm.heightPixels;
 
-    //Set popup window
+    //Set grid_layout window
         getWindow().setLayout((int)( w/100)*75, (int)( h/100)*75);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);

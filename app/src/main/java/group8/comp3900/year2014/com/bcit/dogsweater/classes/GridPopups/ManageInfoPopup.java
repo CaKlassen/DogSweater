@@ -3,11 +3,15 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,7 +44,7 @@ public class ManageInfoPopup extends Dialog {
         int w = dm.widthPixels;
         int h = dm.heightPixels;
 
-        //Set popup window
+        //Set grid_layout window
         getWindow().setLayout((int)( w/100)*75, (int)( h/100)*75);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
@@ -53,19 +57,28 @@ public class ManageInfoPopup extends Dialog {
         TextView title =  (TextView) findViewById(R.id.popupTitle);
         title.setText(Title);
 
-//        nextButton.setOnClickListener(new View.OnClickListener(){
-//            Intent in;
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    in = new Intent(context, Class.forName(nextScreen));
-//                }
-//                catch (ClassNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                context.startActivity(in);
-//            }
-//            });
+
+        //TODO: DELETE BUTTON DELETES FROM QUERY
+        Button dltButton = (Button) findViewById(R.id.Delete);
+        dltButton.setOnClickListener(new View.OnClickListener(){
+            Intent in;
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Deleting item!", Toast.LENGTH_SHORT).show();
+            }
+            });
+
+
+        //TODO: MODIFICATION OF PROFILES
+        Button modButton = (Button) findViewById(R.id.Modify);
+        modButton.setOnClickListener(new View.OnClickListener(){
+            Intent in;
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Modifying item!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         //Show dialog
         show();
