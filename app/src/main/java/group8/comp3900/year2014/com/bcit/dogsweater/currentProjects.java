@@ -30,7 +30,7 @@ public class currentProjects extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                CurrentProjectPopup popup = new CurrentProjectPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.pattern", "PROJECT" );
+                CurrentProjectPopup popup = new CurrentProjectPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.ProjectPattern", "PROJECT" );
             }
         });
     }

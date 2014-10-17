@@ -1,12 +1,15 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -43,23 +46,48 @@ public class ProjectGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        ImageView iview;
-        if (view == null) {
-            iview = new ImageView(context);
-            iview.setLayoutParams(new GridView.LayoutParams(350,350 ));
-            iview.setScaleType(ImageView.ScaleType.FIT_CENTER );
+            View llview = view;
+            ImageView iview;
+            TextView tv;
+
+            if (view == null) {
+                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+                llview = inflater.inflate(R.layout.grid_layout, parent, false);
+
+            } else {
+                llview = view;
+            }
+
+            //Get the image and text view for the square
+
+            iview = (ImageView) llview.findViewById(R.id.gridImage);
+            tv = (TextView) llview.findViewById(R.id.gridText);
+
+            //Apply the images and layout constraints to the imageView
+            iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
+            iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
             iview.setBackgroundColor(Color.rgb(255, 255, 255));
             iview.setPadding(5, 5, 5, 5);
-        } else {
-            iview = (ImageView) view;
-        }
-        iview.setImageResource(imageIds.get(position));
-        return iview;
+            iview.setImageResource(imageIds.get(position));
+
+            tv.setText("Project");
+
+            return llview;
     }
 
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildImageList()
     {
+        imageIds.add(numImages, R.drawable.dog_silhouette );
+        numImages++;
+        imageIds.add(numImages, R.drawable.dog_silhouette );
+        numImages++;
+        imageIds.add(numImages, R.drawable.dog_silhouette );
+        numImages++;
+        imageIds.add(numImages, R.drawable.dog_silhouette );
+        numImages++;
+        imageIds.add(numImages, R.drawable.dog_silhouette );
+        numImages++;
         imageIds.add(numImages, R.drawable.dog_silhouette );
         numImages++;
     }

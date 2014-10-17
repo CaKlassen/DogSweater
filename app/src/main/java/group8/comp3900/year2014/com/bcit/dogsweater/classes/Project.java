@@ -39,6 +39,14 @@ public class Project {
         percentDone += p;
     }
 
+    public void incrementRowCounter() {
+        rowCounter++;
+    }
+
+    public int getRowCounter() {
+        return rowCounter;
+    }
+
     public float getPercentDone() {
         return percentDone;
     }
