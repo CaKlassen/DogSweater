@@ -2,6 +2,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -147,7 +148,7 @@ public class DogProfileCreation extends Activity {
 
     }
 
-    private void parseStartingIntent(Intent startIntent) {
+    private void parseStartingIntent(Intent startIntent) throws NameNotFoundException{
 
         // interpret starting intent; are wee creating a profile from scratch or
         // continuing to make a previous one
@@ -178,17 +179,20 @@ public class DogProfileCreation extends Activity {
         }
 
         // update the GUI depending on what the start intent told us to do
-        /*try {
+        try {
             Class resString = R.string.class;
 
-            int descriptionId = resString.getField(dimensionKeys[arrayIndex]
-            + "Description"
-            ).getInt();
-            int friendlyId = resString.getField(dimensionKeys[arrayIndex] +
-            "Friendle").getInt();
+            int descriptionId = resString.getField(
+                    dimensionKeys[arrayIndex]+ "Description").getInt(null);
+            int friendlyId = resString.getField(
+                    dimensionKeys[arrayIndex] +"Friendly").getInt(null);
 
-            getResources().getString();
-        } catch(Exception e) {}*/
+            getResources().getString(descriptionId);
+            getResources().getString(friendlyId);
+
+        } catch(Exception e) {
+            throw new NameNotFoundException("asd");
+        }
 
 
     }
