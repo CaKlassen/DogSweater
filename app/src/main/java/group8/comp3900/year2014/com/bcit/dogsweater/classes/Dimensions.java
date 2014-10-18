@@ -1,10 +1,15 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import java.util.NoSuchElementException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
 /**
  * @author          Eric Tsang
@@ -14,17 +19,17 @@ import org.json.JSONException;
  */
 public class Dimensions
 {
-    // declare instance variables
+    ////////////////////////
+    // instance variables //
+    ////////////////////////
     /** underlying object used to save measurement information */
     private JSONObject mStorage;
-
 
 
 
     /////////////////
     // constructor //
     /////////////////
-
     /**
      * @author          Eric Tsang
      * @date            October 1 2014
@@ -57,28 +62,9 @@ public class Dimensions
 
 
 
-
-    ////////////////////////////
-    // get & set measurements //
-    ////////////////////////////
-
-    /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @param           key   key used to identify to the measurement
-     * @param           value   new value of the measurement in
-     *                          Unit.defaultUnits
-     * @return          void
-     *
-     * sets the value of the measurement with key associated with the passed key
-     * to the passed value
-     */
-    public void setDimension(String key, double value) throws JSONException
-    {
-        setDimension(key, value, Unit.getDefaultUnit());
-    }
-
+    /////////////
+    // getters //
+    /////////////
     /**
      * @author          Eric Tsang
      * @date            October 1 2014
@@ -93,79 +79,6 @@ public class Dimensions
     public double getDimension(String key)
     {
         return getDimension(key, Unit.getDefaultUnit());
-    }
-
-    /**
-     * @author          Eric Tsang
-     * @date            October 7 2014
-     * @revisions       none
-     * @return          String array of all keys
-     *
-     * returns a string array of all keys saved in this instance
-     */
-    public String[] getDimensionKeys()
-    {
-        JSONArray names = mStorage.names(); // all measurements keys
-        int len = names.length();           // used in for loop
-        String[] keys = new String[len];    // will contain all measurement keys
-
-        // populate the keys array with the keys
-        for (int i = 0; i < names.length(); i++) {
-            try {
-                keys[i] = names.getString(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // return...
-        return keys;
-    }
-
-    /**
-     * @author          Eric Tsang
-     * @date            October 7 2014
-     * @revisions       none
-     * @param           key   key used to identify to the measurement
-     * @return          void
-     *
-     * removes the key-value pair; throws a NoSuchElementException when the key
-     * cannot be found
-     */
-    public void deleteDimension(String key)
-    {
-        try {
-            mStorage.get( key );
-        } catch (JSONException e) {
-            throw new NoSuchElementException( "There is no measurement "
-                    + "associated with the passed key: \"" + key + "\".");
-        }
-        mStorage.remove(key);
-    }
-
-    /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @param           key   key used to identify to the measurement
-     * @param           value   value of the measurement in the passed units
-     *                          ( unit )
-     * @param           unit   units that value is passed in
-     * @return          void
-     *
-     * sets the value of the dimension identified by the passed key to the
-     * passed value in the passed unit
-     */
-    public void setDimension(String key, double value, Unit unit)
-            throws JSONException
-    {
-        // validate parameters
-        if (key == null || unit == null)
-            throw new NullPointerException("Neither key or unit parameters "
-                    + "can be null!");
-
-        // add the measurement to mStorage
-        mStorage.put( key, unit.convert( Unit.INCHES, value ) );
     }
 
     /**
@@ -197,12 +110,209 @@ public class Dimensions
         }
     }
 
+    /**
+     * @author          Eric Tsang
+     * @date            October 7 2014
+     * @revisions       none
+     * @return          String array of all keys
+     *
+     * returns a string array of all keys saved in this instance
+     */
+    public String[] getDimensionKeys()
+    {
+        JSONArray names = mStorage.names(); // all measurements keys
+        int len = names.length();           // used in for loop
+        String[] keys = new String[len];    // will contain all measurement keys
+
+        // populate the keys array with the keys
+        for (int i = 0; i < names.length(); i++) {
+            try {
+                keys[i] = names.getString(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // return...
+        return keys;
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     * @param           key   key String of the dimension we're getting the
+     *                  information name for
+     * @param           appContext   application context...
+     * @return          user friendly dimension name String associated with
+     *                  passed key
+     *
+     * returns a user friendly dimension name String associated with passed key;
+     * null if it is not defined.
+     *
+     * to define a friendly, it must be added to the R.string class. to do
+     * this, it must be added into strings.xml with the name format:
+     * "[key]Friendly".
+     */
+    public static String getFriendly(Context appContext, String key) {
+        String ret;
+
+        try {
+            int friendlyId = R.string.class.getField(key + "Friendly").getInt(null);
+            ret = appContext.getResources().getString(friendlyId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     * @param           key   key String of the dimension we're getting the
+     *                  information name for
+     * @param           appContext   application context...
+     * @return          user friendly description String associated with passed
+     *                  key
+     *
+     * returns a description dimension String associated with passed key; null
+     * if it is not defined.
+     *
+     * to define a description, it must be added to the R.string class. to do
+     * this, it must be added into strings.xml with the name format:
+     * "[key]Description".
+     */
+    public static String getDescription(Context appContext, String key) {
+        String ret;
+
+        try {
+            int descriptionId = R.string.class.getField(key + "Description").getInt(null);
+            ret = appContext.getResources().getString(descriptionId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     * @param           key   key String of the dimension we're getting the
+     *                  information name for
+     * @param           appContext   application context...
+     * @return          drawable associated with this dimension; a picture of a
+     *                  dog, showing what the dimension is a measurement of
+     *
+     * returns a drawable associated with passed key; null if it is not defined.
+     *
+     * to define a drawable, it must be added to the R.drawable class. to do
+     * this, the image must be added into the drawable folder with the name
+     * format: "[key]Drawable".
+     */
+    public static Drawable getDrawable(Context appContext, String key) {
+        Drawable ret;
+
+        try {
+            int descriptionId = R.drawable.class.getField(
+                    key.toLowerCase() + "_drawable").getInt(null);
+            ret = appContext.getResources().getDrawable(descriptionId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+    }
+
+
+
+    /////////////
+    // setters //
+    /////////////
+    /**
+     * @author          Eric Tsang
+     * @date            October 1 2014
+     * @revisions       none
+     * @param           key   key used to identify to the measurement
+     * @param           value   new value of the measurement in
+     *                          Unit.defaultUnits
+     * @return          void
+     *
+     * sets the value of the measurement with key associated with the passed key
+     * to the passed value
+     */
+    public void setDimension(String key, double value)
+    {
+        setDimension(key, value, Unit.getDefaultUnit());
+    }
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 1 2014
+     * @revisions       none
+     * @param           key   key used to identify to the measurement
+     * @param           value   value of the measurement in the passed units
+     *                          ( unit )
+     * @param           unit   units that value is passed in
+     * @return          void
+     *
+     * sets the value of the dimension identified by the passed key to the
+     * passed value in the passed unit
+     */
+    public void setDimension(String key, double value, Unit unit)
+    {
+        // validate parameters
+        if (key == null || unit == null)
+            throw new NullPointerException("Neither key or unit parameters "
+                    + "can be null!");
+
+        // add the measurement to mStorage
+        try
+        {
+            mStorage.put(key, unit.convert(Unit.INCHES, value));
+        }
+        catch( Exception e )
+        {
+            throw new RuntimeException("JSONException: " + e.toString());
+        }
+    }
 
 
 
     /////////////////////////////
     // other interface methods //
     /////////////////////////////
+    /**
+     * @author          Eric Tsang
+     * @date            October 7 2014
+     * @revisions       none
+     * @param           key   key used to identify to the measurement
+     * @return          void
+     *
+     * removes the key-value pair; throws a NoSuchElementException when the key
+     * cannot be found
+     */
+    public void deleteDimension(String key)
+    {
+        try {
+            mStorage.get( key );
+        } catch (JSONException e) {
+            throw new NoSuchElementException( "There is no measurement "
+                    + "associated with the passed key: \"" + key + "\".");
+        }
+        mStorage.remove(key);
+    }
 
     /**
      * @author          Eric Tsang
@@ -267,11 +377,9 @@ public class Dimensions
 
 
 
-
     ///////////////
     // unit test //
     ///////////////
-
     /**
      * @author          Eric Tsang
      * @date            October 1 2014

@@ -52,7 +52,7 @@
     <!-- Instructions text -->
     <string name="instructions">Instructions</string>
 
-    <!-- Unit Spinner  text -->
+    <!-- Unit Spinner text -->
     <string-array name="units">
         <item>Metric</item>
         <item>Imperial</item>
@@ -90,4 +90,14 @@
 
     <!-- AboutInfo Page -->
     <string name="about_astor">All About Astor Tsang:</string>
+
+    <!-- TODO: change following friendly string values to proper ones -->
+    <!-- TODO: discuss naming convention for friendlies, drawables, and descriptions with group...should these be prefized with "Profile"? -->
+    <!-- TODO: changing naming convention will mean that the Dimensions.getFriendly(), Dimensions.getDescription() and Dimensions.getDrawable() methods will have to be modified -->
+    <!-- Dimensions class friendly strings for Profile keys -->
+    <string name="AAFriendly">Face Width</string>
+    <string name="BBFriendly">Face Height</string>
+    <string name="CCFriendly">Leg Length</string>
+    <string name="DDFriendly">Leg Radius</string>
+
 </resources>

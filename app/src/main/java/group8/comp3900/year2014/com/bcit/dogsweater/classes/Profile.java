@@ -11,6 +11,15 @@ public class Profile
     //for databasing
     private long id;
 
+    // TODO: modify MINIMUM_DIMENSION_KEYS so that they are the actual minimum dimension keys
+    /** minimum dimension keys needed to create a profile */
+    public static final String[] MINIMUM_DIMENSION_KEYS = new String[] {
+            "AA",
+            "BB",
+            "CC",
+            "DD"
+    };
+
     private Uri imageURI = null;
     private String name;
     private Dimensions dimensions;

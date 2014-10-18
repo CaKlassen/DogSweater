@@ -2,28 +2,26 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.lang.reflect.Field;
 import java.security.InvalidParameterException;
 
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
 
 /**
  * intent signatures:
  *      creating a new profile from scratch:
- *          KEY_PROFILE_NAME - String
- *          KEY_DIMENSION_KEYS - String[]
- *          KEY_DIMENSION_IMAGE_URIS - String[]
+ *          KEY_PROFILE_NAME - String           name of the new profile
+ *          KEY_DIMENSION_KEYS - String[]       dimension keys needed to fill in
  *
- *      continuing the process of creating a new profile:
+ *      continuing the process of creating the previous new profile:
  *          KEY_DIMENSION_KEYS_INDEX - int
  *
  */
@@ -46,16 +44,12 @@ public class DogProfileCreation extends Activity {
     public static final String KEY_DIMENSION_KEYS =
             CLASS_NAME + "KEY_DIMENSION_KEYS";
 
-    /** starting intent key for String array of image urls */
-    public static final String KEY_DIMENSION_IMAGE_URIS =
-            CLASS_NAME + "KEY_DIMENSION_IMAGE_URIS";
-
     /**
      * starting intent key for integer index of the above arrays this instance
      * of the activity is to display
      */
-    public static final String KEY_ARRAY_INDEX =
-            CLASS_NAME + "KEY_ARRAY_INDEX";
+    public static final String KEY_DIMENSION_KEYS_INDEX =
+            CLASS_NAME + "KEY_DIMENSION_KEYS_INDEX";
 
 
 
@@ -68,14 +62,12 @@ public class DogProfileCreation extends Activity {
     /** dimension keys to dimensions to be inputted by the user */
     private static String[] dimensionKeys = null;
 
-    /** images to display when getting value for dimension */
-    private static String[] imageUris = null;
-
     /**
      * index in the dimensionKeys and imageUris array that activity is
      * getting
      */
-    private static int arrayIndex = 0;
+    private int arrayIndex = 0;
+
 
 
     ////////////////////////////
@@ -83,9 +75,6 @@ public class DogProfileCreation extends Activity {
     ////////////////////////////
     /** image view reference on activity */
     private ImageView image;
-
-    /** title text reference on activity */
-    private TextView titleText;
 
     /** text input reference on activity */
     private EditText dimensionInput;
@@ -99,12 +88,17 @@ public class DogProfileCreation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile_creation);
-        initializeGUIReferences();
         parseStartingIntent(getIntent());
+        initializeGUIReferences();
+        updateGUI();
 
     }
 
 
+
+    // -------------------------------------------------------------------------
+    // android callbacks
+    // -------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -130,9 +124,69 @@ public class DogProfileCreation extends Activity {
     // -------------------------------------------------------------------------
     // interface methods
     // -------------------------------------------------------------------------
-    public void next(View view) {
-        Intent intent = new Intent(this, Yarn.class);
-        startActivity(intent);
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     * @param           v    used by the android system
+     *
+     * goes to the next activity if possible, and adds the dimensional
+     * information to our newProfile if possible.
+     *
+     * EXTRA DETAILS:
+     * extract user input, then validate user input. add dimension if possible;
+     * re-prompt is necessary. if all dimensional information has been gathered,
+     * go to the Yarn activity (the next stage). start another
+     * DogProfileCreation activity to continue gathering dimensional information
+     * otherwise.
+     */
+    public void next(View v) {
+        // extract information from GUI
+        String dimensionString = dimensionInput.getText().toString();
+        Double dimensionValue;
+        try {
+            dimensionValue = Double.valueOf(dimensionString);
+
+        } catch(Exception e) {
+            dimensionValue = -1D;
+
+        }
+
+        // validate extracted information; take action depending on result
+        if (!dimensionString.isEmpty() && dimensionValue >= 0) {
+            /*
+            we have enough information to go to the next activity; do we need to
+            gather more dimension information about this profile first before we
+            move to the next stage? if we do, get the next dimension by starting
+            another DogProfileCreation activity; go to the Yarn activity
+            otherwise.
+             */
+
+            // add the dimensional information that we just got to newProfile
+            newProfile.getDimensions().setDimension(
+                    dimensionKeys[arrayIndex], dimensionValue);
+
+            // do we need to continue gather dimensional information for
+            // newProfile?
+            Intent in;
+            if (arrayIndex < dimensionKeys.length - 1) {
+                /* yes; go get them then */
+                in = new Intent(this, DogProfileCreation.class);
+                in.putExtra(KEY_DIMENSION_KEYS_INDEX, arrayIndex + 1);
+
+            } else {
+                /* nope; move on to the next stage */
+                in = new Intent(this, Yarn.class);
+
+            }
+            startActivity(in);
+
+        } else {
+            /* not enough information to add current dimension; inform user */
+            Toast.makeText(this, "please enter a valid dimension",
+                    Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
@@ -141,18 +195,32 @@ public class DogProfileCreation extends Activity {
     // -------------------------------------------------------------------------
     // support methods
     // -------------------------------------------------------------------------
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     *
+     * initializes activity instance's View references
+     */
     private void initializeGUIReferences() {
         image = (ImageView) findViewById(R.id.imageView);
-        titleText = (TextView) findViewById(R.id.profileText);
         dimensionInput = (EditText) findViewById(R.id.measureA);
 
     }
 
-    private void parseStartingIntent(Intent startIntent) throws NameNotFoundException{
-
-        // interpret starting intent; are wee creating a profile from scratch or
-        // continuing to make a previous one
-        if (startIntent.getStringExtra(KEY_ARRAY_INDEX) == null) {
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     * @param startIntent   reference to intent used to start this activity
+     *
+     * parses the activity's starting intent, and assigns them to our starting
+     * intent data fields as needed
+     */
+    private void parseStartingIntent(Intent startIntent) {
+        // interpret starting intent; are we creating a profile from scratch or
+        // continuing to make a previous one?
+        if (startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, -1) == -1) {
             /*
             we are creating a new dog profile from scratch; create a new
             Profile object, and reassign our dimensionKeys and imageUris from
@@ -162,38 +230,35 @@ public class DogProfileCreation extends Activity {
                     startIntent.getStringExtra(KEY_PROFILE_NAME));
             dimensionKeys =
                     startIntent.getStringArrayExtra(KEY_DIMENSION_KEYS);
-            imageUris = startIntent.getStringArrayExtra(
-                    KEY_DIMENSION_IMAGE_URIS);
             arrayIndex = 0;
 
         } else {
             /*
             we're continuing to gather dimensions for our newProfile object
              */
-            arrayIndex = startIntent.getIntExtra(KEY_ARRAY_INDEX, -1);
+            arrayIndex = startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, -1);
             if (arrayIndex == -1)
-                throw new InvalidParameterException("KEY_ARRAY_INDEX == " +
-                        "-1. Start intent did not provide a value for the " +
-                        "key: KEY_ARRAY_INDEX");
+                throw new InvalidParameterException("KEY_DIMENSION_KEYS_INDEX" +
+                        " == -1. Start intent did not provide a value for the" +
+                        " key: KEY_ARRAY_INDEX.");
 
         }
 
-        // update the GUI depending on what the start intent told us to do
-        try {
-            Class resString = R.string.class;
+    }
 
-            int descriptionId = resString.getField(
-                    dimensionKeys[arrayIndex]+ "Description").getInt(null);
-            int friendlyId = resString.getField(
-                    dimensionKeys[arrayIndex] +"Friendly").getInt(null);
-
-            getResources().getString(descriptionId);
-            getResources().getString(friendlyId);
-
-        } catch(Exception e) {
-            throw new NameNotFoundException("asd");
-        }
-
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     *
+     * updates the activity's GUI based on starting intent data
+     */
+    private void updateGUI() {
+        // update the GUI
+        image.setImageDrawable(
+                Dimensions.getDrawable(this, dimensionKeys[arrayIndex]));
+        dimensionInput.setHint(
+                Dimensions.getFriendly(this, dimensionKeys[arrayIndex]));
 
     }
 
