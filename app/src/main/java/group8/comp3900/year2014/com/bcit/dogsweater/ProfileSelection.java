@@ -16,6 +16,12 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileSe
 public class ProfileSelection extends Activity {
 
 
+
+
+
+    // -------------------------------------------------------------------------
+    // activity lifecycle callbacks
+    // -------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,10 @@ public class ProfileSelection extends Activity {
     }
 
 
+
+    // -------------------------------------------------------------------------
+    // android callbacks
+    // -------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

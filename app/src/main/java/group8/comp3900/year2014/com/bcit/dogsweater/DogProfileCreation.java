@@ -3,6 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ public class DogProfileCreation extends Activity {
 
 
     //////////////////////////
-    // starting intent keys ///
+    // starting intent keys //
     //////////////////////////
     /** name of the class. (i.e.: group8.comp3900...DogProfileCreation) */
     public static final String CLASS_NAME =
@@ -172,13 +173,9 @@ public class DogProfileCreation extends Activity {
             otherwise.
              */
 
-            // add the dimensional information that we just got to newProfile,
-            // then to database
+            // add the dimensional information that we just got to newProfile
             newProfile.getDimensions().setDimension(
                     dimensionKeys[arrayIndex], dimensionValue);
-            profileDataSource.open();
-            profileDataSource.insertProfile(newProfile);
-            profileDataSource.close();
 
             // do we need to continue gather dimensional information for
             // newProfile?
@@ -189,8 +186,22 @@ public class DogProfileCreation extends Activity {
                 in.putExtra(KEY_DIMENSION_KEYS_INDEX, arrayIndex + 1);
 
             } else {
-                /* nope; move on to the next stage */
+                /*
+                nope; save the newProfile into our database & move on to the
+                next stage
+                 */
                 in = new Intent(this, Yarn.class);
+
+                // TODO: cannot save profiles into db yet, because we are missing imageUri information; we need to add image Uri info
+                // TODO: make some sort of option to take a picture. just a button, anywhere even if it doesn't take a pic.
+                /*try {
+                    profileDataSource.open();
+                    profileDataSource.insertProfile(newProfile);
+                } catch(Exception e) {
+                    Log.d(this.toString(), e.toString());
+                } finally {
+                    profileDataSource.close();
+                }*/
 
             }
             startActivity(in);

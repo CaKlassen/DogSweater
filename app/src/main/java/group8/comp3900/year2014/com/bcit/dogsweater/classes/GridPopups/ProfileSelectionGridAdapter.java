@@ -11,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /****************************************************************
  * Created by Rhea on 02/10/2014.
@@ -21,10 +24,22 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
 public class ProfileSelectionGridAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Integer> imageIds = new ArrayList<Integer>();
-    int numImages = 0;
+
+    /////////////////////
+    // database things //
+    /////////////////////
+    /**
+     * database interface object used to get all profiles so we can display them
+     */
+    private ProfileDataSource profileDataSource;
+
 
     public ProfileSelectionGridAdapter(Context c) {
+        // initialize instance members from constructor parameters
         context = c;
+        profileDataSource = new ProfileDataSource(context);
+
+        // add profiles to UI
         buildImageList();
 
     }
@@ -84,14 +99,15 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildImageList()
     {
-        if (numImages == 0)
-        {
-            imageIds.add(numImages, R.drawable.plus );
-            numImages++;
+        // tile used to add a new profile
+        imageIds.add( R.drawable.plus );
 
+        // putting other profiles onto the gridview
+        profileDataSource.open();
+        List<Profile> Profiles = profileDataSource.getAllProfiles();
+        for (Profile profile: Profiles) {
+            imageIds.add( R.drawable.sample_profie );
         }
-        imageIds.add(numImages, R.drawable.sample_profie );
-        numImages++;
     }
 
     public ArrayList<Integer> getImageList()
