@@ -14,6 +14,7 @@ import java.security.InvalidParameterException;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /**
  * intent signatures:
@@ -78,6 +79,15 @@ public class DogProfileCreation extends Activity {
 
     /** text input reference on activity */
     private EditText dimensionInput;
+
+
+
+    /////////////////////
+    // database things //
+    /////////////////////
+    /** database interface object used to save profiles to the database */
+    // TODO: discuss with group; should i make this into a static object?
+    private ProfileDataSource profileDataSource = new ProfileDataSource(this);
 
 
 
@@ -162,9 +172,13 @@ public class DogProfileCreation extends Activity {
             otherwise.
              */
 
-            // add the dimensional information that we just got to newProfile
+            // add the dimensional information that we just got to newProfile,
+            // then to database
             newProfile.getDimensions().setDimension(
                     dimensionKeys[arrayIndex], dimensionValue);
+            profileDataSource.open();
+            profileDataSource.insertProfile(newProfile);
+            profileDataSource.close();
 
             // do we need to continue gather dimensional information for
             // newProfile?
