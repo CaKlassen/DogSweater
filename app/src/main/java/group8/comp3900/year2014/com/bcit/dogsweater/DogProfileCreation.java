@@ -31,7 +31,7 @@ public class DogProfileCreation extends Activity {
 
 
     //////////////////////////
-    // starting intent keys //
+    // starting intent keys ///
     //////////////////////////
     /** name of the class. (i.e.: group8.comp3900...DogProfileCreation) */
     public static final String CLASS_NAME =
