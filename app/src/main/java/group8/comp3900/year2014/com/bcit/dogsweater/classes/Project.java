@@ -4,6 +4,9 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes;
  * Created by Chris on 2014-10-15.
  */
 public class Project {
+    //for databasing
+    private long id;
+
     private String name;
     private float percentDone;
     private int rowCounter;
@@ -21,6 +24,19 @@ public class Project {
 
         percentDone = 0;
         rowCounter = 0;
+    }
+
+    /**
+     * Author: Chris Klassen
+     *
+     * Database constructor for a project object.
+     */
+    public Project(String n, float pd, int r, Profile p, Style s) {
+        name = n;
+        percentDone = pd;
+        rowCounter = r;
+        profile = p;
+        style = s;
     }
 
     public void setName(String n) {
@@ -57,5 +73,15 @@ public class Project {
 
     public Style getStyle() {
         return style;
+    }
+
+    public long getId() {
+
+        return id;
+    }
+
+    public void setId( long id ) {
+
+        this.id = id;
     }
 }

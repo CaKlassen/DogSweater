@@ -1,5 +1,7 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -7,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Style {
     private String name;
+    private int styleNumber;
     private ArrayList<Section> sectionList;
 
     /** String keys for the different variables to be inserted. */
@@ -30,12 +33,17 @@ public class Style {
      *
      * Constructor for a style object
      */
-    public Style(String n) {
+    public Style(String n, int sn) {
         name = n;
+        styleNumber = sn;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getStyleNumber() {
+        return styleNumber;
     }
 
 
@@ -77,6 +85,24 @@ public class Style {
         sectionList = a;
     }
 
+
+    /**
+     * Author: Chris Klassen
+     *
+     * Retrieves the name for a specific style
+     *
+     * @param id the id to pull the name from
+     * @return the name
+     */
+    public static String getNameFromId(int id) {
+        switch(id) {
+            case 0: // Style 1
+                return "Style 1";
+            default:
+                return "Invalid Style";
+        }
+    }
+
     /**
      * Author: Chris Klassen
      *
@@ -85,11 +111,12 @@ public class Style {
      *
      * @return a list of sections
      */
-    public static ArrayList<Section> makeStyle(int style) {
-        switch(style) {
+    public static ArrayList<Section> makeStyle(int styleNumber) {
+        switch(styleNumber) {
             case 0: // Style 1
                 return makeStyle_1();
-            default: // Incorrect style entered
+            default: // Incorrect Style
+                Log.d("Incorrect Style Number", "Incorrect style number entered.");
                 return null;
         }
     }
