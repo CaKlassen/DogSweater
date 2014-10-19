@@ -1,5 +1,7 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.interfaces;
 
+import android.net.Uri;
+
 /**
  * @author          Eric Tsang
  * @date            October 10 2014
@@ -45,12 +47,22 @@ public interface Dialogable {
     /**
      * @author          Eric Tsang
      * @date            October 10 2014
-     * @revisions       none
+     * @revisions       changed from returning a resource ID, to returning an
+     *                  image URI instead
      * @return          integer resource id of the image to display in the
      *                  dialog
      *
      * returns an integer resource id of the image to display in the dialog
      */
-    public int getDialogueImageId();
+    public Uri getDialogueImageUri();
+
+    /**
+     * @author          Eric Tsang
+     * @date            October 18 2014
+     * @revisions       none
+     * @return          String specifying which activity to open next when
+     *                  button is clicked
+     */
+    public String getNextScreen();
 
 }

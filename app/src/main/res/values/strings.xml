@@ -32,6 +32,11 @@
     <string name="needYarnButton">I Need Yarn</string>
     <string name="haveYarnButton">I Have Yarn</string>
     <string name="nextButton">Next</string>
+    <string name="addImageButton">Add Picture</string>
+
+    <!-- Context menu items -->
+    <string name="menuItemTakePicture">Take Photo</string>
+    <string name="menuItemChooseImage">Choose Image</string>
 
     <!-- Image Description text -->
     <string name="imageDescLogo">Dog Yarn It Logo</string>

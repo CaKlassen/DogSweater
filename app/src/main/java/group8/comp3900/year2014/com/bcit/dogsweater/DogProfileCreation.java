@@ -22,6 +22,7 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileData
  *      creating a new profile from scratch:
  *          KEY_PROFILE_NAME - String           name of the new profile
  *          KEY_DIMENSION_KEYS - String[]       dimension keys needed to fill in
+ *          KEY_PROFILE_IMAGE_URI - String      string URI to image for profile
  *
  *      continuing the process of creating the previous new profile:
  *          KEY_DIMENSION_KEYS_INDEX - int
@@ -45,6 +46,10 @@ public class DogProfileCreation extends Activity {
     /** starting intent key for String array of dimensions keys */
     public static final String KEY_DIMENSION_KEYS =
             CLASS_NAME + "KEY_DIMENSION_KEYS";
+
+    /** starting intent key for String URI of image to use for the profile */
+    public static final String KEY_PROFILE_IMAGE_URI =
+            CLASS_NAME + "KEY_PROFILE_IMAGE_URI";
 
     /**
      * starting intent key for integer index of the above arrays this instance
@@ -194,14 +199,14 @@ public class DogProfileCreation extends Activity {
 
                 // TODO: cannot save profiles into db yet, because we are missing imageUri information; we need to add image Uri info
                 // TODO: make some sort of option to take a picture. just a button, anywhere even if it doesn't take a pic.
-                /*try {
+                try {
                     profileDataSource.open();
                     profileDataSource.insertProfile(newProfile);
                 } catch(Exception e) {
                     Log.d(this.toString(), e.toString());
                 } finally {
                     profileDataSource.close();
-                }*/
+                }
 
             }
             startActivity(in);
@@ -252,7 +257,9 @@ public class DogProfileCreation extends Activity {
             the startIntent extras
              */
             newProfile = new Profile(
-                    startIntent.getStringExtra(KEY_PROFILE_NAME));
+                    startIntent.getStringExtra(KEY_PROFILE_NAME),
+                    new Dimensions(),
+                    startIntent.getStringExtra(KEY_PROFILE_IMAGE_URI));
             dimensionKeys =
                     startIntent.getStringArrayExtra(KEY_DIMENSION_KEYS);
             arrayIndex = 0;

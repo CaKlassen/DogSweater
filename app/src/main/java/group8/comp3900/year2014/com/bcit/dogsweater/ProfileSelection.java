@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.InfoPopup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileSelectionGridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 
 public class ProfileSelection extends Activity {
@@ -42,7 +43,7 @@ public class ProfileSelection extends Activity {
                 }
                 else
                 {
-                    InfoPopup popup = new InfoPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Yarn", "PROFILE" );
+                    new InfoPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position) );
                 }
             }
         });
