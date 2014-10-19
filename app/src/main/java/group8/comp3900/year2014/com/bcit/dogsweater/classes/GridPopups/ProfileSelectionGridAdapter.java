@@ -121,7 +121,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
 
             @Override
             public Uri getDialogueImageUri() {
-                return Uri.parse("android.resource://group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups/drawable/plus");
+                return Uri.parse("android.resource://group8.comp3900.year2014.com.bcit.dogsweater/drawable/plus");
             }
         });
 
