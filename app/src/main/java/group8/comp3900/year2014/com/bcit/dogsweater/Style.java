@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.InfoPopup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.StyleGridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.StylePopup;
 
 
 public class Style extends Activity {
@@ -27,7 +27,7 @@ public class Style extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 // TODO: modify below to instantiate an InfoPopup the new way because Eric changed it
-                //InfoPopup popup = new InfoPopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE" );
+               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE" );
             }
         });
     }

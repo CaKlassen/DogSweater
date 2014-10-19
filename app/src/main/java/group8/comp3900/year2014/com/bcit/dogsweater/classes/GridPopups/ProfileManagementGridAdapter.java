@@ -2,6 +2,10 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
+import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 /****************************************************************
  * Created by Rhea on 02/10/2014.
@@ -20,23 +29,33 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
  ****************************************************************/
 public class ProfileManagementGridAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Integer> imageIds = new ArrayList<Integer>();
-    int numImages = 0;
+    private ArrayList<Dialogable> dialogables = new ArrayList<Dialogable>();
+
+    /////////////////////
+    // database things //
+    /////////////////////
+    /**
+     * database interface object used to get all profiles so we can display them
+     */
+    private ProfileDataSource profileDataSource;
 
     public ProfileManagementGridAdapter(Context c) {
+        // initialize instance members from constructor parameters
         context = c;
-        buildImageList();
+        profileDataSource = new ProfileDataSource(context);
 
+        // add profiles to UI
+        buildImageList();
     }
 
     @Override
     public int getCount() {
-        return imageIds.size();
+        return dialogables.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return imageIds.get(position);
+        return dialogables.get(position);
     }
 
     @Override
@@ -67,9 +86,19 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
         iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
         iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
         iview.setPadding(5, 5, 5, 5);
-        iview.setImageResource(imageIds.get(position));
+        Uri imageUri = (dialogables.get(position).getDialogueImageUri());
+        try {
+            // TODO: move parsing of bitmap elsewhere
+            InputStream stream = context.getContentResolver().openInputStream(imageUri);
+            Bitmap bm = BitmapFactory.decodeStream(stream);
+            bm = Bitmap.createScaledBitmap(bm, 600, bm.getHeight() * 600 / bm.getWidth(), false);
+            bm = Bitmap.createBitmap(bm, bm.getWidth() / 2 - 300, bm.getHeight() / 2 - 300, 600, 600);
+            iview.setImageBitmap(bm);
+        } catch(Exception e) {
+            Log.e("trouble parsing URI", e.toString());
+        }
 
-        tv.setText("Dog Name");
+           tv.setText(dialogables.get(position).getDialogueTitle());
 
         return llview;
     }
@@ -77,13 +106,44 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildImageList()
     {
-        imageIds.add(numImages, R.drawable.sample_profie );
-        numImages++;
+
+        // putting other profiles onto the gridview
+        profileDataSource.open();
+        List<Profile> Profiles = profileDataSource.getAllProfiles();
+        for (final Profile profile: Profiles) {
+
+            dialogables.add(new Dialogable() {
+                @Override
+                public String getDialogueTitle() {
+                    return profile.getName();
+                }
+
+                @Override
+                public String getDialogueDescription() {
+                    return profile.getImageURI().toString();
+                }
+
+                @Override
+                public String getDialogueButtonText() {
+                    return "";
+                }
+
+                @Override
+                public Uri getDialogueImageUri() {
+                    return profile.getImageURI();
+                }
+
+                @Override
+                                 public String getNextScreen() {
+                                     return "";
+                                 }
+            });
+        }
     }
 
-    public ArrayList<Integer> getImageList()
+    public ArrayList<Dialogable> getImageList()
     {
-        return imageIds;
+        return dialogables;
     }
 
 }

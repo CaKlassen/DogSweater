@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,26 +17,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
+import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 /**
  * Created by Rhea on 07/10/2014.
  */
 public class ManageInfoPopup extends Dialog {
 
-    //Position in the grid that was clicked
-    private int p;
-    private ArrayList<Integer> imageList;
+    private ProfileDataSource pds;
 
-    Context context;
-    public ManageInfoPopup(final Context context, ArrayList<Integer> il, int position, final String nextScreen, String Title) {
+    public ManageInfoPopup(final Context c, Dialogable d, final int  p) {
+        this (c, d.getDialogueImageUri(),  d.getDialogueTitle(),
+                d.getDialogueDescription(), p);
+    }
+
+    public ManageInfoPopup(final Context context, final Uri imageUri,
+                           String titleText,  String descriptionText, final  int position) {
         super(context);
-        this.context = context;
-        p = position;
-        imageList = il;
-
 
         //Set custom dialog information
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -50,21 +57,44 @@ public class ManageInfoPopup extends Dialog {
         setCancelable(true);
 
         //Set image to whatever is clicked on
-        ImageView image = (ImageView) findViewById(R.id.largeView);
-        image.setBackgroundResource(imageList.get(position));
+        try {
+            // TODO: move parsing of bitmap elsewhere
+            ImageView image = (ImageView) findViewById(R.id.largeView);
+            InputStream stream = context.getContentResolver().openInputStream(imageUri);
+            Bitmap bm = BitmapFactory.decodeStream(stream);
+            bm = Bitmap.createScaledBitmap(bm, 600, bm.getHeight() * 600 / bm.getWidth(), false);
+            bm = Bitmap.createBitmap(bm, bm.getWidth() / 2 - 300, bm.getHeight() / 2 - 300, 600, 600);
+            image.setImageBitmap(bm);
+        } catch(Exception e) {
+            Log.e("trouble parsing URI", e.toString());
+        }
 
-        //Set title to correct
-        TextView title =  (TextView) findViewById(R.id.popupTitle);
-        title.setText(Title);
+        TextView tv = (TextView) findViewById(R.id.popupTitle);
+        tv.setText(titleText);
 
 
-        //TODO: DELETE BUTTON DELETES FROM QUERY
         Button dltButton = (Button) findViewById(R.id.Delete);
         dltButton.setOnClickListener(new View.OnClickListener(){
-            Intent in;
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Deleting item!", Toast.LENGTH_SHORT).show();
+
+                //Delete from database
+                pds = new ProfileDataSource(context);
+                pds.open();
+               List<Profile> profiles =   pds.getAllProfiles();
+
+                if (profiles.size() > 0) {
+                     pds.deleteProfile((profiles.get(position)));
+
+                     Toast.makeText(context, "Item has been deleted.", Toast.LENGTH_SHORT).show();
+
+                     profiles.remove(position);
+
+                     //TODO: REFRESH BACKGROUND ACTIVITY
+
+                    pds.close();
+                }
+
             }
             });
 

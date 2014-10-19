@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,22 +76,25 @@ public class ProfileDataSource {
 
         List<Profile> profiles = new ArrayList<Profile>();
 
-        Cursor cursor = database.query( DogYarnItSQLHelper.TABLE_PROFILES
-                                      , columns
-                                      , null
-                                      , null
-                                      , null
-                                      , null
-                                      , null );
-
-        cursor.moveToFirst();
-        while( !cursor.isAfterLast() ) {
-            Profile profile = cursorToProfile( cursor );
-            profiles.add(profile);
-            cursor.moveToNext();
+        Cursor cursor = database.query(DogYarnItSQLHelper.TABLE_PROFILES
+                , columns
+                , null
+                , null
+                , null
+                , null
+                , null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Profile profile = cursorToProfile(cursor);
+                profiles.add(profile);
+                cursor.moveToNext();
+            }
         }
-        // make sure to close the cursor
-        cursor.close();
+        else
+        {
+            Log.d("cursor", "null");
+        }
         return profiles;
     }
 

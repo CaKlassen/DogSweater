@@ -107,7 +107,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         }
         else
         {
-            tv.setText("Temp Pup");
+            tv.setText(dialogables.get(position).getDialogueTitle());
         }
 
         return llview;

@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ManageInfoPopup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileManagementGridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 
 public class ManageProfiles extends Activity {
@@ -28,7 +29,7 @@ public class ManageProfiles extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                ManageInfoPopup popup = new ManageInfoPopup(v.getContext(),  gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.pattern", "PROFILE" );
+                new ManageInfoPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position), position );
             }
         });
     }
@@ -52,4 +53,11 @@ public class ManageProfiles extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
+    }
+
 }
