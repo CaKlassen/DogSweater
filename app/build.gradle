@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "group8.comp3900.year2014.com.bcit.dogsweater"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
