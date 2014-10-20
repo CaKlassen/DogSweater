@@ -9,11 +9,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
-
 import java.io.InputStream;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -106,7 +101,7 @@ public class ThreadManager {
     static { mInstance = new ThreadManager(); }
 
     /** a Volley request queue used to queue up network requests and such */
-    private RequestQueue mRequestQueue;
+    //private RequestQueue mRequestQueue;
 
 
 
@@ -256,11 +251,11 @@ public class ThreadManager {
      * returns the singleton instance of Volley's RequestQueue.
      * @return instance of Volley's RequestQueue
      */
-    public RequestQueue getRequestQueue(Context context) {
+    /*public RequestQueue getRequestQueue(Context context) {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(context);
         }
 
         return mRequestQueue;
-    }
+    }*/
 }
