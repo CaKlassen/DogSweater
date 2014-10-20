@@ -3,6 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.drm.DrmManagerClient;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -15,9 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
 import java.io.InputStream;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 /**
@@ -45,8 +50,8 @@ public class ManageInfoPopup extends Dialog {
     //////////////////
     // constructors //
     //////////////////
-    public ManageInfoPopup(final Context c, Dialogable d) {
-        this (c, d.getDialogueImageUri(),  d.getDialogueTitle());
+    public ManageInfoPopup(final Context context, Dialogable d) {
+        this (context, d.getDialogueImageUri(),  d.getDialogueTitle());
     }
 
     public ManageInfoPopup(final Context context, final Uri imageUri,
@@ -69,17 +74,20 @@ public class ManageInfoPopup extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
 
-        // setting dialog image
-        try {
-            // TODO: move parsing of bitmap elsewhere
-            InputStream stream = context.getContentResolver().openInputStream(imageUri);
-            Bitmap bm = BitmapFactory.decodeStream(stream);
-            bm = Bitmap.createScaledBitmap(bm, 600, bm.getHeight() * 600 / bm.getWidth(), false);
-            bm = Bitmap.createBitmap(bm, bm.getWidth() / 2 - 300, bm.getHeight() / 2 - 300, 600, 600);
-            image.setImageBitmap(bm);
-        } catch(Exception e) {
-            Log.e("trouble parsing URI", e.toString());
-        }
+        // setting dialog image...use a worker thread to load the image
+        ThreadManager.mInstance.loadImage(
+                context,                            // application context
+                imageUri,                           // local uri to image file
+                ThreadManager.CropPattern.SQUARE,   // crop pattern
+                600,                                // image width
+
+                // what to do when success
+                new ThreadManager.OnResponseListener() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        image.setImageBitmap(bitmap);
+                    }
+                });
 
         // setting title text
         tv.setText(titleText);

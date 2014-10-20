@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 /**
@@ -53,18 +54,21 @@ public class InfoPopup extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
 
-        //Set image to whatever is clicked on
-        try {
-            // TODO: move parsing of bitmap elsewhere
-            ImageView image = (ImageView) findViewById(R.id.largeView);
-            InputStream stream = context.getContentResolver().openInputStream(imageUri);
-            Bitmap bm = BitmapFactory.decodeStream(stream);
-            bm = Bitmap.createScaledBitmap(bm, 600, bm.getHeight() * 600 / bm.getWidth(), false);
-            bm = Bitmap.createBitmap(bm, bm.getWidth() / 2 - 300, bm.getHeight() / 2 - 300, 600, 600);
-            image.setImageBitmap(bm);
-        } catch(Exception e) {
-            Log.e("trouble parsing URI", e.toString());
-        }
+        // set image to whatever is clicked on...use a worker thread to load the image
+        final ImageView image = (ImageView) findViewById(R.id.largeView);
+        ThreadManager.mInstance.loadImage(
+                context,                            // application context
+                imageUri,                           // local uri to image file
+                ThreadManager.CropPattern.SQUARE,   // crop pattern
+                600,                                // image width
+
+                // what to do when success
+                new ThreadManager.OnResponseListener() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        image.setImageBitmap(bitmap);
+                    }
+                });
 
         //Set description text
         TextView description = (TextView) findViewById(R.id.descriptionText);

@@ -20,6 +20,7 @@ import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.adapters.DialogableAdapter;
@@ -69,7 +70,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         View llview = view;
-        ImageView iview;
+        final ImageView iview;
         TextView tv;
 
         if (view == null) {
@@ -89,17 +90,22 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
         iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
         iview.setPadding(5, 5, 5, 5);
+
+        // setting dialog image...use a worker thread to load the image
         Uri imageUri = (dialogables.get(position).getDialogueImageUri());
-        try {
-            // TODO: move parsing of bitmap elsewhere
-            InputStream stream = context.getContentResolver().openInputStream(imageUri);
-            Bitmap bm = BitmapFactory.decodeStream(stream);
-            bm = Bitmap.createScaledBitmap(bm, 600, bm.getHeight() * 600 / bm.getWidth(), false);
-            bm = Bitmap.createBitmap(bm, bm.getWidth() / 2 - 300, bm.getHeight() / 2 - 300, 600, 600);
-            iview.setImageBitmap(bm);
-        } catch(Exception e) {
-            Log.e("trouble parsing URI", e.toString());
-        }
+        ThreadManager.mInstance.loadImage(
+                context,                            // application context
+                imageUri,                           // local uri to image file
+                ThreadManager.CropPattern.SQUARE,   // crop pattern
+                600,                                // image width
+
+                // what to do when success
+                new ThreadManager.OnResponseListener() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        iview.setImageBitmap(bitmap);
+                    }
+                });
 
         if (position == 0)
         {
