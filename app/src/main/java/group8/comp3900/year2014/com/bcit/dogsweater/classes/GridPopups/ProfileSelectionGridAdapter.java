@@ -113,7 +113,6 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         return llview;
     }
 
-    //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildImageList()
     {
         // tile used to add a new profile

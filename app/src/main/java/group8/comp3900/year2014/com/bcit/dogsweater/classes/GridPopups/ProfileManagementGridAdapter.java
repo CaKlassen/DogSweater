@@ -103,6 +103,11 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
         return llview;
     }
 
+    public void remove(int position) {
+        dialogables.remove(position);
+        notifyDataSetChanged();
+    }
+
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildImageList()
     {
