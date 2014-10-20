@@ -109,6 +109,8 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
 
     public void remove(int position) {
         dialogables.remove(position);
+        notifyDataSetChanged();
+
     }
 
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY

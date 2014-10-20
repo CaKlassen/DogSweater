@@ -3,23 +3,16 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.drm.DrmManagerClient;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import java.io.InputStream;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
