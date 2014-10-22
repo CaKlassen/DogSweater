@@ -100,7 +100,6 @@ public class ManageProfiles extends Activity {
                 final ManageInfoPopup popup;
                 popup = new ManageInfoPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position));
                 popup.setOnDeleteButtonClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View v) {
 
@@ -121,7 +120,6 @@ public class ManageProfiles extends Activity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(ManageProfiles.this, "Modifying item!", Toast.LENGTH_SHORT).show();
-
                     }
 
                 });

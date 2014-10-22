@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class ManageInfoPopup extends Dialog {
     private TextView tv;
 
     /** reference to delete button */
-    private Button dltButton;
+    private ImageButton dltButton;
 
     /** reference to modify button */
     private Button modButton;
@@ -124,7 +125,7 @@ public class ManageInfoPopup extends Dialog {
     private void initializeGUIReferences() {
         image = (ImageView) findViewById(R.id.largeView);
         tv = (TextView) findViewById(R.id.popupTitle);
-        dltButton = (Button) findViewById(R.id.Delete);
+        dltButton = (ImageButton) findViewById(R.id.Delete);
         modButton = (Button) findViewById(R.id.Modify);
     }
 
