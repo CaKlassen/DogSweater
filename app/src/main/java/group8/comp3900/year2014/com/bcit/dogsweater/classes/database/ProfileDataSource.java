@@ -18,7 +18,8 @@ public class ProfileDataSource {
 
     // Database fields
     private SQLiteDatabase database;
-    private DogYarnItSQLHelper dbHelper;
+    private static DogYarnItSQLHelper dbHelper;
+
 
     private static final String[] columns = {
 
@@ -28,9 +29,19 @@ public class ProfileDataSource {
             DogYarnItSQLHelper.PROFILE_IMAGE
     };
 
+    private static final String[] columnsProject = {
+
+            DogYarnItSQLHelper.PROJECT_ID,
+            DogYarnItSQLHelper.PROJECT_NAME,
+            DogYarnItSQLHelper.PROJECT_PERCENT,
+            DogYarnItSQLHelper.PROJECT_ROWS,
+            DogYarnItSQLHelper.PROJECT_PROFILE,
+            DogYarnItSQLHelper.PROJECT_STYLE
+    };
+
     public ProfileDataSource(Context context) {
 
-        dbHelper = new DogYarnItSQLHelper(context);
+        dbHelper = getInstance(context);
     }
 
     public void open() throws SQLException {
@@ -102,13 +113,8 @@ public class ProfileDataSource {
 
         Profile profile;
 
-        Cursor cursor = database.query( DogYarnItSQLHelper.TABLE_PROFILES
-                , columns                                   // columns
-                , "ID = ?"                                  // where clause
-                , new String[] {Long.toString(profileId)}   // where params
-                , null
-                , null
-                , null );
+        String query = "SELECT * FROM "  + DogYarnItSQLHelper.TABLE_PROFILES+  " WHERE " + DogYarnItSQLHelper.PROFILE_ID + " =  " + profileId;
+        Cursor cursor = database.rawQuery(query, null);
 
         cursor.moveToFirst();
         profile = cursorToProfile(cursor);
@@ -155,13 +161,28 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_PERCENT, project.getPercentDone() );
         values.put( DogYarnItSQLHelper.PROJECT_ROWS, project.getRowCounter() );
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE, project.getProfile().getId() );
-        values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getName() );
+        values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getStyleNumber() );
 
         long insertId = database.insert( DogYarnItSQLHelper.TABLE_PROJECTS
                 , null
                 , values );
 
         project.setId(insertId);
+    }
+
+    public void updateProject(Project project) {
+
+        ContentValues values = new ContentValues();
+
+        values.put( DogYarnItSQLHelper.PROJECT_NAME, project.getName() );
+        values.put( DogYarnItSQLHelper.PROJECT_PERCENT, project.getPercentDone() );
+        values.put( DogYarnItSQLHelper.PROJECT_ROWS, project.getRowCounter() );
+        values.put( DogYarnItSQLHelper.PROJECT_PROFILE, project.getProfile().getId() );
+        values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getName() );
+
+        database.update(DogYarnItSQLHelper.TABLE_PROJECTS, values,  DogYarnItSQLHelper.PROJECT_ID + " = " +  project.getId(), null );
+
+
     }
 
     public void deleteProject(Project project) {
@@ -178,7 +199,7 @@ public class ProfileDataSource {
         List<Project> projects = new ArrayList<Project>();
 
         Cursor cursor = database.query( DogYarnItSQLHelper.TABLE_PROJECTS
-                , columns
+                , columnsProject
                 , null
                 , null
                 , null
@@ -199,17 +220,24 @@ public class ProfileDataSource {
     public Project getProject(long projectId) {
 
         Project project;
+        Log.d("Project ID: ", " " + projectId);
 
-        Cursor cursor = database.query( DogYarnItSQLHelper.TABLE_PROJECTS
-                , columns                                   // columns
-                , "ID = ?"                                  // where clause
-                , new String[] {Long.toString(projectId)}   // where params
-                , null
-                , null
-                , null );
+        String query = "SELECT * FROM "  + DogYarnItSQLHelper.TABLE_PROJECTS +  " WHERE " + DogYarnItSQLHelper.PROJECT_ID + " =  " + projectId;
+        Cursor cursor = database.rawQuery(query, null);
 
-        cursor.moveToFirst();
-        project = cursorToProject(cursor);
+        Log.d("count: ", " " + cursor.getCount());
+
+        if ( cursor.getCount() > 0)
+        {
+            Log.d("Project", "not null");
+            cursor.moveToFirst();
+            project = cursorToProject(cursor);
+        }
+        else
+        {
+            Log.d("Project", "null");
+            project = null;
+        }
         cursor.close();
 
         return project;
@@ -264,5 +292,16 @@ public class ProfileDataSource {
         );
 
         return project;
+    }
+
+    public static DogYarnItSQLHelper getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (dbHelper == null) {
+            dbHelper = new DogYarnItSQLHelper(context.getApplicationContext());
+        }
+        return dbHelper;
     }
 }

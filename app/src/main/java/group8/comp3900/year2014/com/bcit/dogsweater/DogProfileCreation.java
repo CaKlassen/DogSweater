@@ -15,6 +15,7 @@ import java.security.InvalidParameterException;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /**
@@ -174,7 +175,7 @@ public class DogProfileCreation extends Activity {
             we have enough information to go to the next activity; do we need to
             gather more dimension information about this profile first before we
             move to the next stage? if we do, get the next dimension by starting
-            another DogProfileCreation activity; go to the Yarn activity
+            another DogProfileCreation activity; go to the Style choice activity
             otherwise.
              */
 
@@ -195,13 +196,26 @@ public class DogProfileCreation extends Activity {
                 nope; save the newProfile into our database & move on to the
                 next stage
                  */
-                in = new Intent(this, Yarn.class);
+                in = new Intent(this, StyleSelection.class);
 
                 // TODO: cannot save profiles into db yet, because we are missing imageUri information; we need to add image Uri info
                 // TODO: make some sort of option to take a picture. just a button, anywhere even if it doesn't take a pic.
                 try {
                     profileDataSource.open();
                     profileDataSource.insertProfile(newProfile);
+
+                    //Create a new project
+                    //TODO: WHAT IF THEY BAIL FROM HERE AND THERE IS NO STYLE?
+                    Project newProject = new Project(newProfile);
+                    profileDataSource.insertProject(newProject);
+
+                    profileDataSource.getAllProjects();
+
+                    long projectId = newProject.getId();
+                    Log.d("I hate you ", " "  + projectId);
+                    in.putExtra("projId", projectId );
+
+
                 } catch(Exception e) {
                     Log.d(this.toString(), e.toString());
                 } finally {

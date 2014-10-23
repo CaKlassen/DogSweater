@@ -3,9 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,6 +120,9 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
         for (final Profile profile: Profiles) {
 
             dialogables.add(new Dialogable() {
+                @Override
+                public long getItemId() { return profile.getId(); }
+
                 @Override
                 public String getDialogueTitle() {
                     return profile.getName();

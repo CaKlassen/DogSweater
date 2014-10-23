@@ -2,6 +2,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,12 +13,16 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.StyleGrid
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.StylePopup;
 
 
-public class Style extends Activity {
+public class StyleSelection extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
+
+        final long projId;
+        projId = getIntent().getExtras().getLong("projId");
+        Log.d("BLAH 2", " " + projId);
 
         GridView gridview = (GridView) findViewById(R.id.styleGridView);
         final StyleGridAdapter gridAdapter = new StyleGridAdapter(this);
@@ -27,7 +32,7 @@ public class Style extends Activity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 // TODO: modify below to instantiate an InfoPopup the new way because Eric changed it
-               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE" );
+               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE", projId);
             }
         });
     }

@@ -32,4 +32,9 @@ public class DialogableAdapter implements Dialogable {
     public String getNextScreen() {
         return null;
     }
+
+    @Override
+    public long getItemId() {
+        return -9999;
+    }
 }

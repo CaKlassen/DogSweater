@@ -21,9 +21,23 @@ public class Project {
     public Project(Profile p, Style s) {
         profile = p;
         style = s;
-
+        name = "Temp";
         percentDone = 0;
         rowCounter = 0;
+    }
+
+    /**
+     * Author Rhea Lauzon
+     * @param p : profile object
+     *          when the profile is known but style isnt determined yet
+     */
+    public Project(Profile p) {
+        profile = p;
+        name = "Temp";
+        percentDone = 0;
+        rowCounter = 0;
+        //TODO: FIX LATER TO PROPER DEFAULT VAL
+        style = new Style("Style 1", 1);
     }
 
     /**
@@ -84,4 +98,9 @@ public class Project {
 
         this.id = id;
     }
+
+    public void setStyle(Style s){
+        this.style = s;
+    }
+
 }

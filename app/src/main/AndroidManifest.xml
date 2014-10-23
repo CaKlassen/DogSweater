@@ -40,7 +40,7 @@
             android:label="@string/profileNameTitle" >
         </activity>
         <activity
-            android:name=".Yarn"
+            android:name=".YarnChoice"
             android:label="@string/yarnTitle" >
         </activity>
         <activity
@@ -48,7 +48,7 @@
             android:label="@string/title_activity_yarn_selection" >
         </activity>
         <activity
-            android:name=".Style"
+            android:name=".StyleSelection"
             android:label="@string/title_activity_style" >
         </activity>
         <activity

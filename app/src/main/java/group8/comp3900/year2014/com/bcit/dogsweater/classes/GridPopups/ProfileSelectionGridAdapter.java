@@ -3,9 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +43,6 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         // initialize instance members from constructor parameters
         context = c;
         profileDataSource = new ProfileDataSource(context);
-
         // add profiles to UI
         buildImageList();
 
@@ -136,6 +132,9 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         for (final Profile profile: Profiles) {
 
             dialogables.add(new Dialogable() {
+
+                @Override
+                public long getItemId() { return profile.getId(); }
                 @Override
                 public String getDialogueTitle() {
                     return profile.getName();
@@ -143,7 +142,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
 
                 @Override
                 public String getDialogueDescription() {
-                    return profile.getImageURI().toString();
+                    return "Hello I am a temp profile!";
                 }
 
                 @Override
@@ -158,7 +157,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
 
                 @Override
                 public String getNextScreen() {
-                    return "group8.comp3900.year2014.com.bcit.dogsweater.Yarn";
+                    return "group8.comp3900.year2014.com.bcit.dogsweater.StyleSelection";
                 }
             });
         }

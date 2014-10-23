@@ -5,22 +5,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 /**
@@ -31,12 +28,12 @@ public class InfoPopup extends Dialog {
     public InfoPopup(final Context c, Dialogable d) {
         this (c, d.getNextScreen(), d.getDialogueImageUri(),
                 d.getDialogueButtonText(), d.getDialogueTitle(),
-                d.getDialogueDescription());
+                d.getDialogueDescription(), d.getItemId());
     }
 
     public InfoPopup(final Context context, final String nextScreen,
             final Uri imageUri, String buttonText, String titleText,
-            String descriptionText) {
+            String descriptionText, final long itemId) {
         super(context);
 
         //Set custom dialog information
@@ -86,7 +83,16 @@ public class InfoPopup extends Dialog {
             @Override
             public void onClick(View v) {
                 try {
+                    ProfileDataSource profileDataSource = new ProfileDataSource(context);
+                    profileDataSource.open();
+
+                    //Create new project with that profile
+                    Project p = new Project(profileDataSource.getProfile(itemId));
+                    profileDataSource.insertProject(p);
+
                     in = new Intent(context, Class.forName(nextScreen));
+                    in.putExtra("projId", p.getId());
+
                 }
                 catch (ClassNotFoundException e) {
                     e.printStackTrace();

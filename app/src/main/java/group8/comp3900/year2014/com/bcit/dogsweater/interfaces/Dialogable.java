@@ -12,6 +12,8 @@ import android.net.Uri;
  */
 public interface Dialogable {
 
+    public long getItemId();
+
     /**
      * @author          Eric Tsang
      * @date            October 10 2014

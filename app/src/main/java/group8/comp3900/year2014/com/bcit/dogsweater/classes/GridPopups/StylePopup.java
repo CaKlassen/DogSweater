@@ -15,6 +15,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Style;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /**
  * Created by Rhea on 07/10/2014.
@@ -25,13 +28,18 @@ public class StylePopup extends Dialog {
     //Position in the grid that was clicked
     private int p;
     private ArrayList<Integer> imageList;
+    private ProfileDataSource profileDataSource;
+    private long projId;
+
 
     Context context;
-    public StylePopup(final Context context, ArrayList<Integer> il, int position, final String nextScreen, String Title) {
+    public StylePopup(final Context context, ArrayList<Integer> il, int position, final String nextScreen, String Title, long id) {
         super(context);
         this.context = context;
         p = position;
         imageList = il;
+        projId = id;
+        profileDataSource = new ProfileDataSource(context);
 
 
         //Set custom dialog information
@@ -68,6 +76,18 @@ public class StylePopup extends Dialog {
             public void onClick(View v) {
                 try {
                     in = new Intent(context, Class.forName(nextScreen));
+
+                    //Make the style object
+                    Style s = new Style(Style.getNameFromId(p), p);
+                    s.initializeSectionList(Style.makeStyle(p));
+
+                    profileDataSource.open();
+                    Project tempProj = profileDataSource.getProject(projId);
+                    tempProj.setStyle(s);
+                    profileDataSource.updateProject(tempProj);
+
+                    profileDataSource.close();
+
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

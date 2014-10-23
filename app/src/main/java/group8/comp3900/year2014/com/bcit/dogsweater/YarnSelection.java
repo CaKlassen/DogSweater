@@ -37,7 +37,7 @@ public class YarnSelection extends Activity {
     }
 
     public void next(View v){
-        Intent in = new Intent(this, Style.class );
+        Intent in = new Intent(this, Materials.class );
         startActivity(in);
     }
 

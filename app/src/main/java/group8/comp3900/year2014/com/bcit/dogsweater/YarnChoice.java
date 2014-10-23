@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class Yarn extends Activity {
+public class YarnChoice extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class Yarn extends Activity {
 
 
     public void haveYarn(View v ) {
-        Intent in = new Intent(this, Style.class);
+        Intent in = new Intent(this, Materials.class);
         startActivity(in);
     }
 
