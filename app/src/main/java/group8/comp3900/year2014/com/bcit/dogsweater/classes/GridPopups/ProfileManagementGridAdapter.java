@@ -110,7 +110,7 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
 
     }
 
-    //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
+
     public void buildImageList()
     {
 

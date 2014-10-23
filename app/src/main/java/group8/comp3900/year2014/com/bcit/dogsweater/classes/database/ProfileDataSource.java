@@ -198,22 +198,25 @@ public class ProfileDataSource {
 
         List<Project> projects = new ArrayList<Project>();
 
-        Cursor cursor = database.query( DogYarnItSQLHelper.TABLE_PROJECTS
-                , columnsProject
-                , null
-                , null
-                , null
-                , null
-                , null );
+        String query = "SELECT * FROM " + DogYarnItSQLHelper.TABLE_PROJECTS;
+        Cursor cursor = database.rawQuery(query, null);
 
-        cursor.moveToFirst();
-        while( !cursor.isAfterLast() ) {
-            Project project = cursorToProject(cursor);
-            projects.add(project);
-            cursor.moveToNext();
+        if (cursor.getCount() > 0 )
+        {
+            cursor.moveToFirst();
+            while( cursor.moveToNext() ) {
+                Project project = cursorToProject(cursor);
+                projects.add(project);
+            }
+            // make sure to close the cursor
+            cursor.close();
+
         }
-        // make sure to close the cursor
-        cursor.close();
+        else
+        {
+            Log.d("Project ", "no project");
+        }
+
         return projects;
     }
 

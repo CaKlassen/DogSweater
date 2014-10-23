@@ -83,6 +83,7 @@ public class Profile
         }
 
     }
+
     public void setImageURI( Uri newImageURI ) {
 
         this.imageURI = newImageURI;

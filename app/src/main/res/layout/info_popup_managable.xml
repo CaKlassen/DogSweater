@@ -10,21 +10,21 @@
     >
 
         <ImageButton
-            android:id="@+id/Delete"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@drawable/delete"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:layout_gravity="top|left"
-            />
+         android:id="@+id/Delete"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:background="@drawable/delete"
+         android:scaleType="fitCenter"
+         android:adjustViewBounds="true"
+         android:layout_gravity="top|left"
+         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:textSize="40sp"
         android:layout_weight="0.1"
-        android:layout_gravity="center"
+        android:layout_gravity="top|center"
         android:id="@+id/popupTitle" />
 
     <ImageView
@@ -32,13 +32,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/gridBackground"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.20"
+        android:layout_weight="0.10"
         android:textSize="20sp"
         android:text=""/>
 
@@ -51,7 +51,7 @@
             android:id="@+id/Modify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.2"
             android:text="Modify"
             android:background="@android:color/holo_green_light"/>
     </LinearLayout>
