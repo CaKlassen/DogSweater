@@ -51,6 +51,11 @@ public class Style {
         return sectionList.get(section);
     }
 
+
+    public ArrayList<Section> getSectionList() {
+        return sectionList;
+    }
+
     /**
      * Author: Chris Klassen
      *
@@ -148,6 +153,14 @@ public class Style {
         sList.add(new Step("This is the third step."));
 
         style_1.add(new Section("Chest", sList));
+
+        // Section 3
+        sList = new ArrayList<Step>(1);
+        sList.add(new Step("This is the first step."));
+        sList.add(new Step("This is the second step."));
+        sList.add(new Step("This is the third step."));
+
+        style_1.add(new Section("Legs", sList));
 
         // Return the section list
         return style_1;

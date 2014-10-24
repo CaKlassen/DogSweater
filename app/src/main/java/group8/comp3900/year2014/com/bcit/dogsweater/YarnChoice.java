@@ -10,10 +10,15 @@ import android.view.View;
 
 public class YarnChoice extends Activity {
 
+    private long projId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yarn);
+
+        // Get the project id from the bundle
+        projId = getIntent().getExtras().getLong("Project Id");
     }
 
 
@@ -38,12 +43,18 @@ public class YarnChoice extends Activity {
 
     public void needYarn(View v ) {
         Intent in = new Intent(this, YarnSelection.class);
+        // Add the project id to the bundle
+        in.putExtra("Project Id", projId);
+
         startActivity(in);
     }
 
 
     public void haveYarn(View v ) {
         Intent in = new Intent(this, Materials.class);
+        // Add the project id to the bundle
+        in.putExtra("Project Id", projId);
+
         startActivity(in);
     }
 

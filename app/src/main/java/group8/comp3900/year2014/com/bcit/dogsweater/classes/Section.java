@@ -26,6 +26,10 @@ public class Section {
         return stepList.get(step);
     }
 
+    public ArrayList<Step> getStepList() {
+        return stepList;
+    }
+
     public void initializeStepList(ArrayList<Step> a) {
         stepList = a;
     }

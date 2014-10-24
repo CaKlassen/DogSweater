@@ -28,10 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Profile"
-            android:label="@string/profileTitle" >
-        </activity>
-        <activity
             android:name=".DogProfileCreation"
             android:label="@string/profileCreationTitle" >
         </activity>

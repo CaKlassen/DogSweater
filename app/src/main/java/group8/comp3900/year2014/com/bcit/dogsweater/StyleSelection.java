@@ -2,7 +2,6 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +19,9 @@ public class StyleSelection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
 
+        // Retrieve the project id from the Bundle
         final long projId;
         projId = getIntent().getExtras().getLong("projId");
-        Log.d("BLAH 2", " " + projId);
 
         GridView gridview = (GridView) findViewById(R.id.styleGridView);
         final StyleGridAdapter gridAdapter = new StyleGridAdapter(this);

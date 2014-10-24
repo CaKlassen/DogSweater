@@ -14,6 +14,8 @@ public class YarnSelection extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yarn_selection);
+
+        //TODO: Pull project ID from bundle
     }
 
 

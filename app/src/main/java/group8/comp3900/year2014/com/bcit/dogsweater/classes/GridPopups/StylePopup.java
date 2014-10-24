@@ -76,6 +76,8 @@ public class StylePopup extends Dialog {
             public void onClick(View v) {
                 try {
                     in = new Intent(context, Class.forName(nextScreen));
+                    // Add the project id to the bundle
+                    in.putExtra("Project Id", projId);
 
                     //Make the style object
                     Style s = new Style(Style.getNameFromId(p), p);
