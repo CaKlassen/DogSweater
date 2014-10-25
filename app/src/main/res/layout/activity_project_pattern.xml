@@ -36,11 +36,35 @@
         android:id="@+id/patternBottom"
         android:orientation="horizontal">
 
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:text="-"
+            android:textSize="20sp"
+            android:onClick="decrementRow"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:text="TEMP" />
+            android:layout_weight="0.15"
+            android:text="0"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:id="@+id/patternRowCounter"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:text="+"
+            android:textSize="20sp"
+            android:onClick="incrementRow"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
 
         <Button
             android:layout_width="0dp"

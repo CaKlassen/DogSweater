@@ -99,6 +99,10 @@ public class ProjectPattern extends Activity {
                 }
             });
         }
+
+        // Update the row counter with its current value
+        TextView t = (TextView) findViewById( R.id.patternRowCounter );
+        t.setText( "" + curProject.getRowCounter() );
     }
 
 
@@ -119,5 +123,19 @@ public class ProjectPattern extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void decrementRow( View view ) {
+        curProject.decrementRowCounter();
+
+        TextView t = (TextView) findViewById( R.id.patternRowCounter );
+        t.setText( "" + curProject.getRowCounter() );
+    }
+
+    public void incrementRow( View view ) {
+        curProject.incrementRowCounter();
+
+        TextView t = (TextView) findViewById( R.id.patternRowCounter );
+        t.setText( "" + curProject.getRowCounter() );
     }
 }

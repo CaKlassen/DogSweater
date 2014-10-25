@@ -73,6 +73,16 @@ public class Project {
         rowCounter++;
     }
 
+    public void decrementRowCounter() {
+        if ( rowCounter > 0 ) {
+            rowCounter--;
+        }
+    }
+
+    public void resetRowCounter() {
+        rowCounter = 0;
+    }
+
     public int getRowCounter() {
         return rowCounter;
     }
