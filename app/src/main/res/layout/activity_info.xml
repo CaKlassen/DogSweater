@@ -9,30 +9,88 @@
     android:orientation="vertical"
     tools:context="group8.comp3900.year2014.com.bcit.dogsweater.Info">
 
-    <TextView
-        android:text="@string/about_astor"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:id="@+id/textView"
-        android:layout_weight="0.1"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:id="@+id/imageView"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_weight="0.4"
-        android:layout_gravity="center"
-        android:src="@drawable/astor"/>
-
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_weight="0.5"
-        android:text="Add Astor's bio and such here."/>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Information"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:layout_weight="0.1"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="0.2"/>
+
+            <!-- Contact buttons -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email Astor"
+                android:onClick="emailAstor"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Astor's Website"
+                android:onClick="astorWebsite"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Astor's Twitter"
+                android:onClick="astorTwitter"/>
+            
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+            
+            <!-- Astor Bio -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:text="@string/about_astor"
+                android:textSize="20sp"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="0.2"/>
+
+            <!-- Vicky Bio -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:text="@string/about_vicky"
+                android:textSize="20sp"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="0.2"/>
+
+            <!-- Team Bio -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:text="@string/about_team"
+                android:textSize="20sp"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -1,9 +1,12 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Info extends Activity {
@@ -32,5 +35,29 @@ public class Info extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void emailAstor( View view ) {
+        Intent in = new Intent( Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "astor@knittingastor.com", null ) );
+        in.putExtra( Intent.EXTRA_SUBJECT, "Dog Yarn It Help");
+
+        startActivity( Intent.createChooser( in, "Email Astor" ) );
+    }
+
+    public void astorWebsite( View view ) {
+        String url = "http://www.knittingastor.com/";
+        Intent in = new Intent( Intent.ACTION_VIEW );
+        in.setData( Uri.parse( url ) );
+
+        startActivity( in );
+    }
+
+    public void astorTwitter( View view ) {
+        String url = "http://twitter.com/knittingAstor/";
+        Intent in = new Intent( Intent.ACTION_VIEW );
+        in.setData( Uri.parse( url ) );
+
+        startActivity( in );
     }
 }

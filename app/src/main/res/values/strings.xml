@@ -94,7 +94,20 @@
     <color name="gridBackground">#fce8ff</color>
 
     <!-- AboutInfo Page -->
-    <string name="about_astor">All About Astor Tsang:</string>
+    <string name="about_astor">All About Astor Tsang:
+    AstorAstorAstorAstorAstorAstorAstorAstorAstorAstor
+    AstorAstorAstorAstorAstorAstorAstorAstorAstorAstor
+    AstorAstorAstorAstorAstorAstorAstorAstorAstorAstor</string>
+
+    <string name="about_vicky">All About Vicky Kim:
+    VickyVickyVickyVickyVickyVickyVickyVickyVickyVicky
+    VickyVickyVickyVickyVickyVickyVickyVickyVickyVicky
+    VickyVickyVickyVickyVickyVickyVickyVickyVickyVicky</string>
+
+    <string name="about_team">All About the Team:
+    TeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeam
+    TeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeam
+    TeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeamTeam</string>
 
     <!-- TODO: change following friendly string values to proper ones -->
     <!-- TODO: discuss naming convention for friendlies, drawables, and descriptions with group...should these be prefized with "Profile"? -->
