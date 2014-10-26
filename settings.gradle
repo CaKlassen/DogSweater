@@ -1,1 +1,1 @@
-include ':app', ':jeval'
+include ':jeval', ':app'

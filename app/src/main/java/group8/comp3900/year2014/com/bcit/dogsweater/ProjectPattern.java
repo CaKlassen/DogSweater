@@ -1,13 +1,15 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +21,8 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileData
 
 public class ProjectPattern extends Activity {
     private Project curProject;
+    private int curSection;
+    private Dimensions dimension;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +31,8 @@ public class ProjectPattern extends Activity {
 
         // Retrieve the project id from the bundle
         final long projId = getIntent().getExtras().getLong("Project Id");
-        Log.d("FUCK", "" + projId);
 
         // Retrieve the current section from the bundle
-        final int curSection;
-
         if (getIntent().getExtras().containsKey("Current Section")) {
             curSection = getIntent().getExtras().getInt("Current Section");
         } else {
@@ -53,7 +54,7 @@ public class ProjectPattern extends Activity {
         LinearLayout taskList = (LinearLayout) findViewById(R.id.patternTaskList);
 
         // Retrieve Dimensions object
-        Dimensions d = curProject.getProfile().getDimensions();
+        dimension = curProject.getProfile().getDimensions();
 
         // Create a step number counter
         int stepNum = 0;
@@ -61,10 +62,10 @@ public class ProjectPattern extends Activity {
         for(Step step : curProject.getStyle().getSection(curSection).getStepList()) {
 
             // Create and add a step to the screen
-            Button b = new Button(this);
-            b.setText(curProject.getStyle().getStep(curSection, stepNum, d));
+            LinearLayout llStep = new LinearLayout( this );
+            makeStep( llStep, stepNum );
 
-            taskList.addView(b);
+            taskList.addView(llStep);
 
             // Increment the step number counter
             stepNum++;
@@ -123,6 +124,28 @@ public class ProjectPattern extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void makeStep( LinearLayout step, int stepNum ) {
+
+        // Assign text to the step
+        TextView text = new TextView( this );
+        text.setText(curProject.getStyle().getStep(curSection, stepNum, dimension));
+        text.setLayoutParams( new LinearLayout.LayoutParams( 0, ViewGroup.LayoutParams.MATCH_PARENT,
+                0.9f ) );
+
+        step.addView( text );
+
+        // Create the checkbox and give it a unique ID
+        CheckBox checkbox = new CheckBox( this );
+        text.setLayoutParams( new LinearLayout.LayoutParams( 0, ViewGroup.LayoutParams.MATCH_PARENT,
+                0.1f ) );
+
+        step.addView( checkbox );
+
+        // Set up the step layout parameters
+        step.setLayoutParams( new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.WRAP_CONTENT ) );
     }
 
     public void decrementRow( View view ) {
