@@ -9,6 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+import net.sourceforge.jeval.EvaluationException;
+import net.sourceforge.jeval.Evaluator;
+
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
 /**
@@ -24,6 +27,8 @@ public class Dimensions
     ////////////////////////
     /** underlying object used to save measurement information */
     private JSONObject mStorage;
+
+    private static Evaluator mEvaluator = new Evaluator();
 
 
 
@@ -369,9 +374,22 @@ public class Dimensions
      */
     public String parseExpression( String expression )
     {
-        String result = "";
+        // replace variables with values
+        String[] keys = getDimensionKeys();
+        for (String key : keys) {
+            expression = expression.replaceAll(key,
+                    String.valueOf(getDimension(key)));
+        }
 
+        // evaluate the expression
+        String result;
+        try {
+            result = mEvaluator.evaluate(expression);
+        } catch(EvaluationException e) {
+            throw new RuntimeException(e);
+        }
 
+        // return...
         return result;
     }
 
@@ -398,6 +416,8 @@ public class Dimensions
             m.setDimension("Hello", 11);
             m.setDimension("No", 12);
             m.setDimension("Bye", 13);
+            System.out.println(m.parseExpression("4 - 5"));
+            System.out.println(m.parseExpression("floor(Hello - Bye + No + No + 0.5)"));
             Dimensions m2 = new Dimensions(m.stringify());
 
             System.out.println( m2.getDimension("Hello") );
