@@ -69,13 +69,34 @@ public class Style {
      */
     public String getStep(int section, int step, Dimensions d) {
         String text = sectionList.get(section).getStep(step).getText();
+        String expression = "";
+        boolean expressionGo = false;
+        int startIndex = -1;
+        int endIndex = -1;
 
         // TODO: dynamically insert variables into step
         for (int i = 0; i < text.length(); i++) {
+
+            // If we hit the end of the insert
+            if ( expressionGo && text.charAt(i) == ']') {
+                expressionGo = false;
+                endIndex = -1;
+
+                // Replace the text with the expression return
+                text = text.replace( "[" + expression + "]", d.parseExpression(expression) );
+            }
+
+            // Add to the expression if we are in an expression
+            if ( expressionGo ) {
+                expression += text.charAt(i);
+            }
+
             // If we hit a variable insert
             if (text.charAt(i) == '[') {
-                // Replace the variable with the proper variable
+                expressionGo = true;
+                startIndex = i;
             }
+
         }
 
         return text;
@@ -140,7 +161,7 @@ public class Style {
 
         // Section 1
         sList = new ArrayList<Step>(1);
-        sList.add(new Step("Knit [AA] rows.")); // Example of variable insertion
+        sList.add(new Step("Knit [6 + 3] rows.")); // Example of variable insertion
         sList.add(new Step("This is the second step."));
         sList.add(new Step("This is the third step."));
 

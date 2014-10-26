@@ -212,7 +212,6 @@ public class DogProfileCreation extends Activity {
                     profileDataSource.getAllProjects();
 
                     long projectId = newProject.getId();
-                    Log.d("I hate you ", " "  + projectId);
                     in.putExtra("projId", projectId );
 
 
