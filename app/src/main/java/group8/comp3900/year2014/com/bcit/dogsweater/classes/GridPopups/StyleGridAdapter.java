@@ -2,9 +2,12 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,11 +66,18 @@ public class StyleGridAdapter extends BaseAdapter {
 
         iview = (ImageView) llview.findViewById(R.id.gridImage);
         tv = (TextView) llview.findViewById(R.id.gridText);
+        //Get Device sizes
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
 
         //Apply the images and layout constraints to the imageView
-        iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
+        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
         iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iview.setPadding(5, 5, 5, 5);
+
         iview.setImageResource(imageIds.get(position));
 
         tv.setText("Style");

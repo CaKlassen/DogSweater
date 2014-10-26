@@ -2,7 +2,6 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -45,7 +44,7 @@ public class ProfileName extends Activity {
     ////////////////////////
     /** URI to image chosen by user for the profile that's being created */
     // TODO: make a default image uri. it's not as simple as a drawable i think, because drawables don't have URIs
-    private String profileImageUri = "dummy URI";
+    private String profileImageUri = "android.resource://group8.comp3900.year2014.com.bcit.dogsweater/drawable/dog_silhouette";
 
 
 
@@ -164,6 +163,8 @@ public class ProfileName extends Activity {
             we have enough information to start the next activity; start
             it...our goal here is to create a new profile from scratch.
              */
+
+
             Intent in = new Intent(this, DogProfileCreation.class);
             in.putExtra(DogProfileCreation.KEY_PROFILE_NAME, profileName);
             in.putExtra(DogProfileCreation.KEY_DIMENSION_KEYS,

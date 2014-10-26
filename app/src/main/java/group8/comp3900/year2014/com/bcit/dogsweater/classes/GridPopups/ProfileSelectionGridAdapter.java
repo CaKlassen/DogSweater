@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,27 +76,35 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             llview = inflater.inflate(R.layout.grid_layout, parent, false);
 
+
         } else {
             llview = view;
         }
 
         //Get the image and text view for the square
-
         iview = (ImageView) llview.findViewById(R.id.gridImage);
         tv = (TextView) llview.findViewById(R.id.gridText);
 
+        //Get Device sizes
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
         //Apply the images and layout constraints to the imageView
-        iview.setLayoutParams(new LinearLayout.LayoutParams(350, 350));
+        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
         iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iview.setPadding(5, 5, 5, 5);
+
 
         // setting dialog image...use a worker thread to load the image
         Uri imageUri = (dialogables.get(position).getDialogueImageUri());
         ThreadManager.mInstance.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
-                ThreadManager.CropPattern.SQUARE,   // crop pattern
-                600,                                // image width
+                ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                width/2,                                // image width
 
                 // what to do when success
                 new ThreadManager.OnResponseListener() {

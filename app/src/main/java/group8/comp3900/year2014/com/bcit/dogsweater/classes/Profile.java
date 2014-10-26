@@ -26,7 +26,7 @@ public class Profile
 
     public Profile( String name ) {
 
-        this( name, new Dimensions() );
+        this( name, new Dimensions(), (Uri)null);
     }
 
     public Profile( String name, Dimensions dimensions ) {
