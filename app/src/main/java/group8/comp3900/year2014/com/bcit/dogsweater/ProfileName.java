@@ -3,6 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -24,7 +25,10 @@ public class ProfileName extends Activity {
     // android system intents //
     ////////////////////////////
     /** intent used to select a photo from some sort of gallery app */
-    private static final int SELECT_PHOTO = 100;
+    private static final int SELECT_PHOTO          = 100;
+
+    /** intent used to take a photo from camera */
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
 
 
@@ -105,20 +109,33 @@ public class ProfileName extends Activity {
         }
     }
 
+    public boolean takeImage() {
+
+        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        return true;
+    }
+
+    public boolean choseImage() {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+        return true;
+    }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
             case R.id.menu_item_take_picture:
-                Toast.makeText(this, "Taking a photo",
-                        Toast.LENGTH_SHORT).show();
-                return true;
+                return takeImage();
 
             case R.id.menu_item_choose_image:
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-                return true;
+                return choseImage();
 
             default:
                 return super.onContextItemSelected(item);
@@ -130,6 +147,11 @@ public class ProfileName extends Activity {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         switch(requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if(resultCode == RESULT_OK) {
+                    choseImage();
+                }
+                break;
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK) {
                     profileImageUri = imageReturnedIntent.getData().toString();
