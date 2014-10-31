@@ -11,9 +11,9 @@ import android.view.View;
 
     class MyGestureDetector extends SimpleOnGestureListener {
 
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private static final int SWIPE_MIN_DISTANCE = 80;
+    private static final int SWIPE_MAX_OFF_PATH = 100;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 150;
     private GestureDetector gestureDetector;
     View.OnTouchListener gestureListener;
 
@@ -31,7 +31,10 @@ import android.view.View;
                 return false;
             // right to left swipe
             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                //sm.show();
+                if(sm.getShown())
+                {
+                    sm.hide();
+                }
             }
             //Left to right
             else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {

@@ -388,6 +388,11 @@ public class SlideMenu extends LinearLayout {
 	}
 
 
+    public boolean getShown()
+    {
+        return menuIsShown;
+    }
+
 
 	/**
 	 * Slide the menu out.
