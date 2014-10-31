@@ -19,6 +19,10 @@ public class StyleSelection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style);
 
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+
         // Retrieve the project id from the Bundle
         final long projId;
         projId = getIntent().getExtras().getLong("projId");

@@ -105,6 +105,10 @@ public class DogProfileCreation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile_creation);
+
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
         parseStartingIntent(getIntent());
         initializeGUIReferences();
         updateGUI();

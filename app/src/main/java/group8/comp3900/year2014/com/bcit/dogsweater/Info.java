@@ -14,6 +14,10 @@ public class Info extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+
         setContentView(R.layout.activity_info);
     }
 

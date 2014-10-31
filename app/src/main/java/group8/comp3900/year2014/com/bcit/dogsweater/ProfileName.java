@@ -59,6 +59,10 @@ public class ProfileName extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_name);
+
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
         initializeGUIReferences();
         configureGUIReferences();
 

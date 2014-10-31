@@ -15,6 +15,10 @@ public class YarnSelection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yarn_selection);
 
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+
         //TODO: Pull project ID from bundle
     }
 

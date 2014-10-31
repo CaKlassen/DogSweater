@@ -27,6 +27,9 @@ public class Materials extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materials);
 
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
         // Get the project id from the bundle
         projId = getIntent().getExtras().getLong("Project Id");
 

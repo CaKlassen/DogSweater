@@ -28,6 +28,10 @@ public class ProfileSelection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_selection);
 
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+
         GridView gridview = (GridView) findViewById(R.id.profileGridView);
         final ProfileSelectionGridAdapter gridAdapter = new ProfileSelectionGridAdapter(this);
         gridview.setAdapter(gridAdapter);

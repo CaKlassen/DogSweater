@@ -29,6 +29,9 @@ public class ProjectPattern extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_pattern);
 
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
         // Retrieve the project id from the bundle
         final long projId = getIntent().getExtras().getLong("Project Id");
 

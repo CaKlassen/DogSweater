@@ -45,6 +45,10 @@ public class ManageProfiles extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_profiles);
+
+        //Create the menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
         initializeInstanceData();
         initializeGUIReferences();
         configureGUIReferences();
