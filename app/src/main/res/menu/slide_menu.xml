@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SliderFun" >
+    
+    <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/yarn"
+        android:title="Home">
+    </item>
+    <item
+        android:id="@+id/item_newProj"
+        android:icon="@drawable/yarn"
+        android:title="New Project">
+    </item>
+
+    <item
+        android:id="@+id/item_currentProj"
+        android:icon="@drawable/yarn"
+        android:title="Current Projects">
+    </item>
+    <item
+        android:id="@+id/item_managProf"
+        android:icon="@drawable/yarn"
+        android:title="Manage Profiles">
+    </item>
+    <item
+        android:id="@+id/item_information"
+        android:icon="@drawable/yarn"
+        android:title="Information">
+    </item>
+
+</menu>
