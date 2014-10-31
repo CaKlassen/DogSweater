@@ -1,5 +1,7 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.net.Uri;
+
 /**
  * Created by Chris on 2014-10-15.
  */
@@ -13,17 +15,15 @@ public class Project {
     private Profile profile;
     private Style style;
 
+    private Uri imageURI = null;
+
     /**
      * Author: Chris Klassen
      *
      * Constructor for a project object.
      */
     public Project(Profile p, Style s) {
-        profile = p;
-        style = s;
-        name = "Temp";
-        percentDone = 0;
-        rowCounter = 0;
+        this( "Temp", 0, 0, p, s );
     }
 
     /**
@@ -32,12 +32,8 @@ public class Project {
      *          when the profile is known but style isnt determined yet
      */
     public Project(Profile p) {
-        profile = p;
-        name = "Temp";
-        percentDone = 0;
-        rowCounter = 0;
         //TODO: FIX LATER TO PROPER DEFAULT VAL
-        style = new Style("Style 1", 1);
+        this( p, new Style("Style 1", 1) );
     }
 
     /**
@@ -46,11 +42,21 @@ public class Project {
      * Database constructor for a project object.
      */
     public Project(String n, float pd, int r, Profile p, Style s) {
-        name = n;
-        percentDone = pd;
+        setName( n );
+        setPercentDone( pd );
         rowCounter = r;
         profile = p;
-        style = s;
+        setStyle( s );
+    }
+
+    public Project(String n, float pd, int r, Profile p, Style s, Uri imageURI) {
+        this( n, pd, r, p, s );
+        setImageURI( imageURI );
+    }
+
+    public Project(String n, float pd, int r, Profile p, Style s, String imageURI) {
+        this( n, pd, r, p, s );
+        setImageURI( imageURI );
     }
 
     public void setName(String n) {
@@ -111,6 +117,29 @@ public class Project {
 
     public void setStyle(Style s){
         this.style = s;
+    }
+
+    public void setImageURI( String newImageURI ) {
+
+        if( newImageURI == null || newImageURI.equalsIgnoreCase( "null" ) ) {
+
+            setImageURI( (Uri) null );
+        }
+        else {
+
+            setImageURI( Uri.parse( newImageURI ) );
+        }
+
+    }
+
+    public void setImageURI( Uri newImageURI ) {
+
+        this.imageURI = newImageURI;
+    }
+
+    public Uri getImageURI() {
+
+        return imageURI;
     }
 
 }
