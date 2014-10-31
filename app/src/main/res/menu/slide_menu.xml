@@ -7,6 +7,7 @@
         android:icon="@drawable/yarn"
         android:title="Home">
     </item>
+
     <item
         android:id="@+id/item_newProj"
         android:icon="@drawable/yarn"
@@ -18,11 +19,13 @@
         android:icon="@drawable/yarn"
         android:title="Current Projects">
     </item>
+
     <item
         android:id="@+id/item_managProf"
         android:icon="@drawable/yarn"
         android:title="Manage Profiles">
     </item>
+
     <item
         android:id="@+id/item_information"
         android:icon="@drawable/yarn"
