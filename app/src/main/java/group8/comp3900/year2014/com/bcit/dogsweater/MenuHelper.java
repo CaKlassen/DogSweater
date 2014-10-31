@@ -41,7 +41,7 @@ public class MenuHelper extends Activity  implements group8.comp3900.year2014.co
         // this inflates the menu from XML. open/closed state will be restored after rotation, but you'll have to call init.
         slidemenu = (SlideMenu) a.findViewById(R.id.slideMenu);
 
-            slidemenu.init(a, R.menu.slide_menu, this, 100);
+            slidemenu.init(a, R.menu.slide_menu, this, 120);
 
 
         // this can set the menu to initially shown instead of hidden
