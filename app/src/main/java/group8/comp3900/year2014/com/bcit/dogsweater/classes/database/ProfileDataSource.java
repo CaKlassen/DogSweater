@@ -39,6 +39,15 @@ public class ProfileDataSource {
             DogYarnItSQLHelper.PROJECT_STYLE
     };
 
+    private static final String[] columnsStep = {
+
+            DogYarnItSQLHelper.STEP_ID,
+            DogYarnItSQLHelper.STEP_PROJECT,
+            DogYarnItSQLHelper.STEP_SECTION,
+            DogYarnItSQLHelper.STEP_STEP,
+            DogYarnItSQLHelper.STEP_STATE
+    };
+
     public ProfileDataSource(Context context) {
 
         dbHelper = getInstance(context);
@@ -296,6 +305,53 @@ public class ProfileDataSource {
 
         return project;
     }
+
+    /*******************************************
+     * STEP METHODS
+     *******************************************/
+    public void saveStepState( long projNum, int secNum, int stepNum, boolean state ) {
+
+        ContentValues values = new ContentValues();
+        Cursor cursor = database.rawQuery("SELECT * from " + dbHelper.TABLE_STEPS + " WHERE " +
+                dbHelper.STEP_PROJECT + " = " + projNum + " AND " + dbHelper.STEP_SECTION +
+                " = " + secNum + " AND " + dbHelper.STEP_STEP + " = " + stepNum, null);
+
+        values.put( DogYarnItSQLHelper.STEP_PROJECT, projNum );
+        values.put( DogYarnItSQLHelper.STEP_SECTION, secNum );
+        values.put( DogYarnItSQLHelper.STEP_STEP, stepNum );
+        values.put( DogYarnItSQLHelper.STEP_STATE, state );
+
+        if ( cursor.getCount() > 0 ) {
+            database.update( DogYarnItSQLHelper.TABLE_STEPS, values, dbHelper.STEP_PROJECT + " = " + projNum +
+                    " AND " + dbHelper.STEP_SECTION + " = " + secNum + " AND " + dbHelper.STEP_STEP +
+                    " = " + stepNum, null );
+        } else {
+            database.insert( DogYarnItSQLHelper.TABLE_STEPS
+                    , null
+                    , values );
+        }
+
+        cursor.close();
+    }
+
+    public int getStepState( long projNum, int secNum, int stepNum ) {
+        Cursor cursor = database.rawQuery("SELECT " + dbHelper.STEP_STATE + " from " + dbHelper.TABLE_STEPS + " WHERE " +
+                dbHelper.STEP_PROJECT + " = " + projNum + " AND " + dbHelper.STEP_SECTION +
+                " = " + secNum + " AND " + dbHelper.STEP_STEP + " = " + stepNum, null);
+
+        if ( cursor.getCount() > 0 ) {
+            int state = cursor.getInt( 0 );
+            cursor.close();
+            return state;
+        } else {
+            // This does not exist yet
+            cursor.close();
+            return -1;
+        }
+
+    }
+
+
 
     public static DogYarnItSQLHelper getInstance(Context context) {
 

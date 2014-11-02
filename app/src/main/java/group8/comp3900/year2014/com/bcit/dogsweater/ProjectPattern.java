@@ -138,6 +138,7 @@ public class ProjectPattern extends Activity {
         text.setLayoutParams( new LinearLayout.LayoutParams( 0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.9f ) );
 
+        // Add the text field to the step
         step.addView( text );
 
         // Create the checkbox and give it a unique ID
@@ -146,6 +147,23 @@ public class ProjectPattern extends Activity {
                 0.1f));
         checkbox.setId( stepNum );
 
+        // Check if the checkbox has been saved to the database already
+        ProfileDataSource db = new ProfileDataSource(getApplicationContext());
+        int state;
+        db.open();
+
+        if ( ( state = db.getStepState( curProject.getId(), curSection, checkbox.getId() ) ) == -1 ) {
+            // Save the initial step state
+            db.saveStepState( curProject.getId(), curSection, checkbox.getId(), true );
+            db.close();
+        } else {
+            // Set the step's state
+            db.open();
+            checkbox.setChecked( ( state != 0 ) );
+            db.close();
+        }
+
+        // Define the functionality of checking/unchecking a checkbox
         checkbox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton b, boolean checked) {
@@ -153,15 +171,16 @@ public class ProjectPattern extends Activity {
                 db.open();
 
                 if ( checked ) {
-                    //db.saveStepState( curProject, curSection, b.getId(), true );
+                    db.saveStepState( curProject.getId(), curSection, b.getId(), true );
                 } else {
-                    //db.saveStepState( curProject, curSection, b.getId(), false );
+                    db.saveStepState( curProject.getId(), curSection, b.getId(), false );
                 }
 
                 db.close();
             }
         });
 
+        // Add the checkbox to the step
         step.addView( checkbox );
 
         // Set up the step layout parameters

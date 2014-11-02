@@ -122,6 +122,14 @@ public class currentProjects extends Activity {
                     @Override
                     public void onClick(View v) {
                         Intent in = new Intent(getApplicationContext(), ProjectPattern.class);
+
+                        profileDataSource.open();
+                        List<Project> projects = profileDataSource.getAllProjects();
+                        Project curProject = projects.get( position );
+                        profileDataSource.close();
+
+
+                        in.putExtra( "Project Id", curProject.getId() );
                         startActivity(in);
                     }
 
