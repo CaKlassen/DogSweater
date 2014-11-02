@@ -126,7 +126,7 @@ public class currentProjects extends Activity {
                     }
 
                 });
-                popup.show();
+            popup.show();
 
             }
 

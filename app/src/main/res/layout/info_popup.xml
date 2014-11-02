@@ -5,33 +5,36 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff" >
-
+    android:background="#ffffff"
+   >
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
+        android:textSize="30sp"
         android:layout_gravity="center"
         android:id="@+id/popupTitle" />
 
     <ImageView
         android:id="@+id/largeView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.60"
         android:background="@color/gridBackground" />
 
     <TextView
         android:id="@+id/descriptionText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.20"
         android:textSize="20sp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
         android:id="@+id/nextButton"
         android:onClick="Next" />
 
