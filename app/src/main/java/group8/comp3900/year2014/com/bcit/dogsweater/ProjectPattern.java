@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -141,8 +142,25 @@ public class ProjectPattern extends Activity {
 
         // Create the checkbox and give it a unique ID
         CheckBox checkbox = new CheckBox( this );
-        text.setLayoutParams( new LinearLayout.LayoutParams( 0, ViewGroup.LayoutParams.MATCH_PARENT,
-                0.1f ) );
+        checkbox.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
+                0.1f));
+        checkbox.setId( stepNum );
+
+        checkbox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton b, boolean checked) {
+                ProfileDataSource db = new ProfileDataSource(getApplicationContext());
+                db.open();
+
+                if ( checked ) {
+                    //db.saveStepState( curProject, curSection, b.getId(), true );
+                } else {
+                    //db.saveStepState( curProject, curSection, b.getId(), false );
+                }
+
+                db.close();
+            }
+        });
 
         step.addView( checkbox );
 

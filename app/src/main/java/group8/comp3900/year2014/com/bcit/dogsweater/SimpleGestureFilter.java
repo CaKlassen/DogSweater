@@ -32,7 +32,7 @@ import android.view.View;
             }
             // right to left swipe
             else if ( Math.abs(e1.getX() - e2.getX()) > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                if (e1.getX() < e2.getX()) {
+                if (e1.getX() > e2.getX()) {
                     if (sm.getShown()) {
                         sm.hide();
                     }
