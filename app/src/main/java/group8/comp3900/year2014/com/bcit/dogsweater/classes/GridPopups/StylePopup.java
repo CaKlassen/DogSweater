@@ -86,6 +86,7 @@ public class StylePopup extends Dialog {
                     profileDataSource.open();
                     Project tempProj = profileDataSource.getProject(projId);
                     tempProj.setStyle(s);
+                    tempProj.setName( tempProj.getProfile().getName() + " - " + s.getName() );
                     profileDataSource.updateProject(tempProj);
 
                     profileDataSource.close();

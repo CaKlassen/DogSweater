@@ -22,6 +22,7 @@ public class DogYarnItSQLHelper extends SQLiteOpenHelper {
     public static final String PROJECT_PROFILE    = "profile";
     public static final String PROJECT_STYLE      = "style";
     public static final String PROJECT_PERCENT    = "percent";
+    public static final String PROJECT_SECTION    = "section";
     public static final String PROJECT_ROWS       = "rows";
 
     //table to hold step information
@@ -51,6 +52,7 @@ public class DogYarnItSQLHelper extends SQLiteOpenHelper {
                     + "," + PROJECT_ROWS         + " INTEGER NOT NULL"
                     + "," + PROJECT_PROFILE      + " INTEGER NOT NULL"
                     + "," + PROJECT_STYLE        + " INTEGER NOT NULL"
+                    + "," + PROJECT_SECTION      + " INTEGER NOT NULL"
                     + ");";
     private static final String DATABASE_CREATE_STEP =
             "CREATE TABLE " + TABLE_STEPS

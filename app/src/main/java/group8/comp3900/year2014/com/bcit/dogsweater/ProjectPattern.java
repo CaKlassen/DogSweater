@@ -50,6 +50,12 @@ public class ProjectPattern extends Activity {
         curProject = db.getProject(projId);
         db.close();
 
+        // Save the current section to the project
+        curProject.setSection( curSection );
+        db.open();
+        db.updateProject( curProject );
+        db.close();
+
         // Populate the title based on the active project
         TextView title = (TextView) findViewById(R.id.patternTitle);
         title.setText( curProject.getStyle().getSection(curSection).getName());
@@ -154,13 +160,11 @@ public class ProjectPattern extends Activity {
 
         if ( ( state = db.getStepState( curProject.getId(), curSection, checkbox.getId() ) ) == -1 ) {
             // Save the initial step state
-            db.saveStepState( curProject.getId(), curSection, checkbox.getId(), true );
+            db.saveStepState( curProject.getId(), curSection, checkbox.getId(), false );
             db.close();
         } else {
             // Set the step's state
-            db.open();
-            checkbox.setChecked( ( state != 0 ) );
-            db.close();
+            checkbox.setChecked((state != 0));
         }
 
         // Define the functionality of checking/unchecking a checkbox

@@ -36,7 +36,8 @@ public class ProfileDataSource {
             DogYarnItSQLHelper.PROJECT_PERCENT,
             DogYarnItSQLHelper.PROJECT_ROWS,
             DogYarnItSQLHelper.PROJECT_PROFILE,
-            DogYarnItSQLHelper.PROJECT_STYLE
+            DogYarnItSQLHelper.PROJECT_STYLE,
+            DogYarnItSQLHelper.PROJECT_SECTION
     };
 
     private static final String[] columnsStep = {
@@ -171,6 +172,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_ROWS, project.getRowCounter() );
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE, project.getProfile().getId() );
         values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getStyleNumber() );
+        values.put( DogYarnItSQLHelper.PROJECT_SECTION, project.getSection() );
 
         long insertId = database.insert( DogYarnItSQLHelper.TABLE_PROJECTS
                 , null
@@ -188,6 +190,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_ROWS, project.getRowCounter() );
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE, project.getProfile().getId() );
         values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getName() );
+        values.put( DogYarnItSQLHelper.PROJECT_SECTION, project.getSection() );
 
         database.update(DogYarnItSQLHelper.TABLE_PROJECTS, values,  DogYarnItSQLHelper.PROJECT_ID + " = " +  project.getId(), null );
 
@@ -295,6 +298,11 @@ public class ProfileDataSource {
         )
                 , p
                 , s
+                , cursor.getInt(
+                cursor.getColumnIndex(
+                        DogYarnItSQLHelper.PROJECT_SECTION
+                )
+        )
         );
 
         project.setId( cursor.getLong (

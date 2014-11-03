@@ -12,6 +12,7 @@ public class Project {
     private String name;
     private float percentDone;
     private int rowCounter;
+    private int curSection;
     private Profile profile;
     private Style style;
 
@@ -23,7 +24,7 @@ public class Project {
      * Constructor for a project object.
      */
     public Project(Profile p, Style s) {
-        this( "Temp", 0, 0, p, s );
+        this( "Temp", 0, 0, p, s, 0 );
     }
 
     /**
@@ -41,21 +42,22 @@ public class Project {
      *
      * Database constructor for a project object.
      */
-    public Project(String n, float pd, int r, Profile p, Style s) {
+    public Project(String n, float pd, int r, Profile p, Style s, int cs) {
         setName( n );
         setPercentDone( pd );
         rowCounter = r;
         profile = p;
         setStyle( s );
+        curSection = cs;
     }
 
-    public Project(String n, float pd, int r, Profile p, Style s, Uri imageURI) {
-        this( n, pd, r, p, s );
+    public Project(String n, float pd, int r, Profile p, Style s, Uri imageURI, int cs) {
+        this( n, pd, r, p, s, cs );
         setImageURI( imageURI );
     }
 
-    public Project(String n, float pd, int r, Profile p, Style s, String imageURI) {
-        this( n, pd, r, p, s );
+    public Project(String n, float pd, int r, Profile p, Style s, String imageURI, int cs) {
+        this( n, pd, r, p, s, cs );
         setImageURI( imageURI );
     }
 
@@ -65,6 +67,14 @@ public class Project {
 
     public String getName() {
         return name;
+    }
+
+    public void setSection(int s) {
+        curSection = s;
+    }
+
+    public int getSection() {
+        return curSection;
     }
 
     public void setPercentDone(float p) {
