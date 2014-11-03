@@ -213,9 +213,10 @@ public class ProfileDataSource {
         if (cursor.getCount() > 0 )
         {
             cursor.moveToFirst();
-            while( cursor.moveToNext() ) {
+            while(!cursor.isAfterLast()) {
                 Project project = cursorToProject(cursor);
                 projects.add(project);
+                cursor.moveToNext();
             }
             // make sure to close the cursor
             cursor.close();
@@ -340,6 +341,7 @@ public class ProfileDataSource {
                 " = " + secNum + " AND " + dbHelper.STEP_STEP + " = " + stepNum, null);
 
         if ( cursor.getCount() > 0 ) {
+            cursor.moveToFirst();
             int state = cursor.getInt( 0 );
             cursor.close();
             return state;
