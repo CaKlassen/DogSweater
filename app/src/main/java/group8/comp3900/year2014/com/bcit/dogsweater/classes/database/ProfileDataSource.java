@@ -104,7 +104,7 @@ public class ProfileDataSource {
                 , null
                 , null
                 , null);
-        if (cursor != null) {
+        if (cursor != null && cursor.getCount() > 0 ) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 Profile profile = cursorToProfile(cursor);
@@ -114,7 +114,7 @@ public class ProfileDataSource {
         }
         else
         {
-            Log.d("cursor", "null");
+           //No profiles available
         }
         return profiles;
     }
@@ -227,7 +227,7 @@ public class ProfileDataSource {
         }
         else
         {
-            Log.d("Project ", "no project");
+            //No projects available
         }
 
         return projects;

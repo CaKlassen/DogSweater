@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "group8.comp3900.year2014.com.bcit.dogsweater"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
@@ -22,4 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':jeval')
+    compile "com.android.support:support-v4:20.0.+"
+
 }

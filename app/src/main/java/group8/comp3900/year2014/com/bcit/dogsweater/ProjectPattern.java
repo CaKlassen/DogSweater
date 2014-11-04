@@ -3,7 +3,10 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,16 +17,27 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Step;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 
+
 public class ProjectPattern extends Activity {
     private Project curProject;
     private int curSection;
     private Dimensions dimension;
+
+    //For PDF generation
+    private Intent mShareIntent;
+    private OutputStream os;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +65,14 @@ public class ProjectPattern extends Activity {
         db.close();
 
         // Save the current section to the project
-        curProject.setSection( curSection );
+        curProject.setSection(curSection);
         db.open();
-        db.updateProject( curProject );
+        db.updateProject(curProject);
         db.close();
 
         // Populate the title based on the active project
         TextView title = (TextView) findViewById(R.id.patternTitle);
-        title.setText( curProject.getStyle().getSection(curSection).getName());
+        title.setText(curProject.getStyle().getSection(curSection).getName());
 
         // Populate the steps based on the active project
         LinearLayout taskList = (LinearLayout) findViewById(R.id.patternTaskList);
@@ -69,11 +83,11 @@ public class ProjectPattern extends Activity {
         // Create a step number counter
         int stepNum = 0;
 
-        for(Step step : curProject.getStyle().getSection(curSection).getStepList()) {
+        for (Step step : curProject.getStyle().getSection(curSection).getStepList()) {
 
             // Create and add a step to the screen
-            LinearLayout llStep = new LinearLayout( this );
-            makeStep( llStep, stepNum );
+            LinearLayout llStep = new LinearLayout(this);
+            makeStep(llStep, stepNum);
 
             taskList.addView(llStep);
 
@@ -112,8 +126,8 @@ public class ProjectPattern extends Activity {
         }
 
         // Update the row counter with its current value
-        TextView t = (TextView) findViewById( R.id.patternRowCounter );
-        t.setText( "" + curProject.getRowCounter() );
+        TextView t = (TextView) findViewById(R.id.patternRowCounter);
+        t.setText("" + curProject.getRowCounter());
     }
 
 
@@ -136,31 +150,31 @@ public class ProjectPattern extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void makeStep( LinearLayout step, int stepNum ) {
+    public void makeStep(LinearLayout step, int stepNum) {
 
         // Assign text to the step
-        TextView text = new TextView( this );
+        TextView text = new TextView(this);
         text.setText(curProject.getStyle().getStep(curSection, stepNum, dimension));
-        text.setLayoutParams( new LinearLayout.LayoutParams( 0, ViewGroup.LayoutParams.MATCH_PARENT,
-                0.9f ) );
+        text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
+                0.9f));
 
         // Add the text field to the step
-        step.addView( text );
+        step.addView(text);
 
         // Create the checkbox and give it a unique ID
-        CheckBox checkbox = new CheckBox( this );
+        CheckBox checkbox = new CheckBox(this);
         checkbox.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.1f));
-        checkbox.setId( stepNum );
+        checkbox.setId(stepNum);
 
         // Check if the checkbox has been saved to the database already
         ProfileDataSource db = new ProfileDataSource(getApplicationContext());
         int state;
         db.open();
 
-        if ( ( state = db.getStepState( curProject.getId(), curSection, checkbox.getId() ) ) == -1 ) {
+        if ((state = db.getStepState(curProject.getId(), curSection, checkbox.getId())) == -1) {
             // Save the initial step state
-            db.saveStepState( curProject.getId(), curSection, checkbox.getId(), false );
+            db.saveStepState(curProject.getId(), curSection, checkbox.getId(), false);
             db.close();
         } else {
             // Set the step's state
@@ -174,10 +188,10 @@ public class ProjectPattern extends Activity {
                 ProfileDataSource db = new ProfileDataSource(getApplicationContext());
                 db.open();
 
-                if ( checked ) {
-                    db.saveStepState( curProject.getId(), curSection, b.getId(), true );
+                if (checked) {
+                    db.saveStepState(curProject.getId(), curSection, b.getId(), true);
                 } else {
-                    db.saveStepState( curProject.getId(), curSection, b.getId(), false );
+                    db.saveStepState(curProject.getId(), curSection, b.getId(), false);
                 }
 
                 db.close();
@@ -185,24 +199,64 @@ public class ProjectPattern extends Activity {
         });
 
         // Add the checkbox to the step
-        step.addView( checkbox );
+        step.addView(checkbox);
 
         // Set up the step layout parameters
-        step.setLayoutParams( new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
-                ActionBar.LayoutParams.WRAP_CONTENT ) );
+        step.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.WRAP_CONTENT));
     }
 
-    public void decrementRow( View view ) {
+    public void decrementRow(View view) {
         curProject.decrementRowCounter();
 
-        TextView t = (TextView) findViewById( R.id.patternRowCounter );
-        t.setText( "" + curProject.getRowCounter() );
+        TextView t = (TextView) findViewById(R.id.patternRowCounter);
+        t.setText("" + curProject.getRowCounter());
     }
 
-    public void incrementRow( View view ) {
+    public void incrementRow(View view) {
         curProject.incrementRowCounter();
 
-        TextView t = (TextView) findViewById( R.id.patternRowCounter );
-        t.setText( "" + curProject.getRowCounter() );
+        TextView t = (TextView) findViewById(R.id.patternRowCounter);
+        t.setText("" + curProject.getRowCounter());
+    }
+
+    public void createPattern(View v) {
+        new Thread().start();
+
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 300, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        View content = findViewById(R.id.testText);
+        content.draw(page.getCanvas());
+        document.finishPage(page);
+
+
+        try {
+            File pdfDirPath = new File(getFilesDir(), "pdfs");
+            pdfDirPath.mkdirs();
+            File file = new File(pdfDirPath, "Pattern.pdf");
+            Uri uri = FileProvider.getUriForFile(this, "com.example.fileprovider", file);
+            os = new FileOutputStream(file);
+            document.writeTo(os);
+            document.close();
+            os.close();
+            shareDocument(uri);
+        } catch (IOException e) {
+            throw new RuntimeException("Error generating file", e);
+        }
+    }
+
+    private void shareDocument(Uri uri) {
+        mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("application/pdf");
+        // Assuming it may go via eMail:
+        mShareIntent.putExtra(Intent.EXTRA_SUBJECT, "Here is a PDF from Dog Yarn it. Bitch.");
+        // Attach the PDf as a Uri, since Android can't take it as bytes yet.
+        mShareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(mShareIntent);
+
+        return;
     }
 }
