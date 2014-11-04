@@ -34,8 +34,7 @@ public class StyleSelection extends Activity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                // TODO: modify below to instantiate an InfoPopup the new way because Eric changed it
-               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.Materials", "STYLE", projId);
+               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.YarnChoice", "STYLE", projId);
             }
         });
     }
