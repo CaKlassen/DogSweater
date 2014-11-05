@@ -58,6 +58,37 @@
             android:layout_height="wrap_content"
             android:text="Continue Working"
             android:background="@android:color/holo_green_light"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
+
+        <Button
+            android:id="@+id/TakeProjectPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Take Photo"
+            android:background="@android:color/holo_green_light"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.1">
+
+        <Button
+            android:id="@+id/ChoseProjectImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chose Image"
+            android:background="@android:color/holo_green_light"/>
+
     </LinearLayout>
 
 </LinearLayout>

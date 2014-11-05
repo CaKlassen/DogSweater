@@ -3,11 +3,13 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -135,11 +137,83 @@ public class currentProjects extends Activity {
                     }
 
                 });
+
+                popup.setOnTakePhotoButtonClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        takeImage(position);
+                    }
+
+                });
+
+                popup.setOnChoseImageButtonClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        choseImage( position );
+                    }
+
+                });
             popup.show();
 
             }
 
         });
 
+    }
+
+    /** intent used to select a photo from some sort of gallery app */
+    private static final int SELECT_PHOTO          = 100;
+
+    /** intent used to take a photo from camera */
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
+
+    public boolean takeImage( long p ) {
+
+        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        takePictureIntent.putExtra( "curProject", p );
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        return true;
+    }
+
+    public boolean choseImage( long projectID ) {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.putExtra( "curProject", projectID );
+
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        long curProjectId = imageReturnedIntent.getLongExtra( "curProject" , -1 );
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if(resultCode == RESULT_OK) {
+                    choseImage( curProjectId );
+                }
+                break;
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK) {
+                    if( curProjectId == -1 )
+                        Toast.makeText(this, "lol fail",Toast.LENGTH_SHORT).show();
+
+                    profileDataSource.open();
+                    Project curProject = profileDataSource.getProject( curProjectId );
+
+                    curProject.setImageURI(imageReturnedIntent.getData().toString());
+
+                    profileDataSource.updateProject( curProject );
+                    profileDataSource.close();
+                }
+                break;
+        }
     }
 }
