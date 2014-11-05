@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.CurrentProjectPopup;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectDialogable;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectGridAdapter;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
@@ -94,6 +96,8 @@ public class currentProjects extends Activity {
 
     }
 
+    private int curProjectPosition = -1;
+
     /** one time behavioural configuration to the activity's views go here */
     private void configureGUIReferences() {
 
@@ -108,10 +112,12 @@ public class currentProjects extends Activity {
                     @Override
                     public void onClick(View v) {
 
+                        ;
+
                         //Delete from database
                         profileDataSource.open();
                         List<Project> projects = profileDataSource.getAllProjects();
-                        profileDataSource.deleteProject((projects.get(position)));
+                        profileDataSource.deleteProject( ((ProjectDialogable)gridAdapter.getItem( position )).getProject() );
                         profileDataSource.close();
                         gridAdapter.remove(position);
                         popup.dismiss();
@@ -127,7 +133,7 @@ public class currentProjects extends Activity {
 
                         profileDataSource.open();
                         List<Project> projects = profileDataSource.getAllProjects();
-                        Project curProject = projects.get( position );
+                        Project curProject = ((ProjectDialogable)gridAdapter.getItem( position )).getProject();
                         profileDataSource.close();
 
 
@@ -141,7 +147,8 @@ public class currentProjects extends Activity {
                 popup.setOnTakePhotoButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        takeImage(position);
+                        takeImage();
+                        curProjectPosition = position;
                     }
 
                 });
@@ -150,7 +157,8 @@ public class currentProjects extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        choseImage( position );
+                        choseImage();
+                        curProjectPosition = position;
                     }
 
                 });
@@ -168,10 +176,9 @@ public class currentProjects extends Activity {
     /** intent used to take a photo from camera */
     private static final int REQUEST_IMAGE_CAPTURE = 101;
 
-    public boolean takeImage( long p ) {
+    public boolean takeImage() {
 
         Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-        takePictureIntent.putExtra( "curProject", p );
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -179,10 +186,9 @@ public class currentProjects extends Activity {
         return true;
     }
 
-    public boolean choseImage( long projectID ) {
+    public boolean choseImage() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.putExtra( "curProject", projectID );
 
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, SELECT_PHOTO);
@@ -191,27 +197,26 @@ public class currentProjects extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        long curProjectId = imageReturnedIntent.getLongExtra( "curProject" , -1 );
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         switch(requestCode) {
             case REQUEST_IMAGE_CAPTURE:
                 if(resultCode == RESULT_OK) {
-                    choseImage( curProjectId );
+                    choseImage();
                 }
                 break;
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK) {
-                    if( curProjectId == -1 )
-                        Toast.makeText(this, "lol fail",Toast.LENGTH_SHORT).show();
 
                     profileDataSource.open();
-                    Project curProject = profileDataSource.getProject( curProjectId );
-
-                    curProject.setImageURI(imageReturnedIntent.getData().toString());
-
+                    Project curProject = ((ProjectDialogable)gridAdapter.getItem( curProjectPosition )).getProject();
+                    curProject.setImageURI( imageReturnedIntent.getData().toString() );
                     profileDataSource.updateProject( curProject );
                     profileDataSource.close();
+
+                    Log.d( "Project ID", curProject.toString() );
+
+                    Toast.makeText(this, imageReturnedIntent.getData().toString(), Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
