@@ -7,6 +7,9 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.print.PrintAttributes;
+import android.print.pdf.PrintedPdfDocument;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +41,8 @@ public class ProjectPattern extends Activity {
     //For PDF generation
     private Intent mShareIntent;
     private OutputStream os;
+    private View inflatedFirstView;
+    private View inflatedViewContent;
 
 
     @Override
@@ -129,6 +134,9 @@ public class ProjectPattern extends Activity {
         // Update the row counter with its current value
         TextView t = (TextView) findViewById(R.id.patternRowCounter);
         t.setText("" + curProject.getRowCounter());
+
+        inflatedFirstView = getLayoutInflater().inflate(R.layout.pdf_page_first, null);
+        inflatedViewContent = getLayoutInflater().inflate(R.layout.pdf_page_body, null);
     }
 
 
@@ -224,13 +232,23 @@ public class ProjectPattern extends Activity {
     public void createPattern(View v) {
         new Thread().start();
 
-        // Generate the PDF based on the given project
-        PdfDocument document = new PdfDocument();
-        generatePDF( document );
+        PrintAttributes printAttrs = new PrintAttributes.Builder().
+                setColorMode(PrintAttributes.COLOR_MODE_COLOR).
+                setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
+                setResolution(new PrintAttributes.Resolution("DogYarnIt", PRINT_SERVICE, 450, 700)).
+                setMinMargins(PrintAttributes.Margins.NO_MARGINS).
+                build();
 
+        // Generate the PDF based on the given project
+        PdfDocument document = new PrintedPdfDocument(this, printAttrs);
+        int pageHeight = printAttrs.getMediaSize().getHeightMils() / 1000 * 72;
+        int pageWidth = printAttrs.getMediaSize().getWidthMils() / 1000 * 72;
+
+        generatePDF(document, pageHeight, pageWidth);
+
+        File pdf = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                , "Pattern.pdf");
         try {
-            File pdf = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    , "Pattern.pdf");
 
             //Write to phone
             os = new FileOutputStream(pdf);
@@ -238,110 +256,125 @@ public class ProjectPattern extends Activity {
             document.close();
             os.close();
 
-           // Uri uri = FileProvider.getUriForFile( v.getContext(), "group8.comp3900.year2014.com.bcit.dogsweater", pdf);
-            Uri uri = Uri.fromFile(pdf);
-            shareDocument(uri);
-
         } catch (IOException e) {
             throw new RuntimeException("Error generating file", e);
         }
+
     }
 
-    private void generatePDF( PdfDocument pdf ) {
+    public void shareButton(View v)
+    {
+        File pdf = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                , "Pattern.pdf");
+        Uri uri = Uri.fromFile(pdf);
+        shareDocument(uri);
+    }
+
+    private void generatePDF(PdfDocument pdf, int height, int width) {
         PdfDocument.PageInfo pageInfo;
         PdfDocument.Page page;
 
         // Loop through all sections
-        for ( int i = 0; i < curProject.getStyle().getSectionList().size(); i++ ) {
-            pageInfo = new PdfDocument.PageInfo.Builder( 612, 792, i + 1 ).create();
+        for (int i = 0; i < curProject.getStyle().getSectionList().size(); i++) {
+
+            pageInfo = new PdfDocument.PageInfo.Builder(width, height, i + 1).create();
             page = pdf.startPage(pageInfo);
 
-            if ( i == 0 ) {
+            if (i == 0) {
                 // Inflate the page
-                View inflatedView = getLayoutInflater().inflate( R.layout.pdf_page_first, null );
 
                 // First page of the PDF
-                View content = inflatedView.findViewById( R.id.PDF_first_root );
+                View content = inflatedFirstView.findViewById(R.id.PDF_first_root);
 
                 // Dynamically insert data into the page
-                TextView pName = (TextView) inflatedView.findViewById( R.id.PDF_first_projName );
-                pName.setText( curProject.getName() );
+                TextView pName = (TextView) inflatedFirstView.findViewById(R.id.PDF_first_projName);
+                pName.setText(curProject.getName());
 
-                TextView sHead = (TextView) inflatedView.findViewById( R.id.PDF_first_sectionHeader );
-                sHead.setText( curProject.getStyle().getSection( i ).getName() );
+                TextView sHead = (TextView) inflatedFirstView.findViewById(R.id.PDF_first_sectionHeader);
+                sHead.setText(curProject.getStyle().getSection(i).getName());
 
-                LinearLayout section = (LinearLayout) inflatedView.findViewById( R.id.PDF_first_section );
+                LinearLayout section = (LinearLayout) inflatedFirstView.findViewById(R.id.PDF_first_section);
 
                 // Loop through the steps in the section
-                for ( int j = 0; j < curProject.getStyle().getSection( i ).getStepList().size(); j++ ) {
-                    TextView newStep = new TextView( this );
-                    newStep.setText( curProject.getStyle().getSection( i ).getStep( j ).getText() );
-                    newStep.setTextSize( 15 );
+                for (int j = 0; j < curProject.getStyle().getSection(i).getStepList().size(); j++) {
+                    TextView newStep = new TextView(this);
+                    newStep.setText(curProject.getStyle().getSection(i).getStep(j).getText());
+                    newStep.setTextSize(15);
 
                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                             ActionBar.LayoutParams.WRAP_CONTENT);
 
-                    newStep.setLayoutParams( lp );
+                    newStep.setLayoutParams(lp);
 
-                    section.addView( newStep );
+                    section.addView(newStep);
                 }
 
-                TextView pageNum = (TextView) inflatedView.findViewById( R.id.PDF_first_pageNum );
-                pageNum.setText( "Page " + ( i + 1 ) );
+                TextView pageNum = (TextView)  inflatedFirstView.findViewById(R.id.PDF_first_pageNum);
+                pageNum.setText("Page " + (i + 1));
 
                 // Append the inflated view to the current page
-                LinearLayout ll = (LinearLayout) findViewById( R.id.PDF_append_location );
+                LinearLayout ll = (LinearLayout) findViewById(R.id.PDF_append_location);
                 // TODO: Fix this awful memory leak yo
-                //ll.removeAllViews();
-                ll.addView( content );
+                // ll.removeAllViews();
+                ll.addView(content);
 
-                View pageContent = findViewById( R.id.PDF_append_location );
+
+                if ( ll.getWidth() != width && ll.getHeight() != height )
+                {
+                    float xScale = (float) ll.getWidth() / width;
+                    float yScale = (float) ll.getHeight() / height;
+                    Log.d("Scale: ", "xScale: " + xScale);
+                    Log.d("Scale: ", "yScale: " + yScale);
+                    scaleViewAndChildren(ll, xScale, yScale, 0);
+
+                }
 
                 // Adding the layout to the PDF page
-                pageContent.draw( page.getCanvas() );
-                pdf.finishPage( page );
-            } else {
-                View inflatedView = getLayoutInflater().inflate( R.layout.pdf_page_body, null );
+                ll.draw(page.getCanvas());
+                pdf.finishPage(page);
+            }
 
-                View content = inflatedView.findViewById( R.id.PDF_root );
+
+            else {
+                View content = inflatedViewContent.findViewById(R.id.PDF_root);
 
                 // Dynamically insert data into the page
-                TextView pName = (TextView) inflatedView.findViewById( R.id.PDF_projName );
-                pName.setText( curProject.getName() );
+                TextView pName = (TextView) inflatedViewContent.findViewById(R.id.PDF_projName);
+                pName.setText(curProject.getName());
 
-                TextView sHead = (TextView) inflatedView.findViewById( R.id.PDF_sectionHeader );
-                sHead.setText( curProject.getStyle().getSection( i ).getName() );
+                TextView sHead = (TextView) inflatedViewContent.findViewById(R.id.PDF_sectionHeader);
+                sHead.setText(curProject.getStyle().getSection(i).getName());
 
-                LinearLayout section = (LinearLayout) inflatedView.findViewById( R.id.PDF_section );
+                LinearLayout section = (LinearLayout) inflatedViewContent.findViewById(R.id.PDF_section);
 
                 // Loop through the steps in the section
-                for ( int j = 0; j < curProject.getStyle().getSection( i ).getStepList().size(); j++ ) {
-                    TextView newStep = new TextView( this );
-                    newStep.setText( curProject.getStyle().getSection( i ).getStep( j ).getText() );
-                    newStep.setTextSize( 15 );
+                for (int j = 0; j < curProject.getStyle().getSection(i).getStepList().size(); j++) {
+                    TextView newStep = new TextView(this);
+                    newStep.setText(curProject.getStyle().getSection(i).getStep(j).getText());
+                    newStep.setTextSize(15);
 
                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                             ActionBar.LayoutParams.WRAP_CONTENT);
 
-                    newStep.setLayoutParams( lp );
+                    newStep.setLayoutParams(lp);
 
-                    section.addView( newStep );
+                    section.addView(newStep);
                 }
 
-                TextView pageNum = (TextView) inflatedView.findViewById( R.id.PDF_pageNum );
-                pageNum.setText( "Page " + ( i + 1 ) );
+                TextView pageNum = (TextView)  inflatedViewContent.findViewById(R.id.PDF_pageNum);
+                pageNum.setText("Page " + (i + 1));
 
                 // Append the inflated view to the current page
-                LinearLayout ll = (LinearLayout) findViewById( R.id.PDF_append_location );
+                LinearLayout ll = (LinearLayout) findViewById(R.id.PDF_append_location);
                 // TODO: Fix this awful memory leak yo
-                //ll.removeAllViews();
-                ll.addView( content );
+                ll.removeAllViews();
+                ll.addView(content);
 
-                View pageContent = findViewById( R.id.PDF_append_location );
+                View pageContent = findViewById(R.id.PDF_append_location);
 
                 // Adding the layout to the PDF page
-                pageContent.draw( page.getCanvas() );
-                pdf.finishPage( page );
+                pageContent.draw(page.getCanvas());
+                pdf.finishPage(page);
             }
         }
 
@@ -358,5 +391,35 @@ public class ProjectPattern extends Activity {
         startActivity(mShareIntent);
 
         return;
+    }
+
+    public static void scaleViewAndChildren(View root, float widthScale, float heightScale, int canary) {
+            // Retrieve the view's layout information
+            ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
+
+            // Scale the View itself
+            if (layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT && layoutParams.width != ViewGroup.LayoutParams.WRAP_CONTENT) {
+                layoutParams.width /= widthScale;
+            }
+            if (layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT && layoutParams.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
+                layoutParams.height /= heightScale;
+            }
+
+
+
+            // If it's a TextView, scale the font size
+
+            if(root instanceof TextView) {
+            TextView tv = (TextView)root;
+            tv.setTextSize(tv.getTextSize() / heightScale);
+            }
+
+            // If it's a ViewGroup, recurse!
+            if (root instanceof ViewGroup) {
+            ViewGroup vg = (ViewGroup) root;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                scaleViewAndChildren(vg.getChildAt(i), widthScale, heightScale, canary + 1);
+            }
+        }
     }
 }
