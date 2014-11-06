@@ -253,8 +253,6 @@ public class DogProfileCreation extends Activity {
                     Project newProject = new Project(newProfile);
                     getProfileDataSource().insertProject(newProject);
 
-                    getProfileDataSource().getAllProjects();
-
                     long projectId = newProject.getId();
                     in.putExtra("projId", projectId );
 
@@ -302,11 +300,11 @@ public class DogProfileCreation extends Activity {
      * revisions: none
      * @param startIntent reference to intent used to start this activity
      *
-     * parses the activity's starting intent, and assigns them to our starting
-     * intent data fields as needed
+     * parses the activity's starting intent's extras, and assigns them to our
+     * starting intent instance data fields as needed
      */
     private void parseStartingIntent(Intent startIntent) {
-        // parse starting intent into instance variables
+
         defaultValueExpressions = startIntent.getStringArrayExtra(
                 KEY_DEFAULT_VALUE_EXPRESSIONS);
         dimensionKeys = startIntent.getStringArrayExtra(
@@ -334,10 +332,14 @@ public class DogProfileCreation extends Activity {
         titleText.setText(
                 Dimensions.getFriendly(this, dimensionKeys[arrayIndex]) + ":");
 
-        // if there is a default value for this dimension, prefill the input
-        if (!defaultValueExpressions[arrayIndex].isEmpty()) {
-            dimensionInput.setText(getDimensions().parseExpression(
-                    defaultValueExpressions[arrayIndex]));
+        // if there is a default or entered value for this dimension, prefill
+        // the input
+        if (!defaultValueExpressions[arrayIndex].isEmpty()
+                || dimensionValues[arrayIndex] != 0) {
+            dimensionInput.setText((dimensionValues[arrayIndex] == 0) ?
+                    getDimensions().parseExpression(
+                            defaultValueExpressions[arrayIndex]) :
+                    String.valueOf(dimensionValues[arrayIndex]));
 
         }
 
