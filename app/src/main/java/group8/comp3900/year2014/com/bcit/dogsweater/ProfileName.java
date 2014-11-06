@@ -152,10 +152,10 @@ public class ProfileName extends Activity {
     // interface methods
     // -------------------------------------------------------------------------
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
-     * @param           v    used by the android system
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
+     * @param v used by the android system
      *
      * goes to the next activity if user input is valid
      */
@@ -211,6 +211,15 @@ public class ProfileName extends Activity {
         return true;
     }
 
+    /**
+     * author: Eric Tsang
+     * date: November 5 2014
+     * revisions: none
+     * @param v used by the android system
+     *
+     * opens a context menu that provides different options that can be used to
+     * associate a URI to an image to the profile that's being created.
+     */
     public void getImageUri(View v) {
         openContextMenu(addImageButton);
     }
@@ -221,9 +230,9 @@ public class ProfileName extends Activity {
     // support methods
     // -------------------------------------------------------------------------
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      *
      * initializes activity instance's View references
      */
@@ -234,9 +243,9 @@ public class ProfileName extends Activity {
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      *
      * does one-time things to views as necessary to make them behave in a
      * certain way
