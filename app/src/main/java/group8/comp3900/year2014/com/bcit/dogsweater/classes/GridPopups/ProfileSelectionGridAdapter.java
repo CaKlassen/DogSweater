@@ -31,7 +31,7 @@ import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.adapters.Dialogab
  ****************************************************************/
 public class ProfileSelectionGridAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Dialogable> dialogables = new ArrayList<Dialogable>();
+    private ArrayList<Dialogable<Profile>> dialogables = new ArrayList<Dialogable<Profile>>();
 
     /////////////////////
     // database things //
@@ -142,7 +142,10 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         List<Profile> Profiles = profileDataSource.getAllProfiles();
         for (final Profile profile: Profiles) {
 
-            dialogables.add(new Dialogable() {
+            dialogables.add(new Dialogable<Profile>() {
+
+                @Override
+                public Profile getItem() { return profile; }
 
                 @Override
                 public long getItemId() { return profile.getId(); }
@@ -174,7 +177,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         }
     }
 
-    public ArrayList<Dialogable> getImageList()
+    public ArrayList<Dialogable<Profile>> getImageList()
     {
         return dialogables;
     }

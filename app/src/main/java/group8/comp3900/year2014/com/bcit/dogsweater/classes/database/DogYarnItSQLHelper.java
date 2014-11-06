@@ -19,6 +19,7 @@ public class DogYarnItSQLHelper extends SQLiteOpenHelper {
     public static final String TABLE_PROJECTS     = "projects";
     public static final String PROJECT_ID         = "_idProject";
     public static final String PROJECT_NAME       = "name";
+    public static final String PROJECT_IMAGE      = "image";
     public static final String PROJECT_PROFILE    = "profile";
     public static final String PROJECT_STYLE      = "style";
     public static final String PROJECT_PERCENT    = "percent";
@@ -46,21 +47,22 @@ public class DogYarnItSQLHelper extends SQLiteOpenHelper {
             + ");";
     private static final String DATABASE_CREATE_PROJECT =
             "CREATE TABLE " + TABLE_PROJECTS
-                    + "(" + PROJECT_ID           + " INTEGER PRIMARY KEY AUTOINCREMENT"
-                    + "," + PROJECT_NAME         + " TEXT NOT NULL"
-                    + "," + PROJECT_PERCENT      + " REAL NOT NULL"
-                    + "," + PROJECT_ROWS         + " INTEGER NOT NULL"
-                    + "," + PROJECT_PROFILE      + " INTEGER NOT NULL"
-                    + "," + PROJECT_STYLE        + " INTEGER NOT NULL"
-                    + "," + PROJECT_SECTION      + " INTEGER NOT NULL"
+                    + "(" + PROJECT_ID      + " INTEGER PRIMARY KEY AUTOINCREMENT"
+                    + "," + PROJECT_NAME    + " TEXT NOT NULL"
+                    + "," + PROJECT_IMAGE   + " TEXT"
+                    + "," + PROJECT_PERCENT + " REAL NOT NULL"
+                    + "," + PROJECT_ROWS    + " INTEGER NOT NULL"
+                    + "," + PROJECT_PROFILE + " INTEGER NOT NULL"
+                    + "," + PROJECT_STYLE   + " INTEGER NOT NULL"
+                    + "," + PROJECT_SECTION + " INTEGER NOT NULL"
                     + ");";
     private static final String DATABASE_CREATE_STEP =
             "CREATE TABLE " + TABLE_STEPS
                     + "(" + STEP_ID           + " INTEGER PRIMARY KEY AUTOINCREMENT"
-                    + "," + STEP_PROJECT         + " INTEGER NOT NULL"
+                    + "," + STEP_PROJECT      + " INTEGER NOT NULL"
                     + "," + STEP_SECTION      + " INTEGER NOT NULL"
                     + "," + STEP_STEP         + " INTEGER NOT NULL"
-                    + "," + STEP_STATE      + " INTEGER NOT NULL"
+                    + "," + STEP_STATE        + " INTEGER NOT NULL"
                     + ");";
 
     public DogYarnItSQLHelper(Context context) {

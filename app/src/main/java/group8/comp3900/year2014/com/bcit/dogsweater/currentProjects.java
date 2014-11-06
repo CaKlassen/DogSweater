@@ -15,7 +15,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.CurrentProjectPopup;
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectDialogable;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectGridAdapter;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
@@ -112,12 +111,10 @@ public class currentProjects extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        ;
-
                         //Delete from database
                         profileDataSource.open();
                         List<Project> projects = profileDataSource.getAllProjects();
-                        profileDataSource.deleteProject( ((ProjectDialogable)gridAdapter.getItem( position )).getProject() );
+                        profileDataSource.deleteProject( ((Dialogable<Project>)gridAdapter.getItem( position )).getItem() );
                         profileDataSource.close();
                         gridAdapter.remove(position);
                         popup.dismiss();
@@ -133,7 +130,7 @@ public class currentProjects extends Activity {
 
                         profileDataSource.open();
                         List<Project> projects = profileDataSource.getAllProjects();
-                        Project curProject = ((ProjectDialogable)gridAdapter.getItem( position )).getProject();
+                        Project curProject = ((Dialogable<Project>)gridAdapter.getItem( position )).getItem();
                         profileDataSource.close();
 
 
@@ -147,17 +144,20 @@ public class currentProjects extends Activity {
                 popup.setOnTakePhotoButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         takeImage();
+                        Log.d( "Take image position", "" + position );
                         curProjectPosition = position;
                     }
 
                 });
 
-                popup.setOnChoseImageButtonClickListener(new View.OnClickListener() {
+                popup.setOnChooseImageButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        choseImage();
+                        chooseImage();
+                        Log.d( "Choose image position", "" + position );
                         curProjectPosition = position;
                     }
 
@@ -186,7 +186,7 @@ public class currentProjects extends Activity {
         return true;
     }
 
-    public boolean choseImage() {
+    public boolean chooseImage() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
 
@@ -202,14 +202,14 @@ public class currentProjects extends Activity {
         switch(requestCode) {
             case REQUEST_IMAGE_CAPTURE:
                 if(resultCode == RESULT_OK) {
-                    choseImage();
+                    chooseImage();
                 }
                 break;
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK) {
 
                     profileDataSource.open();
-                    Project curProject = ((ProjectDialogable)gridAdapter.getItem( curProjectPosition )).getProject();
+                    Project curProject = ((Dialogable<Project>)gridAdapter.getItem( curProjectPosition )).getItem();
                     curProject.setImageURI( imageReturnedIntent.getData().toString() );
                     profileDataSource.updateProject( curProject );
                     profileDataSource.close();

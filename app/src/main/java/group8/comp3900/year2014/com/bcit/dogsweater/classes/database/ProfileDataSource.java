@@ -167,12 +167,13 @@ public class ProfileDataSource {
 
         ContentValues values = new ContentValues();
 
-        values.put( DogYarnItSQLHelper.PROJECT_NAME, project.getName() );
-        values.put( DogYarnItSQLHelper.PROJECT_PERCENT, project.getPercentDone() );
-        values.put( DogYarnItSQLHelper.PROJECT_ROWS, project.getRowCounter() );
-        values.put( DogYarnItSQLHelper.PROJECT_PROFILE, project.getProfile().getId() );
-        values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getStyleNumber() );
-        values.put( DogYarnItSQLHelper.PROJECT_SECTION, project.getSection() );
+        values.put( DogYarnItSQLHelper.PROJECT_NAME,       project.getName()                   );
+        values.put( DogYarnItSQLHelper.PROJECT_IMAGE, "" + project.getImageURI()               );
+        values.put( DogYarnItSQLHelper.PROJECT_PERCENT,    project.getPercentDone()            );
+        values.put( DogYarnItSQLHelper.PROJECT_ROWS,       project.getRowCounter()             );
+        values.put( DogYarnItSQLHelper.PROJECT_PROFILE,    project.getProfile().getId()        );
+        values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getStyleNumber() );
+        values.put( DogYarnItSQLHelper.PROJECT_SECTION,    project.getSection()                );
 
         long insertId = database.insert( DogYarnItSQLHelper.TABLE_PROJECTS
                 , null
@@ -185,12 +186,13 @@ public class ProfileDataSource {
 
         ContentValues values = new ContentValues();
 
-        values.put( DogYarnItSQLHelper.PROJECT_NAME, project.getName() );
-        values.put( DogYarnItSQLHelper.PROJECT_PERCENT, project.getPercentDone() );
-        values.put( DogYarnItSQLHelper.PROJECT_ROWS, project.getRowCounter() );
-        values.put( DogYarnItSQLHelper.PROJECT_PROFILE, project.getProfile().getId() );
-        values.put( DogYarnItSQLHelper.PROJECT_STYLE, project.getStyle().getName() );
-        values.put( DogYarnItSQLHelper.PROJECT_SECTION, project.getSection() );
+        values.put( DogYarnItSQLHelper.PROJECT_NAME,       project.getName()            );
+        values.put( DogYarnItSQLHelper.PROJECT_IMAGE, "" + project.getImageURI()        );
+        values.put( DogYarnItSQLHelper.PROJECT_PERCENT,    project.getPercentDone()     );
+        values.put( DogYarnItSQLHelper.PROJECT_ROWS,       project.getRowCounter()      );
+        values.put( DogYarnItSQLHelper.PROJECT_PROFILE,    project.getProfile().getId() );
+        values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getName() );
+        values.put( DogYarnItSQLHelper.PROJECT_SECTION,    project.getSection()         );
 
         database.update(DogYarnItSQLHelper.TABLE_PROJECTS, values,  DogYarnItSQLHelper.PROJECT_ID + " = " +  project.getId(), null );
 
@@ -281,36 +283,31 @@ public class ProfileDataSource {
 
         // Initialize the project
         // TODO: Get task completion state?
-        Project project = new Project( cursor.getString(
-                cursor.getColumnIndex(
-                        DogYarnItSQLHelper.PROJECT_NAME
-                )
-        )
-                , cursor.getFloat (
-                cursor.getColumnIndex (
-                        DogYarnItSQLHelper.PROJECT_PERCENT
-                )
-        )
-                , cursor.getInt (
-                cursor.getColumnIndex (
-                        DogYarnItSQLHelper.PROJECT_ROWS
-                )
-        )
-                , p
-                , s
-                , cursor.getInt(
-                cursor.getColumnIndex(
-                        DogYarnItSQLHelper.PROJECT_SECTION
-                )
-        )
-        );
+        Project project = new Project(
+                                cursor.getString(
+                                  cursor.getColumnIndex(
+                                    DogYarnItSQLHelper.PROJECT_NAME ) )
+                              , cursor.getFloat (
+                                  cursor.getColumnIndex (
+                                    DogYarnItSQLHelper.PROJECT_PERCENT ) )
+                              , cursor.getInt (
+                                  cursor.getColumnIndex (
+                                    DogYarnItSQLHelper.PROJECT_ROWS ) )
+                              , p
+                              , s
+                              , cursor.getInt(
+                                  cursor.getColumnIndex(
+                                    DogYarnItSQLHelper.PROJECT_SECTION ) ) );
 
-        project.setId( cursor.getLong (
-                        cursor.getColumnIndex (
-                                DogYarnItSQLHelper.PROJECT_ID
-                        )
-                )
-        );
+        project.setImageURI(
+                  cursor.getString(
+                    cursor.getColumnIndex(
+                      DogYarnItSQLHelper.PROJECT_IMAGE ) ) );
+
+        project.setId(
+                  cursor.getLong (
+                    cursor.getColumnIndex (
+                      DogYarnItSQLHelper.PROJECT_ID ) ) );
 
         return project;
     }

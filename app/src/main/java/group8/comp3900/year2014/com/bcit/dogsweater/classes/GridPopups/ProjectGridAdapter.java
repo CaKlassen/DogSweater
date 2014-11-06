@@ -30,7 +30,7 @@ import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
  ****************************************************************/
 public class ProjectGridAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Dialogable> dialogables = new ArrayList<Dialogable>();
+    private ArrayList<Dialogable<Project>> dialogables = new ArrayList<Dialogable<Project>>();
 
     /////////////////////
     // database things //
@@ -129,13 +129,47 @@ public class ProjectGridAdapter extends BaseAdapter {
         // putting other profiles onto the gridview
         profileDataSource.open();
         List<Project> Projects = profileDataSource.getAllProjects();
-        for (Project project: Projects) {
+        for (final Project project: Projects) {
 
-            dialogables.add( new ProjectDialogable(project) );
+            dialogables.add( new Dialogable<Project>() {
+
+                @Override
+                public Project getItem(){ return project; }
+
+                public Project getProject() {
+                    return project;
+                }
+
+                @Override
+                public long getItemId() { return project.getId(); }
+
+                @Override
+                public String getDialogueTitle() {
+                    return project.getName();
+                }
+
+                @Override
+                public String getDialogueDescription() {
+                    return "The notes of the project go here.";
+                }
+
+                @Override
+                public String getDialogueButtonText() {
+                    return "";
+                }
+
+                @Override
+                public Uri getDialogueImageUri() { return project.getImageURI(); }
+
+                @Override
+                public String getNextScreen() {
+                    return "group8.comp3900.year2014.com.bcit.dogsweater.ProjectPattern";
+                }
+            } );
         }
     }
 
-    public ArrayList<Dialogable> getImageList()
+    public ArrayList<Dialogable<Project>> getImageList()
     {
         return dialogables;
     }
