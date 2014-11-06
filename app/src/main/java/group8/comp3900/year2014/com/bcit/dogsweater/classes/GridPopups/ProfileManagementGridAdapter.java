@@ -132,7 +132,11 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
         List<Profile> Profiles = profileDataSource.getAllProfiles();
         for (final Profile profile: Profiles) {
 
-            dialogables.add(new Dialogable() {
+            dialogables.add(new Dialogable<Profile>() {
+
+                @Override
+                public Profile getItem() { return profile; };
+
                 @Override
                 public long getItemId() { return profile.getId(); }
 

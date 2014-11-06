@@ -84,8 +84,8 @@ public class CurrentProjectPopup extends Dialog {
                 new ThreadManager.OnResponseListener() {
                     @Override
                     public void onResponse(Bitmap bitmap) {
-                        //image.setImageBitmap(bitmap);
-                        image.setBackgroundResource(R.drawable.dog_silhouette);
+                        image.setImageBitmap(bitmap);
+                        //image.setBackgroundResource(R.drawable.dog_silhouette);
                     }
                 });
 
@@ -127,7 +127,7 @@ public class CurrentProjectPopup extends Dialog {
     public void setOnTakePhotoButtonClickListener(View.OnClickListener onClickListener) {
         takePhotoButton.setOnClickListener(onClickListener);
 
-    }public void setOnChoseImageButtonClickListener(View.OnClickListener onClickListener) {
+    }public void setOnChooseImageButtonClickListener(View.OnClickListener onClickListener) {
         choseImageButton.setOnClickListener(onClickListener);
     }
 

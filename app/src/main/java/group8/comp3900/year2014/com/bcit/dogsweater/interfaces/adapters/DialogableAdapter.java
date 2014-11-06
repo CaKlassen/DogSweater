@@ -7,7 +7,11 @@ import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 /**
  * Created by Eric Tsang on 18/10/2014.
  */
-public class DialogableAdapter implements Dialogable {
+public class DialogableAdapter<T> implements Dialogable<T> {
+
+    @Override
+    public T getItem() { return null; }
+
     @Override
     public String getDialogueTitle() {
         return null;
