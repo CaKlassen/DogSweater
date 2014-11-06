@@ -100,7 +100,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
 
         // setting dialog image...use a worker thread to load the image
         Uri imageUri = (dialogables.get(position).getDialogueImageUri());
-        ThreadManager.mInstance.loadImage(
+        ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
                 ThreadManager.CropPattern.DEFAULT,   // crop pattern

@@ -13,11 +13,11 @@ public class Profile
 
     // TODO: modify MINIMUM_DIMENSION_KEYS so that they are the actual minimum dimension keys
     /** minimum dimension keys needed to create a profile */
-    public static final String[] MINIMUM_DIMENSION_KEYS = new String[] {
-            "AA",
-            "BB",
-            "CC",
-            "DD"
+    public static final String[][] MINIMUM_DIMENSION_KEYS = new String[][] {
+            // dimension keys
+            new String[] {"A", "B", "C", "X", "Y", "Z"},
+            // dimension expressions used to calculate their default values
+            new String[] {"", "", "", "A+B", "X-A", ""}
     };
 
     private Uri imageURI = null;

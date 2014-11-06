@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.security.InvalidParameterException;
@@ -20,14 +21,24 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileData
 
 /**
  * intent signatures:
- *      creating a new profile from scratch:
- *          KEY_PROFILE_NAME - String           name of the new profile
- *          KEY_DIMENSION_KEYS - String[]       dimension keys needed to fill in
- *          KEY_PROFILE_IMAGE_URI - String      string URI to image for profile
+ *   creating a new profile from scratch:
+ *     KEY_PROFILE_NAME - String name of the new profile
+ *     KEY_DIMENSION_KEYS - String[] dimension keys needed to fill in
+ *     KEY_DEFAULT_VALUE_EXPRESSIONS - String[] array of expressions in string
+ *         form (i.e.: "A + B - 12") used to compute the default value of a
+ *         Dimension if needed
+ *     KEY_PROFILE_IMAGE_URI - String string URI to image for profile
  *
- *      continuing the process of creating the previous new profile:
- *          KEY_DIMENSION_KEYS_INDEX - int
- *
+ *   continuing the process of creating the previous new profile:
+ *     KEY_PROFILE_NAME - String name of the new profile
+ *     KEY_DIMENSION_KEYS - String[] dimension keys needed to fill in
+ *     KEY_DEFAULT_VALUE_EXPRESSIONS - String[] array of expressions in string
+ *         form (i.e.: "A + B - 12") used to compute the default value of a
+ *         Dimension if needed
+ *     KEY_DIMENSION_VALUES - double[] values of each dimension gathered and
+ *         added by previous instances of this activity
+ *     KEY_PROFILE_IMAGE_URI - String string URI to image for profile
+ *     KEY_DIMENSION_KEYS_INDEX - int
  */
 public class DogProfileCreation extends Activity {
 
@@ -38,7 +49,7 @@ public class DogProfileCreation extends Activity {
     //////////////////////////
     /** name of the class. (i.e.: group8.comp3900...DogProfileCreation) */
     public static final String CLASS_NAME =
-            DogProfileCreation.class.getCanonicalName();
+            DogProfileCreation.class.getCanonicalName() + ".";
 
     /** starting intent key for String name of the profile */
     public static final String KEY_PROFILE_NAME =
@@ -47,6 +58,20 @@ public class DogProfileCreation extends Activity {
     /** starting intent key for String array of dimensions keys */
     public static final String KEY_DIMENSION_KEYS =
             CLASS_NAME + "KEY_DIMENSION_KEYS";
+
+    /**
+     * starting intent key for String array of expressions used to calculate the
+     * default values of a dimension
+     */
+    public static final String KEY_DEFAULT_VALUE_EXPRESSIONS =
+            CLASS_NAME + "KEY_DEFAULT_VALUE_EXPRESSIONS";
+
+    /**
+     * starting intent key to a double[] that stores the values gathered for
+     * each key from previous instances of this activity
+     */
+    public static final String KEY_DIMENSION_VALUES =
+            CLASS_NAME + "KEY_DIMENSION_VALUES";
 
     /** starting intent key for String URI of image to use for the profile */
     public static final String KEY_PROFILE_IMAGE_URI =
@@ -64,15 +89,20 @@ public class DogProfileCreation extends Activity {
     /////////////////////////////////
     // parsed starting intent data //
     /////////////////////////////////
-    /** reference to a profile in that's currently being created */
-    private static Profile newProfile = null;
+    /** list of dimension keys of dimensions to be inputted by the user */
+    private String[] dimensionKeys = null;
 
-    /** dimension keys to dimensions to be inputted by the user */
-    private static String[] dimensionKeys = null;
+    /** dimension values gathered by previous instances of this class */
+    private double[] dimensionValues = null;
 
     /**
-     * index in the dimensionKeys and imageUris array that activity is
-     * getting
+     * list of expressions used to calculate the default value of a dimension
+     */
+    private String[] defaultValueExpressions = null;
+
+    /**
+     * index in the dimensionKeys and imageUris array that this instance of this
+     * activity is to display & gather information about (from user).
      */
     private int arrayIndex = 0;
 
@@ -81,6 +111,9 @@ public class DogProfileCreation extends Activity {
     ////////////////////////////
     // reference to GUI views //
     ////////////////////////////
+    /** reference to title text above the image view on the activity */
+    private TextView titleText;
+
     /** image view reference on activity */
     private ImageView image;
 
@@ -92,9 +125,13 @@ public class DogProfileCreation extends Activity {
     /////////////////////
     // database things //
     /////////////////////
-    /** database interface object used to save profiles to the database */
-    // TODO: discuss with group; should i make this into a static object?
-    private ProfileDataSource profileDataSource = new ProfileDataSource(this);
+    /**
+     * database interface object used to save profiles to the database
+     *
+     * IMPORTANT: from within this class, do not reference this directly;
+     * instead, use the private getter getProfileDataSource().
+     */
+    private static ProfileDataSource profileDataSource = null;
 
 
 
@@ -146,18 +183,18 @@ public class DogProfileCreation extends Activity {
     // interface methods
     // -------------------------------------------------------------------------
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
-     * @param           v    used by the android system
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
+     * @param v used by the android system
      *
      * goes to the next activity if possible, and adds the dimensional
      * information to our newProfile if possible.
      *
      * EXTRA DETAILS:
      * extract user input, then validate user input. add dimension if possible;
-     * re-prompt is necessary. if all dimensional information has been gathered,
-     * go to the Yarn activity (the next stage). start another
+     * re-prompt if necessary. if all dimensional information has been gathered,
+     * go to the Yarn activity (the next stage); start another
      * DogProfileCreation activity to continue gathering dimensional information
      * otherwise.
      */
@@ -183,17 +220,17 @@ public class DogProfileCreation extends Activity {
             otherwise.
              */
 
-            // add the dimensional information that we just got to newProfile
-            newProfile.getDimensions().setDimension(
-                    dimensionKeys[arrayIndex], dimensionValue);
+            // record the dimensional information that we just got
+            dimensionValues[arrayIndex] = dimensionValue;
 
             // do we need to continue gather dimensional information for
             // newProfile?
             Intent in;
             if (arrayIndex < dimensionKeys.length - 1) {
                 /* yes; go get them then */
-                in = new Intent(this, DogProfileCreation.class);
+                in = getIntent();
                 in.putExtra(KEY_DIMENSION_KEYS_INDEX, arrayIndex + 1);
+                in.putExtra(KEY_DIMENSION_VALUES, dimensionValues);
 
             } else {
                 /*
@@ -202,18 +239,21 @@ public class DogProfileCreation extends Activity {
                  */
                 in = new Intent(this, StyleSelection.class);
 
-                // TODO: cannot save profiles into db yet, because we are missing imageUri information; we need to add image Uri info
-                // TODO: make some sort of option to take a picture. just a button, anywhere even if it doesn't take a pic.
                 try {
-                    profileDataSource.open();
-                    profileDataSource.insertProfile(newProfile);
+                    Profile newProfile = new Profile(
+                            getIntent().getStringExtra(KEY_PROFILE_NAME),
+                            getDimensions(),
+                            getIntent().getStringExtra(KEY_PROFILE_IMAGE_URI));
+                    getProfileDataSource().open();
+                    getProfileDataSource().insertProfile(newProfile);
 
                     //Create a new project
                     //TODO: WHAT IF THEY BAIL FROM HERE AND THERE IS NO STYLE?
+                    // TODO: create the project at the very end, after the style has been selected and we have a reference to both the profile, and style... since the profile s in the DB, it has an ID, we can remember the ID to extract our profile later.
                     Project newProject = new Project(newProfile);
-                    profileDataSource.insertProject(newProject);
+                    getProfileDataSource().insertProject(newProject);
 
-                    profileDataSource.getAllProjects();
+                    getProfileDataSource().getAllProjects();
 
                     long projectId = newProject.getId();
                     in.putExtra("projId", projectId );
@@ -222,7 +262,7 @@ public class DogProfileCreation extends Activity {
                 } catch(Exception e) {
                     Log.d(this.toString(), e.toString());
                 } finally {
-                    profileDataSource.close();
+                    getProfileDataSource().close();
                 }
 
             }
@@ -243,62 +283,45 @@ public class DogProfileCreation extends Activity {
     // support methods
     // -------------------------------------------------------------------------
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      *
      * initializes activity instance's View references
      */
     private void initializeGUIReferences() {
+        titleText = (TextView) findViewById(R.id.profileText);
         image = (ImageView) findViewById(R.id.imageView);
         dimensionInput = (EditText) findViewById(R.id.measureA);
 
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
-     * @param startIntent   reference to intent used to start this activity
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
+     * @param startIntent reference to intent used to start this activity
      *
      * parses the activity's starting intent, and assigns them to our starting
      * intent data fields as needed
      */
     private void parseStartingIntent(Intent startIntent) {
-        // interpret starting intent; are we creating a profile from scratch or
-        // continuing to make a previous one?
-        if (startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, -1) == -1) {
-            /*
-            we are creating a new dog profile from scratch; create a new
-            Profile object, and reassign our dimensionKeys and imageUris from
-            the startIntent extras
-             */
-            newProfile = new Profile(
-                    startIntent.getStringExtra(KEY_PROFILE_NAME),
-                    new Dimensions(),
-                    startIntent.getStringExtra(KEY_PROFILE_IMAGE_URI));
-            dimensionKeys =
-                    startIntent.getStringArrayExtra(KEY_DIMENSION_KEYS);
-            arrayIndex = 0;
-
-        } else {
-            /*
-            we're continuing to gather dimensions for our newProfile object
-             */
-            arrayIndex = startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, -1);
-            if (arrayIndex == -1)
-                throw new InvalidParameterException("KEY_DIMENSION_KEYS_INDEX" +
-                        " == -1. Start intent did not provide a value for the" +
-                        " key: KEY_ARRAY_INDEX.");
-
-        }
+        // parse starting intent into instance variables
+        defaultValueExpressions = startIntent.getStringArrayExtra(
+                KEY_DEFAULT_VALUE_EXPRESSIONS);
+        dimensionKeys = startIntent.getStringArrayExtra(
+                KEY_DIMENSION_KEYS);
+        dimensionValues = startIntent.hasExtra(KEY_DIMENSION_VALUES) ?
+                startIntent.getDoubleArrayExtra(KEY_DIMENSION_VALUES) :
+                new double[dimensionKeys.length];
+        arrayIndex = startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, 0);
 
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      *
      * updates the activity's GUI based on starting intent data
      */
@@ -308,6 +331,51 @@ public class DogProfileCreation extends Activity {
                 Dimensions.getDrawable(this, dimensionKeys[arrayIndex]));
         dimensionInput.setHint(
                 Dimensions.getFriendly(this, dimensionKeys[arrayIndex]));
+        titleText.setText(
+                Dimensions.getFriendly(this, dimensionKeys[arrayIndex]) + ":");
+
+        // if there is a default value for this dimension, prefill the input
+        if (!defaultValueExpressions[arrayIndex].isEmpty()) {
+            dimensionInput.setText(getDimensions().parseExpression(
+                    defaultValueExpressions[arrayIndex]));
+
+        }
+
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 5 2014
+     * revisions: none
+     *
+     * instantiates & returns the Dimensions instance that's currently being
+     * build by this & passed instances of DogProfileCreation.
+     */
+    private Dimensions getDimensions() {
+
+        // creating the dimension object to return & return it...
+        Dimensions profileDimensions = new Dimensions();
+        for (int i = 0; i < dimensionKeys.length; i++) {
+            profileDimensions.setDimension(dimensionKeys[i], dimensionValues[i],
+                    defaultValueExpressions[i]);
+        }
+        return profileDimensions;
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 5 2014
+     * revisions: none
+     *
+     * returns the ProfileDataSource instance associated with this class that's
+     * used to interface with the database & instantiates it if necessary.
+     */
+    private ProfileDataSource getProfileDataSource() {
+        if (profileDataSource == null) {
+            profileDataSource = new ProfileDataSource(this);
+        }
+
+        return profileDataSource;
 
     }
 

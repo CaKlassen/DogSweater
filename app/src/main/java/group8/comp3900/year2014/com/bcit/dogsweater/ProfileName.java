@@ -113,24 +113,6 @@ public class ProfileName extends Activity {
         }
     }
 
-    public boolean takeImage() {
-
-        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-        return true;
-    }
-
-    public boolean choseImage() {
-
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-        return true;
-    }
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -190,11 +172,12 @@ public class ProfileName extends Activity {
             it...our goal here is to create a new profile from scratch.
              */
 
-
             Intent in = new Intent(this, DogProfileCreation.class);
             in.putExtra(DogProfileCreation.KEY_PROFILE_NAME, profileName);
             in.putExtra(DogProfileCreation.KEY_DIMENSION_KEYS,
-                    Profile.MINIMUM_DIMENSION_KEYS);
+                    Profile.MINIMUM_DIMENSION_KEYS[0]);
+            in.putExtra(DogProfileCreation.KEY_DEFAULT_VALUE_EXPRESSIONS,
+                    Profile.MINIMUM_DIMENSION_KEYS[1]);
             in.putExtra(DogProfileCreation.KEY_PROFILE_IMAGE_URI,
                     profileImageUri);
             startActivity(in);
@@ -208,6 +191,24 @@ public class ProfileName extends Activity {
 
         }
 
+    }
+
+    public boolean takeImage() {
+
+        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        return true;
+    }
+
+    public boolean choseImage() {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+        return true;
     }
 
     public void getImageUri(View v) {

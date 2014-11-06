@@ -74,7 +74,7 @@ public class CurrentProjectPopup extends Dialog {
         setCancelable(true);
 
         // setting dialog image...use a worker thread to load the image
-        ThreadManager.mInstance.loadImage(
+        ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
                 ThreadManager.CropPattern.SQUARE,   // crop pattern
