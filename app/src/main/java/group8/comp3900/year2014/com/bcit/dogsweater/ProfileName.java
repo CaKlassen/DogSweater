@@ -113,24 +113,6 @@ public class ProfileName extends Activity {
         }
     }
 
-    public boolean takeImage() {
-
-        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-        return true;
-    }
-
-    public boolean choseImage() {
-
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-        return true;
-    }
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -170,10 +152,10 @@ public class ProfileName extends Activity {
     // interface methods
     // -------------------------------------------------------------------------
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
-     * @param           v    used by the android system
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
+     * @param v used by the android system
      *
      * goes to the next activity if user input is valid
      */
@@ -190,11 +172,12 @@ public class ProfileName extends Activity {
             it...our goal here is to create a new profile from scratch.
              */
 
-
             Intent in = new Intent(this, DogProfileCreation.class);
             in.putExtra(DogProfileCreation.KEY_PROFILE_NAME, profileName);
             in.putExtra(DogProfileCreation.KEY_DIMENSION_KEYS,
-                    Profile.MINIMUM_DIMENSION_KEYS);
+                    Profile.MINIMUM_DIMENSION_KEYS[0]);
+            in.putExtra(DogProfileCreation.KEY_DEFAULT_VALUE_EXPRESSIONS,
+                    Profile.MINIMUM_DIMENSION_KEYS[1]);
             in.putExtra(DogProfileCreation.KEY_PROFILE_IMAGE_URI,
                     profileImageUri);
             startActivity(in);
@@ -210,6 +193,33 @@ public class ProfileName extends Activity {
 
     }
 
+    public boolean takeImage() {
+
+        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        return true;
+    }
+
+    public boolean choseImage() {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+        return true;
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 5 2014
+     * revisions: none
+     * @param v used by the android system
+     *
+     * opens a context menu that provides different options that can be used to
+     * associate a URI to an image to the profile that's being created.
+     */
     public void getImageUri(View v) {
         openContextMenu(addImageButton);
     }
@@ -220,9 +230,9 @@ public class ProfileName extends Activity {
     // support methods
     // -------------------------------------------------------------------------
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      *
      * initializes activity instance's View references
      */
@@ -233,9 +243,9 @@ public class ProfileName extends Activity {
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      *
      * does one-time things to views as necessary to make them behave in a
      * certain way

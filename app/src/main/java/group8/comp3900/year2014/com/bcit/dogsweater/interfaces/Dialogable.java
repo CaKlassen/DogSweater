@@ -10,7 +10,9 @@ import android.net.Uri;
  * instances that implement this interface describe an object that holds data
  * that can be displayed in various parts of a dialogue box.
  */
-public interface Dialogable {
+public interface Dialogable<T> {
+
+    public T getItem();
 
     public long getItemId();
 

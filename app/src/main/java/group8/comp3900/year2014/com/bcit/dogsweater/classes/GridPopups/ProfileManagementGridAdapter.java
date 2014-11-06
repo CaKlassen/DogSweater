@@ -98,7 +98,7 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
 
         // setting dialog image...use a worker thread to load the image
         Uri imageUri = (dialogables.get(position).getDialogueImageUri());
-        ThreadManager.mInstance.loadImage(
+        ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
                 ThreadManager.CropPattern.DEFAULT,   // crop pattern
@@ -132,7 +132,11 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
         List<Profile> Profiles = profileDataSource.getAllProfiles();
         for (final Profile profile: Profiles) {
 
-            dialogables.add(new Dialogable() {
+            dialogables.add(new Dialogable<Profile>() {
+
+                @Override
+                public Profile getItem() { return profile; };
+
                 @Override
                 public long getItemId() { return profile.getId(); }
 

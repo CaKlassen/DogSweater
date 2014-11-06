@@ -12,57 +12,31 @@
     <group8.comp3900.year2014.com.bcit.dogsweater.SlideMenu
         android:id="@+id/slideMenu"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/imageDescDimension"
+        android:id="@+id/imageView"
+        android:src="@drawable/dog_diagram" />
 
     <TextView
         android:text="@string/profileCreationTitle"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
         android:id="@+id/profileText"
-        android:layout_weight="0.20"
-        android:textSize="40sp"/>
+        android:textSize="30sp" />
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.60"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/imageDescDimension"
-        android:id="@+id/imageView"
-        android:src="@drawable/dog_diagram"
-        />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:layout_weight="0.20"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:textSize="30sp"
-            android:hint="@string/hintDimension"
-            android:id="@+id/measureA"
-            android:orientation="horizontal"
-            />
-
-        <!--<Spinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:drawSelectorOnTop="true"
-            android:entries="@array/units"
-            android:layout_weight="0.13"
-            />-->
-    </LinearLayout>
+        android:inputType="number"
+        android:ems="10"
+        android:textSize="30sp"
+        android:hint="@string/hintDimension"
+        android:id="@+id/measureA" />
 
     <Button
         android:layout_width="fill_parent"
@@ -70,8 +44,7 @@
         android:text="@string/nextButton"
         android:id="@+id/Next"
         android:textSize="30sp"
-        android:layout_weight="0.05"
         android:layout_gravity="bottom"
-        android:onClick="next"/>
+        android:onClick="next" />
 
 </LinearLayout>

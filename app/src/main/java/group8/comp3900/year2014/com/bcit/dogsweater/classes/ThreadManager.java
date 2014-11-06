@@ -28,11 +28,13 @@ public class ThreadManager {
 
 
 
-
     /////////////////////////////
     // DEFINE STATIC CONSTANTS //
     /////////////////////////////
+
+
     // ThreadPoolExecutor constructor parameters
+
     /**
      * Gets the number of available cores
      * (not always the same as the maximum number of cores)
@@ -46,7 +48,9 @@ public class ThreadManager {
     /** Sets the Time Unit to seconds */
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
 
-    // Message types
+
+    // CustomHandler message types
+
     /**
      * Message type describing a message that is a runnable, that must be run
      * on some sort of worker thread. Such message types will be assigned to a
@@ -63,6 +67,9 @@ public class ThreadManager {
      */
     public static final int UPDATE_UI_TASK = 1;
 
+
+    // Image processing
+
     /** specifies the ways that images can be cropped */
     public enum CropPattern {
 
@@ -75,19 +82,19 @@ public class ThreadManager {
 
 
 
-
     ////////////////////////////////////////
     // INSTANTIATE STATIC SUPPORT OBJECTS //
     ////////////////////////////////////////
+
     /** A queue of Runnables instantiated as a LinkedBlockingQueue */
     private static final BlockingQueue<Runnable> workQueue =
             new LinkedBlockingQueue<Runnable>();
 
     /** Handler object that's attached to the UI thread */
-    public final Handler mHandler;
+    private final Handler mHandler;
 
     /** Reference to the singleton ApplicationHandler */
-    public static final ThreadManager mInstance;
+    private static final ThreadManager mInstance;
 
     /** Creates a thread pool manager & instantiate one */
     private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
@@ -105,10 +112,10 @@ public class ThreadManager {
 
 
 
-
     //////////////////
     // CONSTRUCTORS //
     //////////////////
+
     /**
      * Constructs the work queues and thread pools used to download
      * and decode images. Because the constructor is marked private,
@@ -122,15 +129,39 @@ public class ThreadManager {
 
 
 
-
     ///////////////////////
     // INTERFACE METHODS //
     ///////////////////////
-    public void loadImage(final Context context, final Uri imageUri, final CropPattern cropPattern,
+
+    /**
+     * runs the run method of the passed Runnable instance (runnable) on a
+     * worker thread when one becomes available.
+     *
+     * @param runnable a Runnable instance who's run method will be executed on a
+     * background thread when one becomes available.
+     */
+    public static void runOnWorkerThread(Runnable runnable) {
+        mInstance.mHandler.obtainMessage(
+                START_RUNNABLE_TASK, runnable).sendToTarget();
+    }
+
+    /**
+     * runs the updateUI method of the passed UpdateUITask instance
+     * (updateUITask) on the UI thread.
+     *
+     * @param updateUITask an UpdateUITask instance who's updateUI method will
+     * be run on the main application thread; it can access UI components.
+     */
+    public static void runOnMainThread(UpdateUITask updateUITask) {
+        mInstance.mHandler.obtainMessage(
+                UPDATE_UI_TASK, updateUITask).sendToTarget();
+    }
+
+    public static void loadImage(final Context context, final Uri imageUri, final CropPattern cropPattern,
             final int imageWidth, final OnResponseListener onResponseListener) {
 
         // setting dialog image...use a worker thread to load the image
-        ThreadManager.mInstance.mHandler.obtainMessage(ThreadManager.START_RUNNABLE_TASK, new Runnable() {
+        runOnWorkerThread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -153,25 +184,25 @@ public class ThreadManager {
                     final Bitmap croppedBm = bm;
 
                     // use the UI thread to display the image
-                    ThreadManager.mInstance.mHandler.obtainMessage(ThreadManager.UPDATE_UI_TASK, new ThreadManager.UpdateUITask() {
+                    runOnMainThread( new ThreadManager.UpdateUITask() {
                         @Override
                         public void updateUI() {
                             onResponseListener.onResponse(croppedBm);
                         }
-                    }).sendToTarget();
+                    });
                 } catch (Exception e) {
                     Log.e("trouble parsing URI", e.toString());
                 }
             }
-        }).sendToTarget();
+        });
     }
-
 
 
 
     ////////////////
     // INTERFACES //
     ////////////////
+
     /**
      * Message type describing a message that needs to run on the UI thread;
      * executed on the same thread as this class (UI thread). Such message types
@@ -184,18 +215,32 @@ public class ThreadManager {
         public void updateUI();
     }
 
+    /**
+     * interface that provides methods that will be used as callbacks then
+     * loadImage returns with its decoded bitmap.
+     */
     public interface OnResponseListener {
 
-        /** method run when the loadImage method responds */
+        /**
+         * method run when the loadImage method responds.
+         *
+         * @param bitmap decoded bitmap resource. this is the bitmap of the
+         * image at the URI that was passed into the loadImage method.
+         */
         public void onResponse(Bitmap bitmap);
     }
-
 
 
 
     ///////////////////
     // INNER CLASSES //
     ///////////////////
+
+    /**
+     * message Handler class of the ThreadManager; when it has a message to
+     * handle, it computes what kind of message it is, and runs it on the
+     * appropriate thread.
+     */
     public class CustomHandler extends Handler {
 
         private CustomHandler(Looper looper) {
@@ -208,13 +253,12 @@ public class ThreadManager {
          */
         public void handleMessage(Message messageIn) {
 
-            Log.d("Handle message", messageIn.what + "");
             switch (messageIn.what) {
 
-                     /*
-                      * Assumes that messageIn.obj implements Runnable. Executes
-                      * the Runnable's run method on a background worker thread.
-                      */
+                /*
+                 * Assumes that messageIn.obj implements Runnable. Executes
+                 * the Runnable's run method on a background worker thread.
+                 */
                 case ThreadManager.START_RUNNABLE_TASK:
 
                     // Adds task to the thread pool for execution on a
@@ -222,40 +266,22 @@ public class ThreadManager {
                     threadPool.execute((Runnable) messageIn.obj);
                     break;
 
-                     /*
-                      * Assumes that messageIn.obj implements UpdateUITask.
-                      * Executes the UpdateUITask's updateUI method on the UI
-                      * thread.
-                      */
+                /*
+                 * Assumes that messageIn.obj implements UpdateUITask.
+                 * Executes the UpdateUITask's updateUI method on the UI
+                 * thread.
+                 */
                 case ThreadManager.UPDATE_UI_TASK:
 
                     // Runs task on the UI thread (this thread).
                     ((UpdateUITask) messageIn.obj).updateUI();
                     break;
 
-                     /* Pass along other messages from the UI */
+                /* Pass along other messages from the UI */
                 default:
                     super.handleMessage(messageIn);
                     break;
             }
         }
     }
-
-
-
-
-    /////////////////////
-    // SUPPORT METHODS //
-    /////////////////////
-    /**
-     * returns the singleton instance of Volley's RequestQueue.
-     * @return instance of Volley's RequestQueue
-     */
-    /*public RequestQueue getRequestQueue(Context context) {
-        if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(context);
-        }
-
-        return mRequestQueue;
-    }*/
 }

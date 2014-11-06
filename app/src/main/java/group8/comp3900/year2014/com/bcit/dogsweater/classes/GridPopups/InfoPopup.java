@@ -53,7 +53,7 @@ public class InfoPopup extends Dialog {
 
         // set image to whatever is clicked on...use a worker thread to load the image
         final ImageView image = (ImageView) findViewById(R.id.largeView);
-        ThreadManager.mInstance.loadImage(
+        ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
                 ThreadManager.CropPattern.SQUARE,   // crop pattern
