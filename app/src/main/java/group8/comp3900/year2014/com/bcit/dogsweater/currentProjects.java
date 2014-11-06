@@ -3,15 +3,19 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.CurrentProjectPopup;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectDialogable;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProjectGridAdapter;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
@@ -92,6 +96,8 @@ public class currentProjects extends Activity {
 
     }
 
+    private int curProjectPosition = -1;
+
     /** one time behavioural configuration to the activity's views go here */
     private void configureGUIReferences() {
 
@@ -106,10 +112,12 @@ public class currentProjects extends Activity {
                     @Override
                     public void onClick(View v) {
 
+                        ;
+
                         //Delete from database
                         profileDataSource.open();
                         List<Project> projects = profileDataSource.getAllProjects();
-                        profileDataSource.deleteProject((projects.get(position)));
+                        profileDataSource.deleteProject( ((ProjectDialogable)gridAdapter.getItem( position )).getProject() );
                         profileDataSource.close();
                         gridAdapter.remove(position);
                         popup.dismiss();
@@ -125,7 +133,7 @@ public class currentProjects extends Activity {
 
                         profileDataSource.open();
                         List<Project> projects = profileDataSource.getAllProjects();
-                        Project curProject = projects.get( position );
+                        Project curProject = ((ProjectDialogable)gridAdapter.getItem( position )).getProject();
                         profileDataSource.close();
 
 
@@ -135,11 +143,82 @@ public class currentProjects extends Activity {
                     }
 
                 });
+
+                popup.setOnTakePhotoButtonClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        takeImage();
+                        curProjectPosition = position;
+                    }
+
+                });
+
+                popup.setOnChoseImageButtonClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        choseImage();
+                        curProjectPosition = position;
+                    }
+
+                });
             popup.show();
 
             }
 
         });
 
+    }
+
+    /** intent used to select a photo from some sort of gallery app */
+    private static final int SELECT_PHOTO          = 100;
+
+    /** intent used to take a photo from camera */
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
+
+    public boolean takeImage() {
+
+        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+        return true;
+    }
+
+    public boolean choseImage() {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if(resultCode == RESULT_OK) {
+                    choseImage();
+                }
+                break;
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK) {
+
+                    profileDataSource.open();
+                    Project curProject = ((ProjectDialogable)gridAdapter.getItem( curProjectPosition )).getProject();
+                    curProject.setImageURI( imageReturnedIntent.getData().toString() );
+                    profileDataSource.updateProject( curProject );
+                    profileDataSource.close();
+
+                    Log.d( "Project ID", curProject.toString() );
+
+                    Toast.makeText(this, imageReturnedIntent.getData().toString(), Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 }

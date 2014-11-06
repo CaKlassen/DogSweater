@@ -152,4 +152,16 @@ public class Project {
         return imageURI;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Project[id:"      + id
+                + ",name:"        + name
+                + ",imageURI:"    + imageURI
+                + ",percentDone:" + percentDone
+                + ",rowCounter:"  + rowCounter
+                + ",curSection:"  + curSection
+                + ",profile:"     + profile
+                + ",style:"       + style  + "]";
+    }
 }

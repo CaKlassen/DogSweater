@@ -125,4 +125,13 @@ public class Profile
 
        return dimensions;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Profile[id:"        + id
+                    + ",name:"      + name
+                    + ",imageURI:"  + imageURI
+                    + ",dimensions" + dimensions + "]";
+    }
 }
