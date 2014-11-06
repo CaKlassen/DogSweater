@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:id="@+id/PDF_root"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:paddingBottom="20dp"
+        android:id="@+id/PDF_projName"
+        android:text="Test - Style 1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/PDF_projName"
+        android:id="@+id/PDF_section" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Head"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:id="@+id/PDF_sectionHeader" />
+
+    </LinearLayout>
+
+    <!-- Start of dynamic section
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. This is a step"
+        android:textSize="15sp"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:id="@+id/textView3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2. This is a step also"
+        android:textSize="15sp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    End of dynamic section -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:id="@+id/PDF_pageNum"
+        android:text="Page 1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/PDF_projName" />
+
+
+</RelativeLayout>
