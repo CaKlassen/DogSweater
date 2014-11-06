@@ -245,11 +245,11 @@ public class Dimensions
     /** @see this.setDimension(String, String, double) */
     public void setDimension(String key, double value)
     {
-        setDimension(key, "", value);
+        setDimension(key, value, "");
     }
 
     /** @see this.setDimension(String, double, String, Unit) */
-    public void setDimension(String key, String defaultValueExpression, double value)
+    public void setDimension(String key, double value, String defaultValueExpression)
     {
         setDimension(key, value, defaultValueExpression, Unit.getDefaultUnit());
     }
@@ -411,7 +411,7 @@ public class Dimensions
             m.setDimension("Hello", 11);
             m.setDimension("No", 12);
             m.setDimension("Bye", 13);
-            m.setDimension("DefaultValue", "Hello + No", 13);
+            m.setDimension("DefaultValue", 13, "Hello + No");
             System.out.println(m.parseExpression("4 - 5"));
             System.out.println(m.parseExpression("floor(Hello - Bye + No + No + 0.5)"));
             Dimensions m2 = new Dimensions(m.stringify());

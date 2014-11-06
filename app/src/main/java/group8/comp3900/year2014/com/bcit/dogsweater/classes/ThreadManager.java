@@ -253,7 +253,6 @@ public class ThreadManager {
          */
         public void handleMessage(Message messageIn) {
 
-            Log.d("Handle message", messageIn.what + "");
             switch (messageIn.what) {
 
                 /*

@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.security.InvalidParameterException;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /**
@@ -47,7 +49,7 @@ public class DogProfileCreation extends Activity {
     //////////////////////////
     /** name of the class. (i.e.: group8.comp3900...DogProfileCreation) */
     public static final String CLASS_NAME =
-            DogProfileCreation.class.getCanonicalName();
+            DogProfileCreation.class.getCanonicalName() + ".";
 
     /** starting intent key for String name of the profile */
     public static final String KEY_PROFILE_NAME =
@@ -87,10 +89,6 @@ public class DogProfileCreation extends Activity {
     /////////////////////////////////
     // parsed starting intent data //
     /////////////////////////////////
-    // TODO: this reference can possibly be removed
-    /** reference to a profile in that's currently being created */
-    private Profile newProfile = null;
-
     /** list of dimension keys of dimensions to be inputted by the user */
     private String[] dimensionKeys = null;
 
@@ -113,6 +111,9 @@ public class DogProfileCreation extends Activity {
     ////////////////////////////
     // reference to GUI views //
     ////////////////////////////
+    /** reference to title text above the image view on the activity */
+    private TextView titleText;
+
     /** image view reference on activity */
     private ImageView image;
 
@@ -219,17 +220,17 @@ public class DogProfileCreation extends Activity {
             otherwise.
              */
 
-            // add the dimensional information that we just got to newProfile
-            newProfile.getDimensions().setDimension(
-                    dimensionKeys[arrayIndex], dimensionValue);
+            // record the dimensional information that we just got
+            dimensionValues[arrayIndex] = dimensionValue;
 
             // do we need to continue gather dimensional information for
             // newProfile?
             Intent in;
             if (arrayIndex < dimensionKeys.length - 1) {
                 /* yes; go get them then */
-                in = new Intent(this, DogProfileCreation.class);
+                in = getIntent();
                 in.putExtra(KEY_DIMENSION_KEYS_INDEX, arrayIndex + 1);
+                in.putExtra(KEY_DIMENSION_VALUES, dimensionValues);
 
             } else {
                 /*
@@ -239,18 +240,23 @@ public class DogProfileCreation extends Activity {
                 in = new Intent(this, StyleSelection.class);
 
                 try {
+                    Profile newProfile = new Profile(
+                            getIntent().getStringExtra(KEY_PROFILE_NAME),
+                            getDimensions(),
+                            getIntent().getStringExtra(KEY_PROFILE_IMAGE_URI));
                     getProfileDataSource().open();
                     getProfileDataSource().insertProfile(newProfile);
 
                     //Create a new project
                     //TODO: WHAT IF THEY BAIL FROM HERE AND THERE IS NO STYLE?
-                    //Project newProject = new Project(newProfile);
-                    //getProfileDataSource().insertProject(newProject);
+                    // TODO: create the project at the very end, after the style has been selected and we have a reference to both the profile, and style... since the profile s in the DB, it has an ID, we can remember the ID to extract our profile later.
+                    Project newProject = new Project(newProfile);
+                    getProfileDataSource().insertProject(newProject);
 
-                    //getProfileDataSource().getAllProjects();
+                    getProfileDataSource().getAllProjects();
 
-                    //long projectId = newProject.getId();
-                    //in.putExtra("projId", projectId );
+                    long projectId = newProject.getId();
+                    in.putExtra("projId", projectId );
 
 
                 } catch(Exception e) {
@@ -284,6 +290,7 @@ public class DogProfileCreation extends Activity {
      * initializes activity instance's View references
      */
     private void initializeGUIReferences() {
+        titleText = (TextView) findViewById(R.id.profileText);
         image = (ImageView) findViewById(R.id.imageView);
         dimensionInput = (EditText) findViewById(R.id.measureA);
 
@@ -299,41 +306,15 @@ public class DogProfileCreation extends Activity {
      * intent data fields as needed
      */
     private void parseStartingIntent(Intent startIntent) {
-        // interpret starting intent; are we creating a profile from scratch or
-        // continuing to make a previous one?
-        if (startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, -1) == -1) {
-            /*
-            we are creating a new dog profile from scratch; create a new
-            Profile object, and reassign our dimensionKeys and imageUris from
-            the startIntent extras
-             */
-            newProfile = new Profile(
-                    startIntent.getStringExtra(KEY_PROFILE_NAME),
-                    new Dimensions(),
-                    startIntent.getStringExtra(KEY_PROFILE_IMAGE_URI));
-            defaultValueExpressions = startIntent.getStringArrayExtra(
-                    KEY_DEFAULT_VALUE_EXPRESSIONS);
-            dimensionKeys = startIntent.getStringArrayExtra(
-                    KEY_DIMENSION_KEYS);
-            arrayIndex = 0;
-
-        } else {
-            /*
-            we're continuing to gather dimensions for our newProfile object
-             */
-            defaultValueExpressions = startIntent.getStringArrayExtra(
-                    KEY_DEFAULT_VALUE_EXPRESSIONS);
-            dimensionKeys = startIntent.getStringArrayExtra(
-                    KEY_DIMENSION_KEYS);
-            dimensionValues = startIntent.getDoubleArrayExtra(
-                    KEY_DIMENSION_VALUES);
-            arrayIndex = startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, -1);
-            if (arrayIndex == -1)
-                throw new InvalidParameterException("KEY_DIMENSION_KEYS_INDEX" +
-                        " == -1. Start intent did not provide a value for the" +
-                        " key: KEY_ARRAY_INDEX.");
-
-        }
+        // parse starting intent into instance variables
+        defaultValueExpressions = startIntent.getStringArrayExtra(
+                KEY_DEFAULT_VALUE_EXPRESSIONS);
+        dimensionKeys = startIntent.getStringArrayExtra(
+                KEY_DIMENSION_KEYS);
+        dimensionValues = startIntent.hasExtra(KEY_DIMENSION_VALUES) ?
+                startIntent.getDoubleArrayExtra(KEY_DIMENSION_VALUES) :
+                new double[dimensionKeys.length];
+        arrayIndex = startIntent.getIntExtra(KEY_DIMENSION_KEYS_INDEX, 0);
 
     }
 
@@ -346,31 +327,39 @@ public class DogProfileCreation extends Activity {
      */
     private void updateGUI() {
         // update the GUI
-        try {
-            image.setImageDrawable(
-                    Dimensions.getDrawable(this, dimensionKeys[arrayIndex]));
-            dimensionInput.setHint(
-                    Dimensions.getFriendly(this, dimensionKeys[arrayIndex]));
+        image.setImageDrawable(
+                Dimensions.getDrawable(this, dimensionKeys[arrayIndex]));
+        dimensionInput.setHint(
+                Dimensions.getFriendly(this, dimensionKeys[arrayIndex]));
+        titleText.setText(
+                Dimensions.getFriendly(this, dimensionKeys[arrayIndex]) + ":");
 
-            // if there is a default value for this dimension, prefill the input
-            if (!defaultValueExpressions[arrayIndex].isEmpty()) {
-                dimensionInput.setText(newProfile.getDimensions().parseExpression(
-                        defaultValueExpressions[arrayIndex]));
+        // if there is a default value for this dimension, prefill the input
+        if (!defaultValueExpressions[arrayIndex].isEmpty()) {
+            dimensionInput.setText(getDimensions().parseExpression(
+                    defaultValueExpressions[arrayIndex]));
 
-            }
-
-        } catch (Exception e) {
-            Log.e("null", null + "");
-            Log.e("image", image + "");
-            Log.e("this", this + "");
-            Log.e("dimensionKeys", dimensionKeys + "");
-            Log.e("arrayIndex", arrayIndex + "");
-            Log.e("dimensionInput", dimensionInput + "");
-            Log.e("defaultValueExpressions", defaultValueExpressions + "");
-            Log.e("newProfile", newProfile + "");
-            Log.e("exception", e.toString());
         }
 
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 5 2014
+     * revisions: none
+     *
+     * instantiates & returns the Dimensions instance that's currently being
+     * build by this & passed instances of DogProfileCreation.
+     */
+    private Dimensions getDimensions() {
+
+        // creating the dimension object to return & return it...
+        Dimensions profileDimensions = new Dimensions();
+        for (int i = 0; i < dimensionKeys.length; i++) {
+            profileDimensions.setDimension(dimensionKeys[i], dimensionValues[i],
+                    defaultValueExpressions[i]);
+        }
+        return profileDimensions;
     }
 
     /**

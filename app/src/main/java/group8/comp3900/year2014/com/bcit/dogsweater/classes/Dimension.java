@@ -21,8 +21,7 @@ public class Dimension {
     /**
      * key used to access the value attribute of a Dimension in JSONObject form.
      */
-    public static final String KEY_VALUE =
-            "KEY_VALUE";
+    public static final String KEY_VALUE = "KEY_VALUE";
 
     /**
      * key used to access the defaultValueExpression attribute of a Dimension in
