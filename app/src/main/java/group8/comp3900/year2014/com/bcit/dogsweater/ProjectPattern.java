@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.FileProvider;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -233,15 +233,19 @@ public class ProjectPattern extends Activity {
 
 
         try {
-            File pdfDirPath = new File(getFilesDir(), "pdfs");
-            pdfDirPath.mkdirs();
-            File file = new File(pdfDirPath, "Pattern.pdf");
-            Uri uri = FileProvider.getUriForFile(this, "com.example.fileprovider", file);
-            os = new FileOutputStream(file);
+            File pdf = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    , "Pattern.pdf");
+
+            //Write to phone
+            os = new FileOutputStream(pdf);
             document.writeTo(os);
             document.close();
             os.close();
+
+           // Uri uri = FileProvider.getUriForFile( v.getContext(), "group8.comp3900.year2014.com.bcit.dogsweater", pdf);
+            Uri uri = Uri.fromFile(pdf);
             shareDocument(uri);
+
         } catch (IOException e) {
             throw new RuntimeException("Error generating file", e);
         }
