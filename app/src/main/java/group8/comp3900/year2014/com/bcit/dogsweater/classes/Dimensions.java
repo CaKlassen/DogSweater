@@ -15,20 +15,36 @@ import net.sourceforge.jeval.Evaluator;
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
 /**
- * @author          Eric Tsang
- * @date            October 1 2014
- * @revision        October 3 2014 - changed the name of this class from
+ * author: Eric Tsang
+ * date: October 1 2014
+ * revision: October 3 2014 - changed the name of this class from
  * "Measurements" to "Dimensions"
+ *
+ * mStorage JSON schema:
+ *
+ * {
+ *     "dimensionKey1":{
+ *         "value":"5"
+ *         "defaultValueExpression":""
+ *     }
+ *     "dimensionKey2":{
+ *         "value":"19"
+ *         "defaultValueExpression":"dimensionKey1 + 5"
+ *     }
+ * }
+ *
  */
 public class Dimensions
 {
     ////////////////////////
     // instance variables //
     ////////////////////////
-    /** underlying object used to save measurement information */
+    /** underlying object used to save measurement information. */
     private JSONObject mStorage;
 
+    /** evaluator object used to evaluate expressions. */
     private static Evaluator mEvaluator = new Evaluator();
+
 
 
 
@@ -36,16 +52,15 @@ public class Dimensions
     // constructor //
     /////////////////
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @param           stringified   a string created with the
-     *                  Measurements.stringify method
-     * @return          an instance of Measurements with the exact same
-     *                  measurements, and associated values as the Measurements
-     *                  instance that was stringified
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
+     * @param stringified a string created with the Measurements.stringify
+     * method
      *
-     * instantiates an instance of Measurements
+     * instantiates an instance of Measurements with the exact same
+     * measurements, and associated values as the Measurements instance that was
+     * stringified.
      */
     public Dimensions(String stringified)
     {
@@ -53,10 +68,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @return          an instance of Measurements
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
      *
      * instantiates an instance of Measurements
      */
@@ -70,42 +84,24 @@ public class Dimensions
     /////////////
     // getters //
     /////////////
-    /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @param           key   key used to identify the measurement
-     * @return          value of the measurement identified by the passed
-     *                  identifier ( key )
-     *
-     * returns the value of the dimension identified by the passed key. the
-     * units used will be in Unit.defaultUnits
-     */
-    public double getDimension(String key)
-    {
-        return getDimension(key, Unit.getDefaultUnit());
-    }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
      * @param           key   key used to identify the measurement
-     * @param           unit   units that the returned value should be returned
-     *                         in
      * @return          value of the measurement identified by the passed
      *                  identifier ( key ) in the passed units ( unit )
      *
      * returns the value of the dimension identified by the passed key in the
      * passed units ( unit )
      */
-    public double getDimension(String key, Unit unit)
+    public Dimension getDimension(String key)
     {
         try {
             // get and return the measurement with the key that matches the
             // passed key
-            double measurementValue = mStorage.getDouble( key );
-            return Unit.getDefaultUnit().convert( unit, measurementValue );
+            return new Dimension(mStorage.getJSONObject(key), this);
         }
         catch ( JSONException e )
         {
@@ -116,9 +112,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 7 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 7 2014
+     * revisions: none
      * @return          String array of all keys
      *
      * returns a string array of all keys saved in this instance
@@ -143,9 +139,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      * @param           key   key String of the dimension we're getting the
      *                  information name for
      * @param           appContext   application context...
@@ -176,9 +172,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      * @param           key   key String of the dimension we're getting the
      *                  information name for
      * @param           appContext   application context...
@@ -209,9 +205,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 18 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 18 2014
+     * revisions: none
      * @param           key   key String of the dimension we're getting the
      *                  information name for
      * @param           appContext   application context...
@@ -245,37 +241,34 @@ public class Dimensions
     /////////////
     // setters //
     /////////////
-    /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
-     * @param           key   key used to identify to the measurement
-     * @param           value   new value of the measurement in
-     *                          Unit.defaultUnits
-     * @return          void
-     *
-     * sets the value of the measurement with key associated with the passed key
-     * to the passed value
-     */
+
+    /** @see this.setDimension(String, String, double) */
     public void setDimension(String key, double value)
     {
-        setDimension(key, value, Unit.getDefaultUnit());
+        setDimension(key, "", value);
+    }
+
+    /** @see this.setDimension(String, double, String, Unit) */
+    public void setDimension(String key, String defaultValueExpression, double value)
+    {
+        setDimension(key, value, defaultValueExpression, Unit.getDefaultUnit());
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
      * @param           key   key used to identify to the measurement
      * @param           value   value of the measurement in the passed units
      *                          ( unit )
+     * @param           defaultValueExpression   expression used to calculate
+     *                  the default value for this dimension
      * @param           unit   units that value is passed in
-     * @return          void
      *
      * sets the value of the dimension identified by the passed key to the
      * passed value in the passed unit
      */
-    public void setDimension(String key, double value, Unit unit)
+    public void setDimension(String key, double value, String defaultValueExpression, Unit unit)
     {
         // validate parameters
         if (key == null || unit == null)
@@ -285,7 +278,12 @@ public class Dimensions
         // add the measurement to mStorage
         try
         {
-            mStorage.put(key, unit.convert(Unit.INCHES, value));
+            Dimension dimension = new Dimension(
+                    Unit.getDefaultUnit(),
+                    value,
+                    defaultValueExpression,
+                    this);
+            mStorage.put(key, dimension.toJSONObject());
         }
         catch( Exception e )
         {
@@ -299,11 +297,10 @@ public class Dimensions
     // other interface methods //
     /////////////////////////////
     /**
-     * @author          Eric Tsang
-     * @date            October 7 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 7 2014
+     * revisions: none
      * @param           key   key used to identify to the measurement
-     * @return          void
      *
      * removes the key-value pair; throws a NoSuchElementException when the key
      * cannot be found
@@ -320,9 +317,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
      * @return          returns a string that can be used in a constructor of
      *                  the measurements class to build a measurements class
      *                  with the same state as it had when it was stringified.
@@ -336,14 +333,13 @@ public class Dimensions
     }
 
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
      * @param           stringified   a string returned by the
      *                  Measurements.stringify method. this sets the state of
      *                  this instance to the same state as the instance that was
      *                  stringified, at the time that it was stringified.
-     * @return          void
      *
      * returns the value of the measurement identified by the passed key in the
      * passed units ( unit )
@@ -362,9 +358,9 @@ public class Dimensions
     }
 
     /**
-     * @author          Chris Klassen
-     * @date            October 17 2014
-     * @revisions       none
+     * author: Chris Klassen
+     * date: October 17 2014
+     * revisions: none
      * @param           expression   a string passed in from an Archetype
      *                               step that must be calculated and returned.
      * @return          String       the calculated expression result
@@ -378,7 +374,7 @@ public class Dimensions
         String[] keys = getDimensionKeys();
         for (String key : keys) {
             expression = expression.replaceAll(key,
-                    String.valueOf(getDimension(key)));
+                    String.valueOf(getDimension(key).getValue()));
         }
 
         // evaluate the expression
@@ -399,11 +395,10 @@ public class Dimensions
     // unit test //
     ///////////////
     /**
-     * @author          Eric Tsang
-     * @date            October 1 2014
-     * @revisions       none
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
      * @param           args   unused command line arguments
-     * @return          void
      *
      * demonstrates how to use the measurements class
      */
@@ -416,13 +411,15 @@ public class Dimensions
             m.setDimension("Hello", 11);
             m.setDimension("No", 12);
             m.setDimension("Bye", 13);
+            m.setDimension("DefaultValue", "Hello + No", 13);
             System.out.println(m.parseExpression("4 - 5"));
             System.out.println(m.parseExpression("floor(Hello - Bye + No + No + 0.5)"));
             Dimensions m2 = new Dimensions(m.stringify());
 
-            System.out.println( m2.getDimension("Hello") );
-            System.out.println( m2.getDimension("No", Unit.CENTIMETRES) );
-            System.out.println( m.getDimension("Bye", Unit.INCHES) );
+            System.out.println( m2.getDimension("Hello").toJSONObject().toString() );
+            System.out.println( m2.getDimension("DefaultValue").getDefaultValue() );
+            System.out.println( m2.getDimension("No").getValue(Unit.CENTIMETRES) );
+            System.out.println( m.getDimension("Bye").getValue(Unit.INCHES) );
         }
         catch ( Exception e )
         {
