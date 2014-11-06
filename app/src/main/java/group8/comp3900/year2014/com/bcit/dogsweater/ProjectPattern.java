@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -223,14 +224,9 @@ public class ProjectPattern extends Activity {
     public void createPattern(View v) {
         new Thread().start();
 
+        // Generate the PDF based on the given project
         PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 300, 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-
-        View content = findViewById(R.id.testText);
-        content.draw(page.getCanvas());
-        document.finishPage(page);
-
+        generatePDF( document );
 
         try {
             File pdf = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -251,12 +247,112 @@ public class ProjectPattern extends Activity {
         }
     }
 
+    private void generatePDF( PdfDocument pdf ) {
+        PdfDocument.PageInfo pageInfo;
+        PdfDocument.Page page;
+
+        // Loop through all sections
+        for ( int i = 0; i < curProject.getStyle().getSectionList().size(); i++ ) {
+            pageInfo = new PdfDocument.PageInfo.Builder( 612, 792, i + 1 ).create();
+            page = pdf.startPage(pageInfo);
+
+            if ( i == 0 ) {
+                // Inflate the page
+                View inflatedView = getLayoutInflater().inflate( R.layout.pdf_page_first, null );
+
+                // First page of the PDF
+                View content = inflatedView.findViewById( R.id.PDF_first_root );
+
+                // Dynamically insert data into the page
+                TextView pName = (TextView) inflatedView.findViewById( R.id.PDF_first_projName );
+                pName.setText( curProject.getName() );
+
+                TextView sHead = (TextView) inflatedView.findViewById( R.id.PDF_first_sectionHeader );
+                sHead.setText( curProject.getStyle().getSection( i ).getName() );
+
+                LinearLayout section = (LinearLayout) inflatedView.findViewById( R.id.PDF_first_section );
+
+                // Loop through the steps in the section
+                for ( int j = 0; j < curProject.getStyle().getSection( i ).getStepList().size(); j++ ) {
+                    TextView newStep = new TextView( this );
+                    newStep.setText( curProject.getStyle().getSection( i ).getStep( j ).getText() );
+                    newStep.setTextSize( 15 );
+
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                            ActionBar.LayoutParams.WRAP_CONTENT);
+
+                    newStep.setLayoutParams( lp );
+
+                    section.addView( newStep );
+                }
+
+                TextView pageNum = (TextView) inflatedView.findViewById( R.id.PDF_first_pageNum );
+                pageNum.setText( "Page " + ( i + 1 ) );
+
+                // Append the inflated view to the current page
+                LinearLayout ll = (LinearLayout) findViewById( R.id.PDF_append_location );
+                // TODO: Fix this awful memory leak yo
+                //ll.removeAllViews();
+                ll.addView( content );
+
+                View pageContent = findViewById( R.id.PDF_append_location );
+
+                // Adding the layout to the PDF page
+                pageContent.draw( page.getCanvas() );
+                pdf.finishPage( page );
+            } else {
+                View inflatedView = getLayoutInflater().inflate( R.layout.pdf_page_body, null );
+
+                View content = inflatedView.findViewById( R.id.PDF_root );
+
+                // Dynamically insert data into the page
+                TextView pName = (TextView) inflatedView.findViewById( R.id.PDF_projName );
+                pName.setText( curProject.getName() );
+
+                TextView sHead = (TextView) inflatedView.findViewById( R.id.PDF_sectionHeader );
+                sHead.setText( curProject.getStyle().getSection( i ).getName() );
+
+                LinearLayout section = (LinearLayout) inflatedView.findViewById( R.id.PDF_section );
+
+                // Loop through the steps in the section
+                for ( int j = 0; j < curProject.getStyle().getSection( i ).getStepList().size(); j++ ) {
+                    TextView newStep = new TextView( this );
+                    newStep.setText( curProject.getStyle().getSection( i ).getStep( j ).getText() );
+                    newStep.setTextSize( 15 );
+
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                            ActionBar.LayoutParams.WRAP_CONTENT);
+
+                    newStep.setLayoutParams( lp );
+
+                    section.addView( newStep );
+                }
+
+                TextView pageNum = (TextView) inflatedView.findViewById( R.id.PDF_pageNum );
+                pageNum.setText( "Page " + ( i + 1 ) );
+
+                // Append the inflated view to the current page
+                LinearLayout ll = (LinearLayout) findViewById( R.id.PDF_append_location );
+                // TODO: Fix this awful memory leak yo
+                //ll.removeAllViews();
+                ll.addView( content );
+
+                View pageContent = findViewById( R.id.PDF_append_location );
+
+                // Adding the layout to the PDF page
+                pageContent.draw( page.getCanvas() );
+                pdf.finishPage( page );
+            }
+        }
+
+    }
+
     private void shareDocument(Uri uri) {
         mShareIntent = new Intent();
         mShareIntent.setAction(Intent.ACTION_SEND);
         mShareIntent.setType("application/pdf");
         // Assuming it may go via eMail:
-        mShareIntent.putExtra(Intent.EXTRA_SUBJECT, "Here is a PDF from Dog Yarn it. Bitch.");
+        mShareIntent.putExtra(Intent.EXTRA_SUBJECT, "Here is a PDF from Dog Yarn it.");
         // Attach the PDf as a Uri, since Android can't take it as bytes yet.
         mShareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(mShareIntent);
