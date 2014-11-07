@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:id="@+id/PDF_projName"
         android:text="Test - Style 1"
         android:layout_alignParentTop="true"
@@ -35,7 +35,7 @@
             android:text="Head"
             android:paddingBottom="10dp"
             android:textStyle="bold"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:id="@+id/PDF_sectionHeader" />
 
     </LinearLayout>
