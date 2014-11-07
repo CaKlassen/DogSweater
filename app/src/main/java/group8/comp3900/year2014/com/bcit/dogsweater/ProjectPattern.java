@@ -34,6 +34,15 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileData
 
 
 public class ProjectPattern extends Activity {
+
+
+
+    //////////////////////////
+    // starting intent keys //
+    //////////////////////////
+    /** starting intent key to the projectId to pass on */
+    public static final String KEY_PROJECT_ID = "Project Id";
+
     private Project curProject;
     private int curSection;
     private Dimensions dimension;
@@ -54,7 +63,7 @@ public class ProjectPattern extends Activity {
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
         // Retrieve the project id from the bundle
-        final long projId = getIntent().getExtras().getLong("Project Id");
+        final long projId = getIntent().getExtras().getLong(KEY_PROJECT_ID);
 
         // Retrieve the current section from the bundle
         if (getIntent().getExtras().containsKey("Current Section")) {
@@ -111,7 +120,7 @@ public class ProjectPattern extends Activity {
                     Intent in = new Intent(getApplicationContext(), ProjectPattern.class);
 
                     // Continue forward
-                    in.putExtra("Project Id", projId);
+                    in.putExtra(KEY_PROJECT_ID, projId);
                     in.putExtra("Current Section", curSection + 1);
 
                     startActivity(in);

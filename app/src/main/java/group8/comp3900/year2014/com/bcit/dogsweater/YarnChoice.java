@@ -10,6 +10,10 @@ import android.view.View;
 
 public class YarnChoice extends Activity {
 
+    /////////////////////////////////
+    // parsed starting intent data //
+    /////////////////////////////////
+    /** id of a project in this application's database */
     private long projId;
 
     @Override

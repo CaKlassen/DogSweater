@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Material;
 
 public class Materials extends Activity {
-    private long projId;
 
     MyCustomAdapter dataAdapter = null;
 
@@ -29,9 +28,6 @@ public class Materials extends Activity {
 
         //Create the menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
-        // Get the project id from the bundle
-        projId = getIntent().getExtras().getLong("Project Id");
 
         //Generate list View from ArrayList
         displayListView();
@@ -113,10 +109,10 @@ public class Materials extends Activity {
     }
     public void startInstructions(View v)
     {
+        // transfer desired extras from starting intent to new intent
+        long projId = getIntent().getExtras().getLong(ProjectPattern.KEY_PROJECT_ID);
         Intent in = new Intent(this, ProjectPattern.class);
-        // Put the project id into the bundle
-        in.putExtra("Project Id", projId);
-
+        in.putExtra(ProjectPattern.KEY_PROJECT_ID, projId);
         startActivity(in);
     }
 }

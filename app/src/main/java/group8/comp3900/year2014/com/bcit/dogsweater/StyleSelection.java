@@ -34,7 +34,7 @@ public class StyleSelection extends Activity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.YarnChoice", "STYLE", projId);
+               StylePopup popup = new StylePopup(v.getContext(), gridAdapter.getImageList(), position , "group8.comp3900.year2014.com.bcit.dogsweater.YarnSelection", "STYLE", projId);
             }
         });
     }
