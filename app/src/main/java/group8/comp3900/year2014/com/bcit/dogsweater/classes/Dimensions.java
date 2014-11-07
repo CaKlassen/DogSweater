@@ -2,6 +2,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.NoSuchElementException;
 
@@ -126,7 +127,7 @@ public class Dimensions
         String[] keys = new String[len];    // will contain all measurement keys
 
         // populate the keys array with the keys
-        for (int i = 0; i < names.length(); i++) {
+        for (int i = names.length(); i >= 0; i++) {
             try {
                 keys[i] = names.getString(i);
             } catch (JSONException e) {
@@ -371,6 +372,7 @@ public class Dimensions
     public String parseExpression( String expression )
     {
         // replace variables with values
+        Log.d("expression: ", expression);
         String[] keys = getDimensionKeys();
         for (String key : keys) {
             expression = expression.replaceAll(key,
@@ -380,6 +382,7 @@ public class Dimensions
         // evaluate the expression
         String result;
         try {
+            Log.d("expression: ", expression);
             result = mEvaluator.evaluate(expression);
         } catch(EvaluationException e) {
             throw new RuntimeException(e);

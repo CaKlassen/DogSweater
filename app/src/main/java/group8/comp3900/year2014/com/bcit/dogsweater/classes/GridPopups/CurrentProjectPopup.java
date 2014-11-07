@@ -115,9 +115,10 @@ public class CurrentProjectPopup extends Dialog {
      * @author          Eric Tsang
      * @date            October 19 2014
      * @revisions       none
-     * @param           onClickListener   OnClickListener for the delete button
+     * @param           onClickListener   OnClickListener for the continue
+     *                  button
      *
-     * sets the OnClickListener for the button
+     * sets the OnClickListener for the continue button
      */
 
     public void setOnContinueButtonClickListener(View.OnClickListener onClickListener) {

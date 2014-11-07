@@ -17,7 +17,7 @@ public class Profile
             // dimension keys
             new String[] {"A", "B", "C", "X", "Y", "Z"},
             // dimension expressions used to calculate their default values
-            new String[] {"", "", "", "A+B", "X-A", ""}
+            new String[] {"", "", "A/4", "", "", ""}
     };
 
     private Uri imageURI = null;

@@ -46,8 +46,11 @@ public class ProfileName extends Activity {
     ////////////////////////
     // user inputted data //
     ////////////////////////
-    /** URI to image chosen by user for the profile that's being created */
-    // TODO: make a default image uri. it's not as simple as a drawable i think, because drawables don't have URIs
+    /**
+     * URI to image chosen by user for the profile that's being created. value
+     * it is initialized with is a uri to a default image if the user doesn't
+     * pick an image themselves.
+     */
     private String profileImageUri = "android.resource://group8.comp3900.year2014.com.bcit.dogsweater/drawable/dog_silhouette";
 
 

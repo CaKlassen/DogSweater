@@ -109,9 +109,9 @@ public class ManageInfoPopup extends Dialog {
      * @author          Eric Tsang
      * @date            October 19 2014
      * @revisions       none
-     * @param           onClickListener   OnClickListener for the delete button
+     * @param           onClickListener   OnClickListener for the modify button
      *
-     * sets the OnClickListener for the delete button
+     * sets the OnClickListener for the modify button
      */
     public void setOnModifyButtonClickListener(View.OnClickListener onClickListener) {
         modButton.setOnClickListener(onClickListener);
