@@ -20,7 +20,7 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /**
- * intent signatures:
+ * starting intent signatures:
  *   creating a new profile from scratch:
  *     KEY_PROFILE_NAME - String name of the new profile
  *     KEY_DIMENSION_KEYS - String[] dimension keys needed to fill in
@@ -234,8 +234,10 @@ public class DogProfileCreation extends Activity {
 
             } else {
                 /*
-                nope; save the newProfile into our database & move on to the
-                next stage
+                nope; create the new profile and save it into our database &
+                move on to the next stage...pass on the id of the profile to the
+                next stage so we can associate it with the project instance to
+                be created
                  */
                 in = new Intent(this, StyleSelection.class);
 
@@ -244,18 +246,11 @@ public class DogProfileCreation extends Activity {
                             getIntent().getStringExtra(KEY_PROFILE_NAME),
                             getDimensions(),
                             getIntent().getStringExtra(KEY_PROFILE_IMAGE_URI));
+
                     getProfileDataSource().open();
                     getProfileDataSource().insertProfile(newProfile);
-
-                    //Create a new project
-                    //TODO: WHAT IF THEY BAIL FROM HERE AND THERE IS NO STYLE?
-                    // TODO: create the project at the very end, after the style has been selected and we have a reference to both the profile, and style... since the profile s in the DB, it has an ID, we can remember the ID to extract our profile later.
-                    Project newProject = new Project(newProfile);
-                    getProfileDataSource().insertProject(newProject);
-
-                    long projectId = newProject.getId();
-                    in.putExtra("projId", projectId );
-
+                    in.putExtra(StyleSelection.KEY_PROFILE_ID,
+                            newProfile.getId());
 
                 } catch(Exception e) {
                     Log.d(this.toString(), e.toString());

@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.InfoPopup;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.Popup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileSelectionGridAdapter;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 
@@ -38,7 +40,7 @@ public class ProfileSelection extends Activity {
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
+                                    final int position, long id) {
 
                 if (position == 0)
                 {
@@ -47,7 +49,23 @@ public class ProfileSelection extends Activity {
                 }
                 else
                 {
-                    new InfoPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position) );
+                    Dialogable dialogable = (Dialogable) gridAdapter.getItem(position);
+                    Popup popup = new Popup(v.getContext());
+                    popup.setButtonText("SELECT THIS PROFILE");
+                    popup.setDescriptionText("");
+                    popup.setImageByUri(dialogable.getDialogueImageUri());
+                    popup.setTitleText(dialogable.getDialogueTitle());
+                    popup.setButtonOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(ProfileSelection.this,
+                                    StyleSelection.class);
+                            i.putExtra(StyleSelection.KEY_PROFILE_ID,
+                                    gridAdapter.getItemId(position));
+                            startActivity(i);
+                        }
+                    });
+                    popup.show();
                 }
             }
         });

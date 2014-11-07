@@ -3,7 +3,9 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -12,31 +14,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager.CropPattern;
 
 /**
  * Created by Rhea on 07/10/2014.
  * Creates the grid_layout for the current project screen
  */
-public class StylePopup extends Dialog {
+public class Popup extends Dialog {
 
 
     ////////////////////
     // GUI references //
     ////////////////////
-    /** reference to the continue button on the dialog */
-    private Button continueBtn;
+    /** reference to the title TextView on the dialog */
+    private TextView titleText;
 
     /** reference to the main ImageView on the dialog */
     private ImageView image;
 
-    /** reference to the title TextView on the dialog */
-    private TextView titleText;
+    /** reference to the description TextView on the dialog */
+    private TextView descriptionText;
 
+    /** reference to the button on the dialog */
+    private Button button;
 
     /////////////////
     // constructor //
     /////////////////
-    public StylePopup(Context context) {
+    public Popup(Context context) {
         super(context);
 
         //Set custom dialog information
@@ -70,8 +76,34 @@ public class StylePopup extends Dialog {
      * @param drawableResourceId id that corresponds to a drawable to use as the
      *   dialog's ImageView's image
      */
-    public void setImageBackgroundResource(int drawableResourceId) {
+    public void setImageByDrawableId(int drawableResourceId) {
         image.setBackgroundResource(drawableResourceId);
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 6 2014
+     *
+     * gets and parses the image at the uri into a Bitmap, and sets it as the
+     *   dialog's ImageView's image
+     *
+     * @param imageUri Uri to an image to display on the dialog on the android's
+     *   local file system
+     */
+    public void setImageByUri(Uri imageUri) {
+        ThreadManager.loadImage(
+                getContext(),                       // application context
+                imageUri,                           // local uri to image file
+                ThreadManager.CropPattern.SQUARE,   // crop pattern
+                getWindow().getAttributes().width,  // image width
+
+                // what to do when success
+                new ThreadManager.OnResponseListener() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        image.setImageBitmap(bitmap);
+                    }
+                });
     }
 
     /**
@@ -90,25 +122,37 @@ public class StylePopup extends Dialog {
      * author: Eric Tsang
      * date: November 6 2014
      *
-     * sets the text displayed on the continue button of the dialog to the
-     * passed String (text)
+     * sets the description of the dialog to the passed String (text)
      *
-     * @param text text to display on the continue button
+     * @param text text to display as the dialog's description
      */
-    public void setContinueButtonText(String text) {
-        continueBtn.setText(text);
+    public void setDescriptionText(String text) {
+        descriptionText.setText(text);
     }
 
     /**
      * author: Eric Tsang
      * date: November 6 2014
      *
-     * sets the onClickListener for the continue button of this dialog
+     * sets the text displayed on the button of the dialog to the
+     * passed String (text)
      *
-     * @param listener onClickListener to use for the dialog's continue button
+     * @param text text to display on the button
      */
-    public void setContinueButtonOnClickListener(View.OnClickListener listener) {
-        continueBtn.setOnClickListener(listener);
+    public void setButtonText(String text) {
+        button.setText(text);
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 6 2014
+     *
+     * sets the onClickListener for the button of this dialog
+     *
+     * @param listener onClickListener to use for the dialog's button
+     */
+    public void setButtonOnClickListener(View.OnClickListener listener) {
+        button.setOnClickListener(listener);
     }
 
 
@@ -122,8 +166,9 @@ public class StylePopup extends Dialog {
      * initializes dialog's View references
      */
     private void initializeGUIRefereces() {
+        titleText = (TextView) findViewById(R.id.popupTitle);
         image = (ImageView) findViewById(R.id.largeView);
-        titleText =  (TextView) findViewById(R.id.popupTitle);
-        continueBtn = (Button) findViewById(R.id.nextButton);
+        descriptionText = (TextView) findViewById(R.id.descriptionText);
+        button = (Button) findViewById(R.id.nextButton);
     }
 }

@@ -63,7 +63,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return dialogables.get(position).getItemId();
     }
 
     @Override

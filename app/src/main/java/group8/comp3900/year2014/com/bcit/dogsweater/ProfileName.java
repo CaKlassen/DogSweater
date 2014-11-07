@@ -217,11 +217,11 @@ public class ProfileName extends Activity {
     /**
      * author: Eric Tsang
      * date: November 5 2014
-     * revisions: none
-     * @param v used by the android system
      *
      * opens a context menu that provides different options that can be used to
      * associate a URI to an image to the profile that's being created.
+     *
+     * @param v used by the android system
      */
     public void getImageUri(View v) {
         openContextMenu(addImageButton);
@@ -235,7 +235,6 @@ public class ProfileName extends Activity {
     /**
      * author: Eric Tsang
      * date: October 18 2014
-     * revisions: none
      *
      * initializes activity instance's View references
      */
@@ -248,7 +247,6 @@ public class ProfileName extends Activity {
     /**
      * author: Eric Tsang
      * date: October 18 2014
-     * revisions: none
      *
      * does one-time things to views as necessary to make them behave in a
      * certain way
