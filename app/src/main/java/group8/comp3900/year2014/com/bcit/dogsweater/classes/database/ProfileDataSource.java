@@ -174,6 +174,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE,    project.getProfile().getId()        );
         values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getStyleNumber() );
         values.put( DogYarnItSQLHelper.PROJECT_SECTION,    project.getSection()                );
+        values.put( DogYarnItSQLHelper.PROJECT_GAUGE,      project.getGauge()                  );
 
         long insertId = database.insert( DogYarnItSQLHelper.TABLE_PROJECTS
                 , null
@@ -193,6 +194,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE,    project.getProfile().getId() );
         values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getName() );
         values.put( DogYarnItSQLHelper.PROJECT_SECTION,    project.getSection()         );
+        values.put( DogYarnItSQLHelper.PROJECT_GAUGE,      project.getGauge()                  );
 
         database.update(DogYarnItSQLHelper.TABLE_PROJECTS, values,  DogYarnItSQLHelper.PROJECT_ID + " = " +  project.getId(), null );
 
@@ -303,6 +305,11 @@ public class ProfileDataSource {
                   cursor.getString(
                     cursor.getColumnIndex(
                       DogYarnItSQLHelper.PROJECT_IMAGE ) ) );
+
+        project.setGauge(
+                  cursor.getDouble(
+                    cursor.getColumnIndex(
+                      DogYarnItSQLHelper.PROJECT_GAUGE ) ) );
 
         project.setId(
                   cursor.getLong (

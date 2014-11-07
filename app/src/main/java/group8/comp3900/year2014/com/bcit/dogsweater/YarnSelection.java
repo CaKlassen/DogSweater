@@ -121,6 +121,7 @@ public class YarnSelection extends Activity {
     ///////////////
     public void next(View v) {
         // extract information from the GUI
+        // TODO: convert to a real gauge - Eric
         String selectedItem = (String) yarnTypesSpinner.getSelectedItem();
         Log.d("selectedItem: ", selectedItem);
 
@@ -136,6 +137,7 @@ public class YarnSelection extends Activity {
         Project newProject = new Project(p);
         newProject.setStyle(s);
         newProject.setName(p.getName() + " - " + s.getName());
+        newProject.setGauge(10.0);  // TODO: use a real gauge - Eric
         getProfileDataSource().insertProject(newProject);
         getProfileDataSource().close();
 

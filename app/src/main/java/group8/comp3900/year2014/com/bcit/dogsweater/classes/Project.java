@@ -18,6 +18,9 @@ public class Project {
 
     private Uri imageURI = null;
 
+    /** thickness of the yarn used for this project */
+    private double gauge;
+
     /**
      * Author: Chris Klassen
      *
@@ -81,6 +84,10 @@ public class Project {
         percentDone = p;
     }
 
+    public void setGauge(double newGauge) {
+        gauge = newGauge;
+    }
+
     public void addPercent(float p) {
         percentDone += p;
     }
@@ -118,6 +125,10 @@ public class Project {
     public long getId() {
 
         return id;
+    }
+
+    public double getGauge() {
+        return gauge;
     }
 
     public void setId( long id ) {
