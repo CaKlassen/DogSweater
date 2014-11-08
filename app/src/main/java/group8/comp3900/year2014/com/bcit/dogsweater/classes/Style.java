@@ -12,22 +12,6 @@ public class Style {
     private int styleNumber;
     private ArrayList<Section> sectionList;
 
-    /** String keys for the different variables to be inserted. */
-    public static final String D_NECK = "[A]";
-    public static final String D_CHEST = "[B]";
-    public static final String L_NECK = "[C]";
-    public static final String L_UNDERBELLY = "[D]";
-    public static final String L_CENTRE_BACK = "[E]";
-
-    public static final String STS_NECK = "[AA]";
-    public static final String STS_CHEST = "[BB]";
-    public static final String STS_CENTRE_BACK = "[FF]";
-    public static final String STS_CHEST_AREA = "[GG]";
-    public static final String STS_NECK_TO_CHEST_ = "[HH]";
-    public static final String STS_FIRST_LEGHOLE = "[II]";
-    public static final String STS_STOMACH = "[JJ]";
-    public static final String STS_BACK_FLAP = "[KK]";
-
     /**
      * Author: Chris Klassen
      *

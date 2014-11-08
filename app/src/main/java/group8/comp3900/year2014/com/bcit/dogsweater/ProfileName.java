@@ -178,9 +178,9 @@ public class ProfileName extends Activity {
             Intent in = new Intent(this, DogProfileCreation.class);
             in.putExtra(DogProfileCreation.KEY_PROFILE_NAME, profileName);
             in.putExtra(DogProfileCreation.KEY_DIMENSION_KEYS,
-                    Profile.MINIMUM_DIMENSION_KEYS[0]);
+                    Profile.MINIMUM_DIMENSION_KEYS);
             in.putExtra(DogProfileCreation.KEY_DEFAULT_VALUE_EXPRESSIONS,
-                    Profile.MINIMUM_DIMENSION_KEYS[1]);
+                    Profile.MINIMUM_DIMENSION_EXPRESSIONS);
             in.putExtra(DogProfileCreation.KEY_PROFILE_IMAGE_URI,
                     profileImageUri);
             startActivity(in);

@@ -246,7 +246,7 @@ public class Dimensions
     /** @see this.setDimension(String, String, double) */
     public void setDimension(String key, double value)
     {
-        setDimension(key, value, "");
+        setDimension(key, value, null);
     }
 
     /** @see this.setDimension(String, double, String, Unit) */

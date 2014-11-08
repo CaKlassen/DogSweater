@@ -11,14 +11,69 @@ public class Profile
     //for databasing
     private long id;
 
-    // TODO: modify MINIMUM_DIMENSION_KEYS so that they are the actual minimum dimension keys
-    /** minimum dimension keys needed to create a profile */
-    public static final String[][] MINIMUM_DIMENSION_KEYS = new String[][] {
-            // dimension keys
-            new String[] {"A", "B", "C", "X", "Y", "Z"},
-            // dimension expressions used to calculate their default values
-            new String[] {"", "", "A/4", "", "", ""}
-    };
+
+    ////////////////////
+    // Dimension keys //
+    ////////////////////
+    /** key for diameter around the neck in the collar area dimension */
+    public static final String NECK_DIAMETER = "A";
+
+    /** key for diameter around the chest dimension */
+    public static final String CHEST_DIAMETER = "B";
+
+    /** key for width measured between the two front legs dimension */
+    public static final String FRONT_LEGS_DISTANCE = "C";
+
+    /** key for length of neck from chin to collar dimension */
+    public static final String NECK_LENGTH = "X";
+
+    /**
+     * key for length of underbelly, from collar to the end of the ribs
+     * dimension
+     */
+    public static final String UNDERBELLY_LENGTH = "Y";
+
+    /**
+     * key for length of center back, from collar to base of the tail dimension
+     */
+    public static final String CENTRE_BACK_LENGTH = "Z";
+
+
+    /////////////////////////////////////////
+    // Dimension default value expressions //
+    /////////////////////////////////////////
+    /**
+     * default value expression for the distance between the two front legs
+     * dimension
+     */
+    public static final String FRONT_LEGS_DISTANCE_EXPRESSION =
+            NECK_DIAMETER + "/4";
+
+    /**
+     * array of mandatory dimension keys that should be saved into a profile's
+     * Dimensions object.
+     */
+    public static final String[] MINIMUM_DIMENSION_KEYS = new String[] {
+            NECK_DIAMETER,
+            CHEST_DIAMETER,
+            FRONT_LEGS_DISTANCE,
+            NECK_LENGTH,
+            UNDERBELLY_LENGTH,
+            CENTRE_BACK_LENGTH
+            };
+
+    /**
+     * array of mandatory default value expressions that should be saved into a
+     * profile's Dimensions object.
+     */
+    public static final String[] MINIMUM_DIMENSION_EXPRESSIONS = new String[] {
+            null,
+            null,
+            FRONT_LEGS_DISTANCE_EXPRESSION,
+            null,
+            null,
+            null
+            };
 
     private Uri imageURI = null;
     private String name;

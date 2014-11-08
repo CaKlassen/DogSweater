@@ -9,6 +9,24 @@ public class Project {
     //for databasing
     private long id;
 
+    /**
+     * dimensions keys of the dimensions object returned through getDimensions
+     */
+    public static final String KEY_GAUGE = "GAUGE";
+    public static final String KEY_STS_NECK = "AA";
+    public static final String KEY_STS_CHEST = "BB";
+    public static final String KEY_STS_CENTRE_BACK = "FF";
+    public static final String KEY_STS_CHEST_AREA = "GG";
+    public static final String KEY_STS_NECK_TO_CHEST = "HH";
+    public static final String KEY_STS_FIRST_LEGHOLE = "II";
+    public static final String KEY_STS_STOMACH = "JJ";
+    public static final String KEY_STS_BACK_FLAP = "KK";
+
+    /**
+     * array of mandatory dimensions keys that should be saved in the Dimensions
+     * object returned by getDimensions
+     */
+
     private String name;
     private float percentDone;
     private int rowCounter;
@@ -120,6 +138,12 @@ public class Project {
 
     public Style getStyle() {
         return style;
+    }
+
+    public Dimensions getDimensions() {
+        Dimensions dimensions = new Dimensions();
+        dimensions.setDimension(KEY_GAUGE, getGauge());
+        dimensions.setDimension(K);
     }
 
     public long getId() {
