@@ -329,10 +329,8 @@ public class DogProfileCreation extends Activity {
 
         // if there is a default for this dimension, prefill the input
         if (defaultValueExpressions[arrayIndex] != null) {
-            dimensionInput.setText((dimensionValues[arrayIndex] == 0) ?
-                    getDimensions().parseExpression(
-                            defaultValueExpressions[arrayIndex]) :
-                    String.valueOf(dimensionValues[arrayIndex]));
+            dimensionInput.setText(getDimensions().parseExpression(
+                            defaultValueExpressions[arrayIndex]));
 
         }
 

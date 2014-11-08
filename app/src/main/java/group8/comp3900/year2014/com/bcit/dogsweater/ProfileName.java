@@ -121,10 +121,11 @@ public class ProfileName extends Activity {
         switch(item.getItemId()) {
 
             case R.id.menu_item_take_picture:
+                // TODO on Eric's nexus 7, this doesn't seem to start the right startActivityForResult thing.
                 return takeImage();
 
             case R.id.menu_item_choose_image:
-                return choseImage();
+                return chooseImage();
 
             default:
                 return super.onContextItemSelected(item);
@@ -138,7 +139,8 @@ public class ProfileName extends Activity {
         switch(requestCode) {
             case REQUEST_IMAGE_CAPTURE:
                 if(resultCode == RESULT_OK) {
-                    choseImage();
+                    // TODO: this doesn't seem to work; after taking a picture, and coming back to this page, the chooseImage doesn't launch the choose image thing on Eric's nexus 7
+                    chooseImage();
                 }
                 break;
             case SELECT_PHOTO:
@@ -176,13 +178,18 @@ public class ProfileName extends Activity {
              */
 
             Intent in = new Intent(this, DogProfileCreation.class);
-            in.putExtra(DogProfileCreation.KEY_PROFILE_NAME, profileName);
-            in.putExtra(DogProfileCreation.KEY_DIMENSION_KEYS,
-                    Profile.MINIMUM_DIMENSION_KEYS);
-            in.putExtra(DogProfileCreation.KEY_DEFAULT_VALUE_EXPRESSIONS,
-                    Profile.MINIMUM_DIMENSION_EXPRESSIONS);
-            in.putExtra(DogProfileCreation.KEY_PROFILE_IMAGE_URI,
+            in.putExtra(
+                    DogProfileCreation.KEY_PROFILE_NAME,
+                    profileName);
+            in.putExtra(
+                    DogProfileCreation.KEY_PROFILE_IMAGE_URI,
                     profileImageUri);
+            in.putExtra(
+                    DogProfileCreation.KEY_DIMENSION_KEYS,
+                    Profile.MIN_DIMENSION_KEYS);
+            in.putExtra(
+                    DogProfileCreation.KEY_DEFAULT_VALUE_EXPRESSIONS,
+                    Profile.MIN_DIMENSION_EXPRESSIONS);
             startActivity(in);
 
         } else {
@@ -206,7 +213,7 @@ public class ProfileName extends Activity {
         return true;
     }
 
-    public boolean choseImage() {
+    public boolean chooseImage() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");

@@ -9,18 +9,54 @@ public class Project {
     //for databasing
     private long id;
 
-    /**
-     * dimensions keys of the dimensions object returned through getDimensions
-     */
+
+    //////////////////////////////////////////
+    // Dimensions returned by getDimensions //
+    //////////////////////////////////////////
+
+    // dimensions keys of the Dimensions object returned through getDimensions
     public static final String KEY_GAUGE = "GAUGE";
-    public static final String KEY_STS_NECK = "AA";
-    public static final String KEY_STS_CHEST = "BB";
-    public static final String KEY_STS_CENTRE_BACK = "FF";
-    public static final String KEY_STS_CHEST_AREA = "GG";
-    public static final String KEY_STS_NECK_TO_CHEST = "HH";
-    public static final String KEY_STS_FIRST_LEGHOLE = "II";
-    public static final String KEY_STS_STOMACH = "JJ";
-    public static final String KEY_STS_BACK_FLAP = "KK";
+    public static final String KEY_STS_AA = "AA";
+    public static final String KEY_STS_BB = "BB";
+    public static final String KEY_STS_CC = "CC";
+
+    // expressions used to calculate dimension values of the Dimensions object
+    //   returned through getDimensions
+    /**
+     * AA is estimated by GUAGE*A/4 then rounded up to the closest number that
+     *   is both a multiple of 3 and 4 Possible AA’s : 12, 24, 36, 48, 60, 72,
+     *   84, 96, 108, 120, etc – basically a multiple of 12
+     */
+    public static final String STS_AA_EXPRESSION =
+            "ceil(" + KEY_GAUGE + "*" + Profile.NECK_DIAMETER + "/12)*12";
+
+    /** BB is GUAGE*B/4 rounded up to the closest multiple of 4 */
+    public static final String STS_BB_EXPRESSION =
+            "ceil(" + KEY_GAUGE + "*" + Profile.CHEST_DIAMETER + "/4/4)*4";
+
+    /** CC is GUAGE*C/4 rounded up to the nearest odd number */
+    public static final String STS_CC_EXPRESSION =
+            "round(" + KEY_GAUGE + "*" + Profile.FRONT_LEGS_DISTANCE + "/2)*2+1";
+
+    /**
+     * array of mandatory of keys that should be in the Dimensions object
+     *   returned through getDimensions
+     */
+    public static final String[] MIN_DIMENSION_KEYS = new String[] {
+            KEY_STS_AA,
+            KEY_STS_BB,
+            KEY_STS_CC
+    };
+
+    /**
+     * array of expressions used to each dimension in the Dimensions object
+     *   returned through getDimensions
+     */
+    public static final String[] MIN_DIMENSION_EXPRESSIONS = new String[] {
+            STS_AA_EXPRESSION,
+            STS_BB_EXPRESSION,
+            STS_CC_EXPRESSION
+    };
 
     /**
      * array of mandatory dimensions keys that should be saved in the Dimensions
@@ -141,9 +177,21 @@ public class Project {
     }
 
     public Dimensions getDimensions() {
-        Dimensions dimensions = new Dimensions();
+
+        // create a copy of the Profile's Dimensions object because we want to
+        // access its dimensions like A, B, C and so on.
+        String stringifiedDimensions = getProfile().getDimensions().stringify();
+        Dimensions dimensions = new Dimensions(stringifiedDimensions);
+
+        // calculate and add project dimensions into Dimensions object & return
         dimensions.setDimension(KEY_GAUGE, getGauge());
-        dimensions.setDimension(K);
+        for (int i = 0; i < MIN_DIMENSION_KEYS.length; i++) {
+            dimensions.setDimension(MIN_DIMENSION_KEYS[i],
+                    Double.valueOf(
+                            dimensions.parseExpression(
+                                    MIN_DIMENSION_EXPRESSIONS[i])));
+        }
+        return dimensions;
     }
 
     public long getId() {

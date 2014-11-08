@@ -94,7 +94,7 @@ public class ProjectPattern extends Activity {
         LinearLayout taskList = (LinearLayout) findViewById(R.id.patternTaskList);
 
         // Retrieve Dimensions object
-        dimension = curProject.getProfile().getDimensions();
+        dimension = curProject.getDimensions();
 
         // Create a step number counter
         int stepNum = 0;

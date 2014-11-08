@@ -49,11 +49,14 @@ public class Profile
     public static final String FRONT_LEGS_DISTANCE_EXPRESSION =
             NECK_DIAMETER + "/4";
 
+    ////////////////////////////
+    // Misc profile constants //
+    ////////////////////////////
     /**
      * array of mandatory dimension keys that should be saved into a profile's
      * Dimensions object.
      */
-    public static final String[] MINIMUM_DIMENSION_KEYS = new String[] {
+    public static final String[] MIN_DIMENSION_KEYS = new String[] {
             NECK_DIAMETER,
             CHEST_DIAMETER,
             FRONT_LEGS_DISTANCE,
@@ -64,9 +67,10 @@ public class Profile
 
     /**
      * array of mandatory default value expressions that should be saved into a
-     * profile's Dimensions object.
+     * profile's Dimensions object. length of this array should be the same as
+     * the length of the MIN_DIMENSION_KEYS array
      */
-    public static final String[] MINIMUM_DIMENSION_EXPRESSIONS = new String[] {
+    public static final String[] MIN_DIMENSION_EXPRESSIONS = new String[] {
             null,
             null,
             FRONT_LEGS_DISTANCE_EXPRESSION,
@@ -75,8 +79,16 @@ public class Profile
             null
             };
 
+    /** Uri to an image file of this profile on the device's local memory */
     private Uri imageURI = null;
+
+    /** name of the profile (i.e.: Sparky) */
     private String name;
+
+    /**
+     * Dimensions object associated with the profile object; measurements of the
+     * subject of this profile
+     */
     private Dimensions dimensions;
 
     public Profile( String name ) {

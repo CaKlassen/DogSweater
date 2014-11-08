@@ -127,7 +127,7 @@ public class Dimensions
         String[] keys = new String[len];    // will contain all measurement keys
 
         // populate the keys array with the keys
-        for (int i = names.length(); i >= 0; --i) {
+        for (int i = len - 1; i >= 0; --i) {
             try {
                 keys[i] = names.getString(i);
             } catch (JSONException e) {

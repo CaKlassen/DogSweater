@@ -67,7 +67,8 @@ public class Dimension {
     public Dimension(Unit unit, double value, String defaultValueExpression, Dimensions dimensions) {
         this.unit = unit;
         this.value = value;
-        this.defaultValueExpression = defaultValueExpression;
+        this.defaultValueExpression = (defaultValueExpression == null) ?
+                "" : defaultValueExpression;
         this.dimensions = dimensions;
     }
 
@@ -81,10 +82,11 @@ public class Dimension {
      */
     public Dimension(JSONObject o, Dimensions dimensions) {
         try {
+            this.dimensions = dimensions;
             this.unit = Unit.parseStringified(o.getString(KEY_UNIT));
             this.value = o.getDouble(KEY_VALUE);
-            this.defaultValueExpression = o.getString(KEY_DEFAULT_VALUE_EXPRESSION);
-            this.dimensions = dimensions;
+            this.defaultValueExpression = o.has(KEY_DEFAULT_VALUE_EXPRESSION) ?
+                    o.getString(KEY_DEFAULT_VALUE_EXPRESSION) : "";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
