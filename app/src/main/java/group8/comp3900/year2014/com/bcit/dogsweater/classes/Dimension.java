@@ -65,10 +65,24 @@ public class Dimension {
      * variables from the constructor parameters.
      */
     public Dimension(Unit unit, double value, String defaultValueExpression, Dimensions dimensions) {
+
+        // validate arguments
+        if (dimensions == null) {
+            throw new IllegalArgumentException("parameter: \"dimensions\" cannot be null");
+        }
+
+        // pre process arguments
+        if (unit == null) {
+            unit = Unit.getDefaultUnit();
+        }
+        if (defaultValueExpression == null) {
+            defaultValueExpression = "";
+        }
+
+        // initialize instance variables from constructor parameters
         this.unit = unit;
         this.value = value;
-        this.defaultValueExpression = (defaultValueExpression == null) ?
-                "" : defaultValueExpression;
+        this.defaultValueExpression = defaultValueExpression;
         this.dimensions = dimensions;
     }
 
