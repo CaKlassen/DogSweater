@@ -21,12 +21,6 @@
 
         <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pattern To Pdf"
-            android:onClick="createPattern">
-        </Button>
-
-        <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Share Pattern"
             android:onClick="shareButton">
         </Button>

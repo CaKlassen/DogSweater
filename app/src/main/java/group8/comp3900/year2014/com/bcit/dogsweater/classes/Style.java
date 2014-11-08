@@ -197,10 +197,6 @@ public class Style {
                 "the needle."));
         sList.add(new Step("Continue in pattern for 2 more rounds. Make sure the MarkerA and MarkerB " +
                 "are moved up also."));
-
-
-
-
         style_1.add(new Section("Chest", sList));
 
         // Section 3

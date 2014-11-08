@@ -8,33 +8,29 @@
         android:required="true" />
 
     <!-- for choosing images from gallery for your dog -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS" />
     <!-- For PDF writing -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/appName"
         android:theme="@style/AppTheme" >
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.android.provider.DataSharing-1"
             android:exported="false"
-            android:grantUriPermissions="true">
-
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
-
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.MainActivity"
             android:label="@string/appName" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,48 +39,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DogProfileCreation"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.DogProfileCreation"
             android:label="@string/profileCreationTitle" >
         </activity>
         <activity
-            android:name=".ProfileName"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ProfileName"
             android:label="@string/profileNameTitle" >
         </activity>
         <activity
-            android:name=".YarnChoice"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.YarnChoice"
             android:label="@string/yarnTitle" >
         </activity>
         <activity
-            android:name=".YarnSelection"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.YarnSelection"
             android:label="@string/title_activity_yarn_selection" >
         </activity>
         <activity
-            android:name=".StyleSelection"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.StyleSelection"
             android:label="@string/title_activity_style" >
         </activity>
         <activity
-            android:name=".Materials"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.Materials"
             android:label="@string/title_activity_materials" >
         </activity>
         <activity
-            android:name=".ProjectPattern"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ProjectPattern"
             android:label="@string/title_activity_project_pattern" >
         </activity>
         <activity
-            android:name=".ProfileSelection"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ProfileSelection"
             android:label="@string/title_activity_profile_selection" >
         </activity>
         <activity
-            android:name=".currentProjects"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.currentProjects"
             android:label="@string/title_activity_current_projects" >
         </activity>
         <activity
-            android:name=".ManageProfiles"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ManageProfiles"
             android:label="@string/title_activity_manage_profiles" >
         </activity>
         <activity
-            android:name=".Info"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.Info"
             android:label="@string/title_activity_info" >
+        </activity>
+        <activity
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.PdfPreview"
+            android:label="@string/title_activity_pdf_preview" >
         </activity>
     </application>
 
