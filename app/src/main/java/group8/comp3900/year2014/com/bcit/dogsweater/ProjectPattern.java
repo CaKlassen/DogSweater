@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Step;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 
@@ -66,7 +68,6 @@ public class ProjectPattern extends Activity {
         db.updateProject(curProject);
         db.close();
 
-        /*
         // Populate the title based on the active project
         TextView title = (TextView) findViewById(R.id.patternTitle);
         title.setText(curProject.getStyle().getSection(curSection).getName());
@@ -125,7 +126,7 @@ public class ProjectPattern extends Activity {
         // Update the row counter with its current value
         TextView t = (TextView) findViewById(R.id.patternRowCounter);
         t.setText("" + curProject.getRowCounter());
-*/
+
     }
 
 
@@ -152,7 +153,7 @@ public class ProjectPattern extends Activity {
 
         // Assign text to the step
         TextView text = new TextView(this);
-        text.setText(curProject.getStyle().getStep(curSection, stepNum, dimension));
+        text.setText(curProject.getStyle().getStep(curSection, stepNum, curProject.getDimensions()));
         text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.9f));
 

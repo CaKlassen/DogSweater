@@ -1,5 +1,6 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -72,19 +73,19 @@ public class PdfPreview extends Activity {
             TextView pName = new TextView(this);
             r.addView(pName);
             pName.setText(curProject.getName());
-            pName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
+            pName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 5);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             lp.addRule(RelativeLayout.ALIGN_PARENT_END);
             lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             pName.setLayoutParams( lp );
             pName.setId( 1000 + i );
-            pName.setPadding( 0, 0, 0, 20 );
+            pName.setPadding( 0, 0, 0, 10 );
 
             // Draw the page number
             TextView pageNum = new TextView(this);
             pageNum.setText("Page " + (i + 1));
-            pageNum.setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
+            pageNum.setTextSize(TypedValue.COMPLEX_UNIT_SP, 5);
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             lp2.addRule(RelativeLayout.ALIGN_PARENT_END);
@@ -110,16 +111,19 @@ public class PdfPreview extends Activity {
                 // Draw the logo
                 ImageView iv = new ImageView(this);
                 iv.setImageResource(R.drawable.dog_silhouette_sweater);
-                iv.setScaleX( 1 );
-                iv.setScaleY( 1 );
+                iv.setScaleX(0.3f);
+                iv.setScaleY(0.3f);
+                iv.setScaleType( ImageView.ScaleType.CENTER );
+                iv.setLayoutParams( new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT ));
                 l.addView(iv);
             }
 
             // Draw the section name
             TextView sHead = new TextView(this);
             sHead.setText(curProject.getStyle().getSection(i).getName());
-            sHead.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            sHead.setPadding(10, 0, 0, 10);
+            sHead.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            sHead.setPadding(10, 0, 0, 6);
             l.addView(sHead);
 
             int stepCounter = 1;
@@ -129,12 +133,10 @@ public class PdfPreview extends Activity {
             {
 
                 TextView newStep = new TextView(this);
-                // TODO: Re-add this once Dimensions are fixed
-                //newStep.setText(stepCounter + ". " + curProject.getStyle().getStep( i, j,
-                //        curProject.getProfile().getDimensions() ) );
-                newStep.setText( stepCounter + ". " + curProject.getStyle().getSection(i).getStep(j).getText() );
-                newStep.setTextSize(TypedValue.COMPLEX_UNIT_SP, 7);
-                newStep.setPadding( 0, 0, 0, 7 );
+                newStep.setText(stepCounter + ". " + curProject.getStyle().getStep(i, j,
+                        curProject.getDimensions()));
+                newStep.setTextSize(TypedValue.COMPLEX_UNIT_SP, 5);
+                newStep.setPadding( 0, 0, 0, 5 );
                 l.addView(newStep);
 
                 stepCounter++;
