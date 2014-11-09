@@ -111,6 +111,7 @@ public class ProfileDataSource {
                 profiles.add(profile);
                 cursor.moveToNext();
             }
+            cursor.close();
         }
         else
         {
@@ -126,8 +127,17 @@ public class ProfileDataSource {
         String query = "SELECT * FROM "  + DogYarnItSQLHelper.TABLE_PROFILES+  " WHERE " + DogYarnItSQLHelper.PROFILE_ID + " =  " + profileId;
         Cursor cursor = database.rawQuery(query, null);
 
-        cursor.moveToFirst();
-        profile = cursorToProfile(cursor);
+        if (cursor.getCount() > 0)
+        {
+            Log.d("Cursor", "rows");
+            cursor.moveToFirst();
+            profile = cursorToProfile(cursor);
+        }
+        else
+        {
+            Log.d("Cursor", "No rows");
+            profile = null;
+        }
         cursor.close();
 
         return profile;
@@ -284,7 +294,6 @@ public class ProfileDataSource {
         s.initializeSectionList(Style.makeStyle(styleNumber));
 
         // Initialize the project
-        // TODO: Get task completion state?
         Project project = new Project(
                                 cursor.getString(
                                   cursor.getColumnIndex(

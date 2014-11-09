@@ -166,6 +166,7 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
                                  }
             });
         }
+        profileDataSource.close();
     }
 
     public ArrayList<Dialogable> getImageList()

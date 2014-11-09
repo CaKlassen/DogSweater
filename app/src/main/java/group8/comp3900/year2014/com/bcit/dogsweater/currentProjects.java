@@ -104,13 +104,14 @@ public class currentProjects extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
                 final CurrentProjectPopup popup;
                 popup = new CurrentProjectPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position));
+
+
                 popup.setOnDeleteButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         //Delete from database
                         profileDataSource.open();
-                        List<Project> projects = profileDataSource.getAllProjects();
                         profileDataSource.deleteProject( ((Dialogable<Project>)gridAdapter.getItem( position )).getItem() );
                         profileDataSource.close();
                         gridAdapter.remove(position);

@@ -167,6 +167,7 @@ public class ProjectGridAdapter extends BaseAdapter {
                 }
             } );
         }
+        profileDataSource.close();
     }
 
     public ArrayList<Dialogable<Project>> getImageList()

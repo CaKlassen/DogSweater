@@ -103,17 +103,35 @@ public class ManageProfiles extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
                 final ManageInfoPopup popup;
                 popup = new ManageInfoPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position));
+
                 popup.setOnDeleteButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         //Delete from database
                         profileDataSource.open();
+
                         List<Profile> profiles = profileDataSource.getAllProfiles();
-                        profileDataSource.deleteProfile((profiles.get(position)));
+                        Profile deletedProfile = profiles.get(position);
+//
+//                        //Delete all attached projects
+//                        List<Project> projects = profileDataSource.getAllProjects();
+//
+//                       for(Project p : projects)
+//                        {
+//                            if ( p.getProfile() == deletedProfile)
+//                            {
+//                                profileDataSource.deleteProject(p);
+//                            }
+//                        }
+
+                        profileDataSource.deleteProfile(deletedProfile);
+
                         profileDataSource.close();
+
                         gridAdapter.remove(position);
                         popup.dismiss();
+
 
                     }
 
