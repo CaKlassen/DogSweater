@@ -9,7 +9,7 @@
         android:layout_width="250dip"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:background="#ff289fff"
+        android:background="#2ebab5"
        >
 
         <ImageView
@@ -22,9 +22,9 @@
             android:id="@+id/menu_listview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="1dip"
-            android:background="#ff073f56" />
+            android:divider="@android:color/white"
+            android:dividerHeight="5dp"
+            android:background="#2ebab5" />
 
     </LinearLayout>
 
@@ -33,4 +33,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </FrameLayout>
+
 </LinearLayout>

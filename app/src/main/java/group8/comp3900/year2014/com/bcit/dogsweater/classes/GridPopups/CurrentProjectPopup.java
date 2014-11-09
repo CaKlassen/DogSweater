@@ -39,11 +39,9 @@ public class CurrentProjectPopup extends Dialog {
     /** reference to continue button */
     private Button cntButton;
 
-    /** reference to Take Photo button */
-    private Button takePhotoButton;
+    /** reference to Modify Image button */
+    private ImageButton modButton;
 
-    /** reference to Chose Image button */
-    private Button choseImageButton;
 
 
     //////////////////
@@ -125,11 +123,9 @@ public class CurrentProjectPopup extends Dialog {
         cntButton.setOnClickListener(onClickListener);
     }
 
-    public void setOnTakePhotoButtonClickListener(View.OnClickListener onClickListener) {
-        takePhotoButton.setOnClickListener(onClickListener);
 
-    }public void setOnChooseImageButtonClickListener(View.OnClickListener onClickListener) {
-        choseImageButton.setOnClickListener(onClickListener);
+    public void setOnModifyButtonClickListener(View.OnClickListener onClickListener) {
+        modButton.setOnClickListener(onClickListener);
     }
 
 
@@ -142,7 +138,6 @@ public class CurrentProjectPopup extends Dialog {
         tv = (TextView) findViewById(R.id.popupTitle);
         dltButton = (ImageButton) findViewById(R.id.Delete);
         cntButton = (Button) findViewById(R.id.Continue);
-        takePhotoButton = (Button) findViewById(R.id.TakeProjectPhoto);
-        choseImageButton = (Button) findViewById(R.id.ChoseProjectImage);
+        modButton = (ImageButton) findViewById(R.id.Modify);
     }
 }

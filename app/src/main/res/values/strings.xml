@@ -119,5 +119,6 @@
     <string name="ZFriendly">Peanuts</string>
     <string name="title_activity_pdf_preview">PdfPreview</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_modify_projects">ModifyProjects</string>
 
 </resources>

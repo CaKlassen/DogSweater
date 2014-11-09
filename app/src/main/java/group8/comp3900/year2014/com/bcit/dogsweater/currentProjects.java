@@ -3,14 +3,11 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -141,24 +138,20 @@ public class currentProjects extends Activity {
 
                 });
 
-                popup.setOnTakePhotoButtonClickListener(new View.OnClickListener() {
+                popup.setOnModifyButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent in = new Intent(getApplicationContext(),ModifyProject.class);
 
-                        takeImage();
-                        Log.d( "Take image position", "" + position );
-                        curProjectPosition = position;
-                    }
+                        profileDataSource.open();
+                        List<Project> projects = profileDataSource.getAllProjects();
+                        Project curProject = ((Dialogable<Project>)gridAdapter.getItem( position )).getItem();
+                        profileDataSource.close();
 
-                });
 
-                popup.setOnChooseImageButtonClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        chooseImage();
-                        Log.d( "Choose image position", "" + position );
-                        curProjectPosition = position;
+                        in.putExtra( "Project Id", curProject.getId() );
+                        in.putExtra( "Current Section", curProject.getSection() );
+                        startActivity(in);
                     }
 
                 });
@@ -170,55 +163,4 @@ public class currentProjects extends Activity {
 
     }
 
-    /** intent used to select a photo from some sort of gallery app */
-    private static final int SELECT_PHOTO          = 100;
-
-    /** intent used to take a photo from camera */
-    private static final int REQUEST_IMAGE_CAPTURE = 101;
-
-    public boolean takeImage() {
-
-        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-        return true;
-    }
-
-    public boolean chooseImage() {
-
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
-        switch(requestCode) {
-            case REQUEST_IMAGE_CAPTURE:
-                if(resultCode == RESULT_OK) {
-                    chooseImage();
-                }
-                break;
-            case SELECT_PHOTO:
-                if(resultCode == RESULT_OK) {
-
-                    profileDataSource.open();
-                    Project curProject = ((Dialogable<Project>)gridAdapter.getItem( curProjectPosition )).getItem();
-                    curProject.setImageURI( imageReturnedIntent.getData().toString() );
-                    profileDataSource.updateProject( curProject );
-                    profileDataSource.close();
-
-                    Log.d( "Project ID", curProject.toString() );
-
-                    Toast.makeText(this, imageReturnedIntent.getData().toString(), Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
 }

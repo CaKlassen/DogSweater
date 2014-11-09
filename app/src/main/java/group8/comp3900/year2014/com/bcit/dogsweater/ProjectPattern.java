@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +45,6 @@ public class ProjectPattern extends Activity {
 
         // Retrieve the project id from the bundle
         final long projId = getIntent().getExtras().getLong(KEY_PROJECT_ID);
-        Log.d(this.toString(), String.valueOf(projId));
 
         // Retrieve the current section from the bundle
         if (getIntent().getExtras().containsKey("Current Section")) {
