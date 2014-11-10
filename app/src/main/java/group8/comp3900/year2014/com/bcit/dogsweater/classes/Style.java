@@ -56,36 +56,49 @@ public class Style {
         String expression = "";
         boolean expressionGo = false;
         int startIndex = -1;
-        int endIndex = -1;
+        boolean expFound = true;
 
-        // TODO: dynamically insert variables into step
-        for (int i = 0; i < text.length(); i++) {
+        while ( expFound ) {
+            expFound = false;
 
-            // If we hit the end of the insert
-            if ( expressionGo && text.charAt(i) == ']') {
-                expressionGo = false;
-                endIndex = -1;
+            for (int i = 0; i < text.length(); i++) {
 
-                // Replace the text with the expression return
-                text = text.replace( "[" + expression + "]", d.parseExpression(expression) );
+                // If we hit the end of the insert
+                if (expressionGo && text.charAt(i) == ']') {
+                    expressionGo = false;
 
-                // Reset the expression string
-                expression = "";
+                    // Replace the text with the expression return
+                    double expValue = Double.parseDouble( d.parseExpression( expression ) );
+                    String replaceString;
 
-                i = startIndex;
+                    if ( expValue == Math.floor( expValue ) ) {
+                        // If this is an integer
+                        replaceString = "" + (int) expValue;
+                    } else {
+                        replaceString = "" + expValue;
+                    }
+
+                    text = text.replace("[" + expression + "]", replaceString);
+
+                    // Reset the expression string
+                    expression = "";
+
+                    expFound = true;
+                    break;
+                }
+
+                // Add to the expression if we are in an expression
+                if (expressionGo) {
+                    expression += text.charAt(i);
+                }
+
+                // If we hit a variable insert
+                if (text.charAt(i) == '[') {
+                    expressionGo = true;
+                    startIndex = i;
+                }
+
             }
-
-            // Add to the expression if we are in an expression
-            if ( expressionGo ) {
-                expression += text.charAt(i);
-            }
-
-            // If we hit a variable insert
-            if (text.charAt(i) == '[') {
-                expressionGo = true;
-                startIndex = i;
-            }
-
         }
 
         return text;
