@@ -111,12 +111,12 @@
     <!-- TODO: discuss naming convention for friendlies, drawables, and descriptions with group...should these be prefized with "Profile"? -->
     <!-- TODO: changing naming convention will mean that the Dimensions.getFriendly(), Dimensions.getDescription() and Dimensions.getDrawable() methods will have to be modified -->
     <!-- Dimensions class friendly strings for Profile keys -->
-    <string name="AFriendly">Face Width</string>
-    <string name="BFriendly">Face Height</string>
-    <string name="CFriendly">Leg Length</string>
-    <string name="XFriendly">Leg Diameter</string>
-    <string name="YFriendly">Underbelly Length</string>
-    <string name="ZFriendly">Back length</string>
+    <string name="AFriendly">Diameter Around Neck</string>
+    <string name="BFriendly">Diameter Around Chest</string>
+    <string name="CFriendly">Width Between Front Legs</string>
+    <string name="XFriendly">Chin to Collar </string>
+    <string name="YFriendly">Length of Underbelly</string>
+    <string name="ZFriendly"> Length of Center Back </string>
     <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
