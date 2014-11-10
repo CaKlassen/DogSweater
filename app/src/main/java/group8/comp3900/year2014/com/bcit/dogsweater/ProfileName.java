@@ -95,6 +95,7 @@ public class ProfileName extends Activity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
 
         /*
@@ -106,10 +107,6 @@ public class ProfileName extends Activity {
             case R.id.addImage:
                 inflater.inflate(R.menu.add_image_list, menu);
                 break;
-
-            default:
-                super.onCreateContextMenu(menu, v, menuInfo);
-                break;
         }
     }
 
@@ -117,6 +114,12 @@ public class ProfileName extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
+            case R.id.menu_item_take_picture:
+                // TODO on Eric's nexus 7, this doesn't seem to start the right startActivityForResult thing.
+                return takeImage();
+
+            case R.id.menu_item_choose_image:
+                return chooseImage();
 
             default:
                 return super.onContextItemSelected(item);
