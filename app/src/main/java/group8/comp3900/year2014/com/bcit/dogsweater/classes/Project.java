@@ -36,7 +36,7 @@ public class Project {
 
     /** CC is GUAGE*C/4 rounded up to the nearest odd number */
     public static final String STS_CC_EXPRESSION =
-            "round(" + KEY_GAUGE + "*" + Profile.FRONT_LEGS_DISTANCE + "/2)*2+1";
+            "round(" + KEY_GAUGE + "*" + Profile.FRONT_LEGS_DISTANCE + "/4/2)*2+1";
 
     /**
      * array of mandatory of keys that should be in the Dimensions object

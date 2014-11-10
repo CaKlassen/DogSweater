@@ -129,7 +129,7 @@ public class YarnSelection extends Activity {
         Project newProject = new Project(p);
         newProject.setStyle(s);
         newProject.setName(p.getName() + " - " + s.getName());
-        newProject.setGauge(10.0);  // TODO: use a real gauge - Eric
+        newProject.setGauge(11.0);  // TODO: use a real gauge - Eric
         getProfileDataSource().insertProject(newProject);
         getProfileDataSource().close();
 

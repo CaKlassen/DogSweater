@@ -226,6 +226,7 @@ public class Style {
         sList = new ArrayList<Step>(1);
         sList.add(new Step("Rnd 1: Begin 1x1 RIB [(CC-2)+(BB-AA)/2] sts from beginning of round marker to the 2nd marker. " +
                 "Make sure the chest area is joined in the round."));
+        sList.add(new Step("Knit the remaining [BB-(CC-2)-(BB-AA)-2] sts."));
         sList.add(new Step("Rnd 2: RIB, mm, knit."));
         sList.add(new Step("Continue in this pattern until sweater measures [X+Y] from the top."));
         sList.add(new Step("Cast off [(CC-2)+(BB-AA)/2] sts to the 2nd marker. Turn. [BB-(CC-2)-(BB-AA)-2] sts."));
@@ -235,7 +236,7 @@ public class Style {
 
         // Section 5
         sList = new ArrayList<Step>(1);
-        sList.add(new Step("Working the remaining [BB-(CC-2)-(BB-AA)/2] sts back and forth, 1x1 RIB until sweater " +
+        sList.add(new Step("Working the remaining [BB-(CC-2)-(BB-AA)-2] sts back and forth, 1x1 RIB until sweater " +
                 "measures [X+Z] from the top."));
         sList.add(new Step("Cast off and darn ends."));
 
