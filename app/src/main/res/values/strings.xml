@@ -115,9 +115,9 @@
     <string name="BFriendly">Face Height</string>
     <string name="CFriendly">Leg Length</string>
     <string name="XFriendly">Leg Diameter</string>
-    <string name="YFriendly">Almonds</string>
-    <string name="ZFriendly">Peanuts</string>
-    <string name="title_activity_pdf_preview">PdfPreview</string>
+    <string name="YFriendly">Underbelly Length</string>
+    <string name="ZFriendly">Back length</string>
+    <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
 

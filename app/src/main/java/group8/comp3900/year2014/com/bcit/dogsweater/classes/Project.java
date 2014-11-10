@@ -28,11 +28,11 @@ public class Project {
      *   84, 96, 108, 120, etc – basically a multiple of 12
      */
     public static final String STS_AA_EXPRESSION =
-            "ceil(" + KEY_GAUGE + "*" + Profile.NECK_DIAMETER + "/12)*12";
+            "ceil((" + KEY_GAUGE + "*" + Profile.NECK_DIAMETER + "/4)/12)*12";
 
     /** BB is GUAGE*B/4 rounded up to the closest multiple of 4 */
     public static final String STS_BB_EXPRESSION =
-            "ceil(" + KEY_GAUGE + "*" + Profile.CHEST_DIAMETER + "/4/4)*4";
+            "ceil((" + KEY_GAUGE + "*" + Profile.CHEST_DIAMETER + "/4)/4)*4";
 
     /** CC is GUAGE*C/4 rounded up to the nearest odd number */
     public static final String STS_CC_EXPRESSION =
