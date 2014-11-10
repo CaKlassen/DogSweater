@@ -86,14 +86,11 @@ public class ProfileName extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -120,12 +117,6 @@ public class ProfileName extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
-            case R.id.menu_item_take_picture:
-                // TODO on Eric's nexus 7, this doesn't seem to start the right startActivityForResult thing.
-                return takeImage();
-
-            case R.id.menu_item_choose_image:
-                return chooseImage();
 
             default:
                 return super.onContextItemSelected(item);
