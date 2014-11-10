@@ -71,6 +71,8 @@ public class Style {
 
                 // Reset the expression string
                 expression = "";
+
+                i = startIndex;
             }
 
             // Add to the expression if we are in an expression
@@ -186,7 +188,6 @@ public class Style {
         // Section 3
         sList = new ArrayList<Step>(1);
         sList.add(new Step("Rnd 1: Knit to MarkerA."));
-        sList.add(new Step("Cast off MarkerA and [(BB-AA)/4] sts."));
         sList.add(new Step("K[CC-2], cast off [(BB-AA)/4] sts and MarkerB."));
         sList.add(new Step("Knit to marker, mm."));
         sList.add(new Step("RIB to the end of the round marker."));
