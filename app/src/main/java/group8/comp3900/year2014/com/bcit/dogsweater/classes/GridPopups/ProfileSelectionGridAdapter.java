@@ -100,6 +100,10 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
 
         // setting dialog image...use a worker thread to load the image
         Uri imageUri = (dialogables.get(position).getDialogueImageUri());
+        if (imageUri == null)
+        {
+            iview.setImageResource(R.drawable.dog_silhouette);
+        }
         ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file

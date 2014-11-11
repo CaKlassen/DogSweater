@@ -68,6 +68,12 @@ public class ManageInfoPopup extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
 
+
+        if (imageUri == null)
+        {
+            image.setImageResource(R.drawable.dog_silhouette);
+        }
+
         // setting dialog image...use a worker thread to load the image
         ThreadManager.loadImage(
                 context,                            // application context

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager.CropPattern;
 
 /**
  * Created by Rhea on 07/10/2014.
@@ -91,6 +90,12 @@ public class Popup extends Dialog {
      *   local file system
      */
     public void setImageByUri(Uri imageUri) {
+        if (imageUri == null)
+        {
+            image.setImageResource(R.drawable.dog_silhouette);
+        }
+
+
         ThreadManager.loadImage(
                 getContext(),                       // application context
                 imageUri,                           // local uri to image file

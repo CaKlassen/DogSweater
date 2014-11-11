@@ -53,6 +53,12 @@ public class InfoPopup extends Dialog {
 
         // set image to whatever is clicked on...use a worker thread to load the image
         final ImageView image = (ImageView) findViewById(R.id.largeView);
+
+        if (imageUri == null)
+        {
+            image.setBackgroundResource(R.drawable.dog_silhouette);
+        }
+
         ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
