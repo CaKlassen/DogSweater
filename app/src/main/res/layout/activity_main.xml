@@ -43,7 +43,7 @@
         android:layout_gravity="center_horizontal"
         android:textSize="30sp"
         android:layout_weight="0.05"
-        android:onClick="newProject"/>
+        android:onClick="newProject" />
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

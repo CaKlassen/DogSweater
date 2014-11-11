@@ -92,6 +92,7 @@
 
     <!-- Colors -->
     <color name="gridBackground">#fce8ff</color>
+    <color name="appBackground">#FFFFFF</color>
 
     <!-- Info Page -->
     <string name="about_app">Dog Yarn It is an application designed to provide knitters with a
