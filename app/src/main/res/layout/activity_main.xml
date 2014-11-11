@@ -35,44 +35,76 @@
         android:layout_weight="0.10"
         android:textSize="40sp"/>-->
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/newProjectButton"
-        android:id="@+id/newProjectButton"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:layout_weight="0.05"
-        android:onClick="newProject" />
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/currentProjectsButton"
-        android:id="@+id/currentProjectsButton"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:layout_weight="0.05"
-        android:onClick="currentProjects"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/manageProfilesButton"
-        android:id="@+id/manageProfilesButton"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:layout_weight="0.05"
-        android:onClick="manageProfiles"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/informationButton"
-        android:id="@+id/informationButton"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:layout_weight="0.05"
-        android:onClick="info"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="@string/newProjectButton"
+                android:id="@+id/newProjectButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25sp"
+                android:background="@drawable/btnstyle"
+                android:onClick="newProject"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="@string/currentProjectsButton"
+                android:id="@+id/currentProjectsButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25sp"
+                android:background="@drawable/btnstyle"
+                android:onClick="currentProjects"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="@string/manageProfilesButton"
+                android:id="@+id/manageProfilesButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25sp"
+                android:background="@drawable/btnstyle"
+                android:onClick="manageProfiles"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="@string/informationButton"
+                android:id="@+id/informationButton"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25sp"
+                android:background="@drawable/btnstyle"
+                android:onClick="info"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15">
+
+        </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

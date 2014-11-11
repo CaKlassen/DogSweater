@@ -23,10 +23,10 @@
     <string name="title_activity_profile_selection">Profile Selection</string>
 
     <!-- Button text -->
-    <string name="newProjectButton">New Project</string>
-    <string name="currentProjectsButton">Current Projects</string>
-    <string name="manageProfilesButton">Manage Profiles</string>
-    <string name="informationButton">Information</string>
+    <string name="newProjectButton">NEW PROJECT</string>
+    <string name="currentProjectsButton">CURRENT PROJECTS</string>
+    <string name="manageProfilesButton">MANAGE PROFILES</string>
+    <string name="informationButton">INFORMATION</string>
     <string name="createNewButton">Create New</string>
     <string name="chooseExistingButton">Choose Existing</string>
     <string name="needYarnButton">I Need Yarn</string>
