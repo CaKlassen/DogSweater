@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionOverflowButtonStyle">@style/OverflowButton</item>
+        <item name="android:actionBarWidgetTheme">@style/myPopupMenu</item>
     </style>
 
     <!-- Customer Styles -->
@@ -17,6 +18,10 @@
     <!-- Overflow button style -->
     <style name="OverflowButton" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:src">@drawable/overflow_btn</item>
+    </style>
+
+    <style name="myPopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">#2ebab5</item>
     </style>
 
 
