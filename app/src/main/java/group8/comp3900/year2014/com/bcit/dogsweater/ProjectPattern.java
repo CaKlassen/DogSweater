@@ -121,6 +121,36 @@ public class ProjectPattern extends Activity {
             });
         }
 
+        // Set the path of the 'back' button
+        if (curSection > 0) {
+            // This is not the first section
+            Button b = (Button) findViewById(R.id.patternBackButton);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent in = new Intent(getApplicationContext(), ProjectPattern.class);
+
+                    // Continue forward
+                    in.putExtra(KEY_PROJECT_ID, projId);
+                    in.putExtra("Current Section", curSection - 1);
+
+                    startActivity(in);
+                }
+            });
+        } else {
+            // This is the first section
+            Button b = (Button) findViewById(R.id.patternBackButton);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent in = new Intent(getApplicationContext(), currentProjects.class);
+
+                    // Return to the menu
+                    startActivity(in);
+                }
+            });
+        }
+
         // Update the row counter with its current value
         TextView t = (TextView) findViewById(R.id.patternRowCounter);
         t.setText("" + curProject.getRowCounter());
@@ -152,6 +182,8 @@ public class ProjectPattern extends Activity {
     }
 
     public void makeStep(LinearLayout step, int stepNum) {
+
+        step.setId( stepNum );
 
         // Assign text to the step
         TextView text = new TextView(this);
@@ -201,6 +233,31 @@ public class ProjectPattern extends Activity {
 
         // Add the checkbox to the step
         step.addView(checkbox);
+
+        // Define the functionality of the step layout
+        step.setOnClickListener(new LinearLayout.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileDataSource db = new ProfileDataSource(getApplicationContext());
+                db.open();
+
+                int checked = db.getStepState(curProject.getId(), curSection, view.getId());
+
+                if (checked != 1) {
+                    db.saveStepState(curProject.getId(), curSection, view.getId(), true);
+                    LinearLayout s = (LinearLayout) view;
+                    CheckBox cb = (CheckBox) s.getChildAt(1);
+                    cb.setChecked(true);
+                } else {
+                    db.saveStepState(curProject.getId(), curSection, view.getId(), false);
+                    LinearLayout s = (LinearLayout) view;
+                    CheckBox cb = (CheckBox) s.getChildAt(1);
+                    cb.setChecked(false);
+                }
+
+                db.close();
+            }
+        });
 
         // Set up the step layout parameters
         step.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,

@@ -82,6 +82,17 @@ public class PdfPreview extends Activity {
             pName.setId( 1000 + i );
             pName.setPadding( 0, 0, 0, 10 );
 
+            // Draw the website link
+            TextView website = new TextView(this);
+            website.setText( "www.knittingAstor.com" );
+            website.setTextSize(TypedValue.COMPLEX_UNIT_SP, 5);
+            RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            lp3.addRule(RelativeLayout.ALIGN_PARENT_START);
+            lp3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            website.setLayoutParams( lp3 );
+            r.addView(website);
+
             // Draw the page number
             TextView pageNum = new TextView(this);
             pageNum.setText("Page " + (i + 1));

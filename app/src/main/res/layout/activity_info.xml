@@ -23,22 +23,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:orientation="vertical" >
 
             <!-- Title -->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="Information"
+                android:layout_height="wrap_content"
+                android:text="@string/appName"
                 android:gravity="center"
-                android:textSize="40sp"
-                android:layout_weight="0.1"/>
+                android:textSize="40sp"/>
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="0.2"/>
+                android:layout_height="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/about_app"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
+            <!-- Astor Bio -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Astor"
+                android:textSize="25sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_astor"
+                android:textSize="15sp"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
 
             <!-- Contact buttons -->
             <Button
@@ -59,41 +82,39 @@
             
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
-            
-            <!-- Astor Bio -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.4"
-                android:text="@string/about_astor"
-                android:textSize="20sp"/>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="0.2"/>
+                android:layout_height="30dp" />
 
             <!-- Vicky Bio -->
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vicky"
+            android:textSize="25sp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.4"
                 android:text="@string/about_vicky"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_weight="0.2"/>
 
             <!-- Team Bio -->
             <TextView
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Developers"
+                android:textSize="25sp"/>
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.3"
                 android:text="@string/about_team"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
 
         </LinearLayout>
