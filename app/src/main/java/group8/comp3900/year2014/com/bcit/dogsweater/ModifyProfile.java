@@ -91,31 +91,27 @@ public class ModifyProfile extends Activity {
         //A
         EditText dimension;
         dimension = (EditText) findViewById(R.id.ADimension);
-        dimension.setHint(" " + curProfile.getDimensions().getDimension("A").getValue());
+        dimension.setHint(" " + curProfile.getDimensions().getDimension(Profile.NECK_DIAMETER).getValue());
 
         //B
         dimension = (EditText) findViewById(R.id.BDimension);
-        dimension.setHint(" " + curProfile.getDimensions().getDimension("B").getValue());
+        dimension.setHint(" " + curProfile.getDimensions().getDimension(Profile.CHEST_DIAMETER).getValue());
 
         //C
         dimension = (EditText) findViewById(R.id.CDimension);
-        dimension.setHint(" " + curProfile.getDimensions().getDimension("C").getValue());
+        dimension.setHint(" " + curProfile.getDimensions().getDimension(Profile.FRONT_LEGS_DISTANCE).getValue());
 
         //X
         dimension = (EditText) findViewById(R.id.XDimension);
-        dimension.setHint(" " + curProfile.getDimensions().getDimension("X").getValue());
+        dimension.setHint(" " + curProfile.getDimensions().getDimension(Profile.NECK_LENGTH).getValue());
 
         //Y
         dimension = (EditText) findViewById(R.id.YDimension);
-        dimension.setHint(" " + curProfile.getDimensions().getDimension("Y").getValue());
+        dimension.setHint(" " + curProfile.getDimensions().getDimension(Profile.UNDERBELLY_LENGTH).getValue());
 
         //Z
         dimension = (EditText) findViewById(R.id.ZDimension);
-        dimension.setHint(" " + curProfile.getDimensions().getDimension("Z").getValue());
-
-
-
-
+        dimension.setHint(" " + curProfile.getDimensions().getDimension(Profile.CENTRE_BACK_LENGTH).getValue());
 
     }
 
@@ -256,7 +252,74 @@ public class ModifyProfile extends Activity {
      ******************************************************/
     public void saveDimensions(View v)
     {
-        EditText dimension = (EditText) findViewById(R.id.ADimension);
+        EditText dimension;
+        boolean changed = false;
+        //Set hints for all boxes
+        //A
+        dimension = (EditText) findViewById(R.id.ADimension);
+        if (dimension.getText().toString().length() > 0 )
+        {
+            changed = true;
+            double newVal = Double.parseDouble(dimension.getText().toString());
+            curProfile.getDimensions().setDimension(Profile.NECK_DIAMETER, newVal);
+        }
+
+        //B
+        dimension = (EditText) findViewById(R.id.BDimension);
+        if (dimension.getText().toString().length() > 0 )
+        {
+            changed = true;
+            double newVal = Double.parseDouble(dimension.getText().toString());
+            curProfile.getDimensions().setDimension(Profile.CHEST_DIAMETER, newVal);
+        }
+
+        //C
+        dimension = (EditText) findViewById(R.id.CDimension);
+        if (dimension.getText().toString().length() > 0 )
+        {
+            changed = true;
+            double newVal = Double.parseDouble(dimension.getText().toString());
+            curProfile.getDimensions().setDimension(Profile.FRONT_LEGS_DISTANCE, newVal);
+        }
+
+        //X
+        dimension = (EditText) findViewById(R.id.XDimension);
+        if (dimension.getText().toString().length() > 0 )
+        {
+            changed = true;
+            double newVal = Double.parseDouble(dimension.getText().toString());
+            curProfile.getDimensions().setDimension(Profile.NECK_LENGTH, newVal);
+        }
+
+        //Y
+        dimension = (EditText) findViewById(R.id.YDimension);
+        if (dimension.getText().toString().length() > 0 )
+        {
+            changed = true;
+            double newVal = Double.parseDouble(dimension.getText().toString());
+            curProfile.getDimensions().setDimension(Profile.UNDERBELLY_LENGTH, newVal);
+        }
+
+        //Z
+        dimension = (EditText) findViewById(R.id.ZDimension);
+        if (dimension.getText().toString().length() > 0 )
+        {
+            changed = true;
+            double newVal = Double.parseDouble(dimension.getText().toString());
+            curProfile.getDimensions().setDimension(Profile.CENTRE_BACK_LENGTH, newVal);
+        }
+
+        if (changed)
+        {
+            db.open();
+            db.updateProfile(curProfile);
+            db.close();
+            Toast.makeText(getApplicationContext(), "Profile has been updated!", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "No changes to save.", Toast.LENGTH_SHORT).show();
+        }
 
 
     }

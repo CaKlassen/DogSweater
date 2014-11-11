@@ -169,6 +169,20 @@ public class ProfileDataSource {
         return profile;
     }
 
+    public void updateProfile(Profile profile) {
+
+        ContentValues values = new ContentValues();
+
+        values.put( DogYarnItSQLHelper.PROFILE_NAME,       profile.getName() );
+        values.put( DogYarnItSQLHelper.PROFILE_IMAGE,      profile.getImageURI().toString() );
+        values.put( DogYarnItSQLHelper.PROFILE_DIMENSIONS, profile.getDimensions().stringify() );
+
+
+        database.update(DogYarnItSQLHelper.TABLE_PROFILES, values,  DogYarnItSQLHelper.PROFILE_ID + " = " +  profile.getId(), null );
+
+
+    }
+
     /*******************************************
      * PROJECT METHODS
      *******************************************/
@@ -204,7 +218,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE,    project.getProfile().getId() );
         values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getName() );
         values.put( DogYarnItSQLHelper.PROJECT_SECTION,    project.getSection()         );
-        values.put( DogYarnItSQLHelper.PROJECT_GAUGE,      project.getGauge()                  );
+        values.put( DogYarnItSQLHelper.PROJECT_GAUGE,      project.getGauge()           );
 
         database.update(DogYarnItSQLHelper.TABLE_PROJECTS, values,  DogYarnItSQLHelper.PROJECT_ID + " = " +  project.getId(), null );
 
