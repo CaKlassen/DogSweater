@@ -120,5 +120,6 @@
     <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
+    <string name="title_activity_modify_profile">ModifyProfile</string>
 
 </resources>

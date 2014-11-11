@@ -1,0 +1,264 @@
+package group8.comp3900.year2014.com.bcit.dogsweater;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
+
+
+public class ModifyProfile extends Activity {
+
+
+    /** used by this activity to access the Profile database */
+    private ProfileDataSource db;
+
+
+    /** intent used to select a photo from some sort of gallery app */
+    private static final int SELECT_PHOTO          = 100;
+
+    /** intent used to take a photo from camera */
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
+
+    private Profile curProfile;
+
+    /** starting intent key to the profileId to pass on */
+    public static final String KEY_PROFILE_ID = "Profile Id";
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_modify_profile);
+
+            //Get Project data via the intent
+            final long projId = getIntent().getExtras().getLong(KEY_PROFILE_ID);
+
+            db = new ProfileDataSource(this);
+            db.open();
+            curProfile = db.getProfile(projId);
+            db.close();
+
+            TextView projName = (TextView) findViewById(R.id.projName);
+            projName.setText(curProfile.getName());
+
+
+            //Change image to the profile image
+            final ImageView iv = (ImageView) findViewById(R.id.projImage);
+
+            WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            display.getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+
+            // Setting project image
+            Uri imageUri = curProfile.getImageURI();
+            if (imageUri != null) {
+                ThreadManager.loadImage(
+
+                        getApplicationContext(),            // application context
+                        imageUri,                           // local uri to image file
+                        ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                        width / 2,                                // image width
+
+                        // what to do when success
+                        new ThreadManager.OnResponseListener() {
+                            @Override
+                            public void onResponse(Bitmap bitmap) {
+                                iv.setImageBitmap(bitmap);
+                            }
+                        });
+            }
+
+        //Set hints for all boxes
+        //A
+        EditText dimension;
+        dimension = (EditText) findViewById(R.id.ADimension);
+        dimension.setHint(" " + curProfile.getDimensions().getDimension("A").getValue());
+
+        //B
+        dimension = (EditText) findViewById(R.id.BDimension);
+        dimension.setHint(" " + curProfile.getDimensions().getDimension("B").getValue());
+
+        //C
+        dimension = (EditText) findViewById(R.id.CDimension);
+        dimension.setHint(" " + curProfile.getDimensions().getDimension("C").getValue());
+
+        //X
+        dimension = (EditText) findViewById(R.id.XDimension);
+        dimension.setHint(" " + curProfile.getDimensions().getDimension("X").getValue());
+
+        //Y
+        dimension = (EditText) findViewById(R.id.YDimension);
+        dimension.setHint(" " + curProfile.getDimensions().getDimension("Y").getValue());
+
+        //Z
+        dimension = (EditText) findViewById(R.id.ZDimension);
+        dimension.setHint(" " + curProfile.getDimensions().getDimension("Z").getValue());
+
+
+
+
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_modify_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void takePhoto(View v)
+    {
+
+        Intent takePictureIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+
+        //Change image to the profile image
+        final ImageView iv = (ImageView) findViewById(R.id.projImage);
+
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        // setting dialog image...use a worker thread to load the image
+        Uri imageUri = curProfile.getImageURI();
+        if (imageUri != null) {
+            ThreadManager.loadImage(
+
+                    getApplicationContext(),            // application context
+                    imageUri,                           // local uri to image file
+                    ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                    width / 2,                                // image width
+
+                    // what to do when success
+                    new ThreadManager.OnResponseListener() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            iv.setImageBitmap(bitmap);
+                        }
+                    });
+        }
+
+
+    }
+
+    public void chooseExisting(View v)
+    {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+
+        //Change image to the profile image
+        final ImageView iv = (ImageView) findViewById(R.id.projImage);
+
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        // setting dialog image...use a worker thread to load the image
+        Uri imageUri = curProfile.getImageURI();
+        if (imageUri != null) {
+            ThreadManager.loadImage(
+
+                    getApplicationContext(),            // application context
+                    imageUri,                           // local uri to image file
+                    ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                    width / 2,                                // image width
+
+                    // what to do when success
+                    new ThreadManager.OnResponseListener() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            iv.setImageBitmap(bitmap);
+                        }
+                    });
+        }
+
+    }
+    public boolean chooseImage() {
+
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case REQUEST_IMAGE_CAPTURE:
+                if(resultCode == RESULT_OK) {
+                    chooseImage();
+                }
+                break;
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK) {
+
+                    db.open();
+                    curProfile.setImageURI(imageReturnedIntent.getData().toString());
+                    //TODO: update profile function
+                    //db.updateProfile(curProfile);
+                    db.close();
+                    Toast.makeText(this, imageReturnedIntent.getData().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+                break;
+        }
+    }
+
+    /*******************************************************
+     * Saves all dimensions into the profile if the user changes
+     * them. Check through all the edit texts and checks if
+     * they contain new data.
+     *
+     ******************************************************/
+    public void saveDimensions(View v)
+    {
+        EditText dimension = (EditText) findViewById(R.id.ADimension);
+
+
+    }
+
+}

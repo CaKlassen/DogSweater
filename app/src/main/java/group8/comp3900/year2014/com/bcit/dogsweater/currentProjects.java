@@ -148,7 +148,6 @@ public class currentProjects extends Activity {
 
 
                         in.putExtra( "Project Id", curProject.getId() );
-                        in.putExtra( "Current Section", curProject.getSection() );
                         startActivity(in);
                     }
 

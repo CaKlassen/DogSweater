@@ -51,6 +51,4 @@
         android:layout_alignParentEnd="true"
         android:onClick="chooseExisting"/>
 
-
-
 </RelativeLayout>

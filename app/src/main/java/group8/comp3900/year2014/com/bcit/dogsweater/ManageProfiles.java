@@ -1,13 +1,13 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -137,7 +137,16 @@ public class ManageProfiles extends Activity {
 
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ManageProfiles.this, "Modifying item!", Toast.LENGTH_SHORT).show();
+                        Intent in = new Intent(getApplicationContext(),ModifyProfile.class);
+
+                        profileDataSource.open();
+                        List<Profile> profiles = profileDataSource.getAllProfiles();
+                        Profile curProfile = ((Dialogable<Profile>)gridAdapter.getItem( position )).getItem();
+                        profileDataSource.close();
+
+
+                        in.putExtra( "Profile Id", curProfile.getId() );
+                        startActivity(in);
                     }
 
                 });

@@ -87,8 +87,12 @@
             android:label="@string/title_activity_pdf_preview" >
         </activity>
         <activity
-            android:name=".ModifyProject"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ModifyProject"
             android:label="@string/title_activity_modify_projects" >
+        </activity>
+        <activity
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ModifyProfile"
+            android:label="@string/title_activity_modify_profile" >
         </activity>
     </application>
 
