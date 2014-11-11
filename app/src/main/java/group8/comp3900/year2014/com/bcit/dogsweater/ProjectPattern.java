@@ -141,6 +141,13 @@ public class ProjectPattern extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.share_pdf) {
+            Intent in = new Intent( this, PdfPreview.class );
+            in.putExtra( "Project id", curProject.getId() );
+            startActivity( in );
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -213,13 +220,4 @@ public class ProjectPattern extends Activity {
         TextView t = (TextView) findViewById(R.id.patternRowCounter);
         t.setText("" + curProject.getRowCounter());
     }
-
-    public void shareButton(View v)
-    {
-        Intent in = new Intent( this, PdfPreview.class );
-        in.putExtra( "Project id", curProject.getId() );
-
-        startActivity( in );
-    }
-
 }

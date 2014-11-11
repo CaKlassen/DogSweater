@@ -1,4 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="group8.comp3900.year2014.com.bcit.dogsweater.ProjectPattern" >
+
+    <item
+        android:title="Share PDF"
+        android:id="@+id/menu_overflow"
+        android:icon="@drawable/overflow_btn"
+        android:orderInCategory="11111"
+        android:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/share_pdf"
+                android:showAsAction="never"
+                android:title="Share PDF"/>
+        </menu>
+    </item>
 </menu>
