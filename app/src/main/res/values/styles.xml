@@ -11,11 +11,9 @@
 
     </style>
 
-    <!-- Customer Styles -->
-
     <!-- Header Banner color -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#2EBBB6</item>
+        <item name="android:background">@color/teal</item>
     </style>
 
     <!-- Overflow button style -->
@@ -24,10 +22,7 @@
     </style>
 
     <style name="myPopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">#2EBBB6</item>
+        <item name="android:popupBackground">@color/teal</item>
     </style>
-
-
-
 
 </resources>

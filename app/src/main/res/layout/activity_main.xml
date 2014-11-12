@@ -59,8 +59,8 @@
                 android:id="@+id/newProjectButton"
                 android:layout_gravity="center_horizontal"
                 android:textSize="25sp"
-                android:textScaleX="2.1"
-                android:background="@drawable/btnstyle"
+                android:textColor="@drawable/text_colors"
+                android:background="@drawable/button_style"
                 android:onClick="newProject"
                 android:layout_marginBottom="20dp"/>
 
@@ -71,7 +71,8 @@
                 android:id="@+id/currentProjectsButton"
                 android:layout_gravity="center_horizontal"
                 android:textSize="25sp"
-                android:background="@drawable/btnstyle"
+                android:textColor="@drawable/text_colors"
+                android:background="@drawable/button_style"
                 android:onClick="currentProjects"
                 android:layout_marginBottom="20dp"/>
 
@@ -82,7 +83,8 @@
                 android:id="@+id/manageProfilesButton"
                 android:layout_gravity="center_horizontal"
                 android:textSize="25sp"
-                android:background="@drawable/btnstyle"
+                android:textColor="@drawable/text_colors"
+                android:background="@drawable/button_style"
                 android:onClick="manageProfiles"
                 android:layout_marginBottom="20dp"/>
 
@@ -93,7 +95,8 @@
                 android:id="@+id/informationButton"
                 android:layout_gravity="center_horizontal"
                 android:textSize="25sp"
-                android:background="@drawable/btnstyle"
+                android:textColor="@drawable/text_colors"
+                android:background="@drawable/button_style"
                 android:onClick="info"
                 android:layout_marginBottom="20dp"/>
 
