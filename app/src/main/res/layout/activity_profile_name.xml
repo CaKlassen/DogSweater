@@ -7,6 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context="group8.comp3900.year2014.com.bcit.dogsweater.ProfileName" >
 
     <group8.comp3900.year2014.com.bcit.dogsweater.SlideMenu
@@ -15,50 +16,79 @@
         android:layout_height="wrap_content"
         />
 
-    <TextView
-        android:text="@string/profileNameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/profileText"
-        android:layout_weight="1"
-        android:textSize="40sp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dyi_icon_collar"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nameProfileText"
-        android:id="@+id/textView"
-        android:textSize="30sp"
-        android:labelFor="@id/measureA" />
+        android:id="@+id/nameDog"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/hintNameProfile"
         android:id="@+id/measureA"
         android:inputType="text"
+        android:gravity="center_horizontal"
         android:textSize="30sp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/addImageButton"
-        android:id="@+id/addImage"
-        android:textSize="30sp"
-        android:onClick="getImageUri" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <Button
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addImageButton"
+        android:id="@+id/addImage"
+        android:textSize="30sp"
+        android:src="@drawable/dyi_icon_camera"
+        android:gravity="center_horizontal"
+        android:onClick="getImageUri"
+        android:background="@color/white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/takePhoto"
+        android:id="@+id/takePhoto"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        />
+
+    <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nextButton"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/Next"
         android:textSize="30sp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/dyi_icon_next"
+        android:background="@color/white"
         android:onClick="dogMeasurements" />
+
+    </RelativeLayout>
 
 </LinearLayout>

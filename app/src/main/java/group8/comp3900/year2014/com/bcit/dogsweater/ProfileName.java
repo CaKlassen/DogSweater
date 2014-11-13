@@ -1,8 +1,8 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.ContextMenu;
@@ -11,8 +11,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
@@ -40,7 +41,7 @@ public class ProfileName extends Activity {
     private EditText profileNameInput;
 
     /** button used to add an image to the being created profile */
-    private Button addImageButton;
+    private ImageButton addImageButton;
 
 
 
@@ -90,6 +91,12 @@ public class ProfileName extends Activity {
         initializeGUIReferences();
         configureGUIReferences();
 
+        TextView nameDog = (TextView) findViewById(R.id.nameDog);
+        TextView takePhoto = (TextView) findViewById(R.id.takePhoto);
+
+        Typeface textFont = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
+        nameDog.setTypeface( textFont );
+        takePhoto.setTypeface( textFont );
     }
 
     @Override
@@ -300,7 +307,7 @@ public class ProfileName extends Activity {
      */
     private void initializeGUIReferences() {
         profileNameInput = (EditText) findViewById(R.id.measureA);
-        addImageButton = (Button) findViewById(R.id.addImage);
+        addImageButton = (ImageButton) findViewById(R.id.addImage);
 
     }
 

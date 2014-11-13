@@ -43,11 +43,12 @@
     <string name="imageDescDimension">Dog Dimension</string>
 
     <!-- App Page text -->
-    <string name="nameProfileText">Name your profile:</string>
+    <string name="nameProfileText">NAME YOUR DOG</string>
+    <string name="takePhoto">ADD PICTURE</string>
     <string name="yarnTypeText">Yarn Type:</string>
 
     <!-- Text box hints -->
-    <string name="hintNameProfile">Profile name</string>
+    <string name="hintNameProfile">Dog Name</string>
     <string name="hintDimension">Dimension</string>
 
     <!-- Settings button text -->
