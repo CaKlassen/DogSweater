@@ -33,6 +33,11 @@ public class StylePopup extends Dialog {
     /** reference to the title TextView on the dialog */
     private TextView titleText;
 
+
+    /** reference to the description TextView on the dialog */
+    private TextView descriptionText;
+
+
     private Context c;
 
 
@@ -93,6 +98,18 @@ public class StylePopup extends Dialog {
         Typeface titleTF = Typeface.createFromAsset( c.getAssets(), "GrandHotel-Regular.otf" );
         titleText.setTypeface( titleTF );
     }
+    /**
+     * author: Eric Tsang
+     * date: November 6 2014
+     *
+     * sets the description of the dialog to the passed String (text)
+     *
+     * @param text text to display as the dialog's description
+     */
+    public void setDescriptionText(String text) {
+        descriptionText.setText(text);
+    }
+
 
     /**
      * author: Eric Tsang
@@ -136,6 +153,7 @@ public class StylePopup extends Dialog {
     private void initializeGUIReferences() {
         image = (ImageView) findViewById(R.id.largeView);
         titleText =  (TextView) findViewById(R.id.popupTitle);
+        descriptionText = (TextView) findViewById(R.id.descriptionText);
         continueBtn = (Button) findViewById(R.id.nextButton);
     }
 }

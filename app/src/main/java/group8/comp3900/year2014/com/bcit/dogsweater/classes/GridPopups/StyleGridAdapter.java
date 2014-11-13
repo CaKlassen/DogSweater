@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.StyleInfo;
 
 /****************************************************************
  * Created by Rhea on 02/10/2014.
@@ -23,24 +24,25 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
  ****************************************************************/
 public class StyleGridAdapter extends BaseAdapter {
     private Context context;
-    //list of image resource ID's for population of the grid
-    private ArrayList<Integer> imageIds = new ArrayList<Integer>();
-    int numImages = 0;
+
+    //list of style info classes hard coded into the app
+    private ArrayList<StyleInfo> styles = new ArrayList<StyleInfo>();
+    int numStyles = 0;
 
 
     public StyleGridAdapter(Context c) {
         context = c;
-        buildImageList();
+        buildStyleList();
     }
 
     @Override
     public int getCount() {
-        return imageIds.size();
+        return styles.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return imageIds.get(position);
+        return styles.get(position);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class StyleGridAdapter extends BaseAdapter {
         iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
         iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-        iview.setImageResource(imageIds.get(position));
+        iview.setImageResource(styles.get(position).getImageUri());
 
         tv.setText("Style");
 
@@ -88,17 +90,18 @@ public class StyleGridAdapter extends BaseAdapter {
 
 
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
-    public void buildImageList()
+    public void buildStyleList()
     {
-        imageIds.add(numImages, R.drawable.style01 );
-        numImages++;
+        styles.add(new StyleInfo("Standard Topdown", "Test description woop woop", R.drawable.style01) );
+        styles.add(new StyleInfo("Astor's secret new one", "???? A CHALLLENGER IS APPROACHING", R.drawable.style02) );
+        numStyles++;
 
 
     }
 
-    public ArrayList<Integer> getImageList()
+    public ArrayList<StyleInfo> getStyleList()
     {
-        return imageIds;
+        return styles;
     }
 
 
