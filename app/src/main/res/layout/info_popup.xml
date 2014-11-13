@@ -5,15 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:padding="30dp"
+    android:background="@color/white"
    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.10"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/peach"
         android:id="@+id/popupTitle" />
 
     <ImageView
@@ -21,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.60"
-        android:background="@color/gridBackground" />
+        android:background="@color/white" />
 
     <TextView
         android:id="@+id/descriptionText"
@@ -36,6 +39,8 @@
         android:layout_height="0dp"
         android:layout_weight="0.10"
         android:id="@+id/nextButton"
+        android:textColor="@drawable/text_colors"
+        android:background="@drawable/button_pressed"
         android:onClick="Next" />
 
 

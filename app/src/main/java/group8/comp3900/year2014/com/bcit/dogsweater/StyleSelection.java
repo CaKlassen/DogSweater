@@ -132,7 +132,7 @@ public class StyleSelection extends Activity {
 
                 popup.setImageBackgroundResource(
                         gridAdapter.getImageList().get(position));
-                popup.setTitleText("STYLE");
+                popup.setTitleText("standard top-down");
                 popup.setContinueButtonText("SELECT THIS STYLE");
                 popup.setContinueButtonOnClickListener(
                         new View.OnClickListener() {

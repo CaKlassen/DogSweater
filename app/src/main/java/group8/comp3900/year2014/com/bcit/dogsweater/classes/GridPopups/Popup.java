@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -38,11 +40,14 @@ public class Popup extends Dialog {
     /** reference to the button on the dialog */
     private Button button;
 
+    private Context c;
+
     /////////////////
     // constructor //
     /////////////////
     public Popup(Context context) {
         super(context);
+        c = context;
 
         //Set custom dialog information
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -56,7 +61,7 @@ public class Popup extends Dialog {
         int h = dm.heightPixels;
 
         //Set grid_layout window
-        getWindow().setLayout(( w/100)*75, ( h/100)*75);
+        getWindow().setLayout((w/100)*85, ( h/100)*70);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
     }
@@ -121,6 +126,13 @@ public class Popup extends Dialog {
      */
     public void setTitleText(String text) {
         titleText.setText(text);
+
+        // Set the custom font for the title
+        Typeface titleTF = Typeface.createFromAsset( c.getAssets(), "Proxima Nova Bold.otf" );
+        titleText.setTypeface( titleTF );
+        titleText.setTextColor( c.getResources().getColor( R.color.black ) );
+        titleText.setTextSize( TypedValue.COMPLEX_UNIT_SP, 20 );
+        titleText.setAllCaps( true );
     }
 
     /**
@@ -146,6 +158,10 @@ public class Popup extends Dialog {
      */
     public void setButtonText(String text) {
         button.setText(text);
+
+        // Set the custom font for the title
+        Typeface titleTF = Typeface.createFromAsset( c.getAssets(), "Proxima Nova Bold.otf" );
+        button.setTypeface( titleTF );
     }
 
     /**

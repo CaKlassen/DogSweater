@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/currentProjectPopup"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:paddingTop="10dp"
+    android:paddingBottom="30dp"
+    android:background="@color/white"
+    android:weightSum="1"
     >
 
-    <ImageButton
-        android:id="@+id/Delete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/delete"
-        android:scaleType="fitCenter"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_marginBottom="0dp" >
 
-    <ImageButton
-        android:id="@+id/Modify"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@android:drawable/ic_menu_edit"
-        android:scaleType="fitCenter"
-        android:layout_alignParentEnd="true"
-        />
+        <ImageButton
+            android:id="@+id/Delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/delete"
+            android:scaleType="fitCenter"
+            />
 
+        <ImageButton
+            android:id="@+id/Modify"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@android:drawable/ic_menu_edit"
+            android:scaleType="fitCenter"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
+        android:textSize="25sp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
         android:id="@+id/popupTitle" />
 
     <ImageView
         android:id="@+id/largeView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gridBackground"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.6" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -49,18 +61,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:max="100"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:progress="50"
-        android:layout_below="@+id/largeView"
+        android:layout_weight="0.1"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/Continue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Continue Working"
-        android:background="@android:color/holo_green_light"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="0dp"
+        android:text="CONTINUE WORKING"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@drawable/text_colors"
+        android:background="@drawable/button_pressed"
+        android:layout_weight="0.1" />
 
 
-</RelativeLayout>
+</LinearLayout>

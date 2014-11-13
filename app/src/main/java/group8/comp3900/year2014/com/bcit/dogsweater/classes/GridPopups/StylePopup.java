@@ -3,6 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -32,12 +33,15 @@ public class StylePopup extends Dialog {
     /** reference to the title TextView on the dialog */
     private TextView titleText;
 
+    private Context c;
+
 
     /////////////////
     // constructor //
     /////////////////
     public StylePopup(Context context) {
         super(context);
+        c = context;
 
         //Set custom dialog information
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -51,7 +55,7 @@ public class StylePopup extends Dialog {
         int h = dm.heightPixels;
 
         //Set grid_layout window
-        getWindow().setLayout(( w/100)*75, ( h/100)*75);
+        getWindow().setLayout((w/100)*85, ( h/100)*70);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
     }
@@ -84,6 +88,10 @@ public class StylePopup extends Dialog {
      */
     public void setTitleText(String text) {
         titleText.setText(text);
+
+        // Set the custom font
+        Typeface titleTF = Typeface.createFromAsset( c.getAssets(), "GrandHotel-Regular.otf" );
+        titleText.setTypeface( titleTF );
     }
 
     /**
@@ -97,6 +105,10 @@ public class StylePopup extends Dialog {
      */
     public void setContinueButtonText(String text) {
         continueBtn.setText(text);
+
+        // Set the custom font
+        Typeface buttonTF = Typeface.createFromAsset( c.getAssets(), "Proxima Nova Bold.otf" );
+        continueBtn.setTypeface( buttonTF );
     }
 
     /**

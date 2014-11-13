@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -47,7 +49,7 @@ public class InfoPopup extends Dialog {
         int h = dm.heightPixels;
 
         //Set grid_layout window
-        getWindow().setLayout((int)( w/100)*75, (int)( h/100)*75);
+        getWindow().setLayout((w/100)*85, ( h/100)*70);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
 
@@ -80,6 +82,13 @@ public class InfoPopup extends Dialog {
         //Set title to correct
         TextView title =  (TextView) findViewById(R.id.popupTitle);
         title.setText(titleText);
+
+        // Set the custom font for the title
+        Typeface titleTF = Typeface.createFromAsset( context.getAssets(), "Proxima Nova Bold.otf" );
+        title.setTypeface( titleTF );
+        title.setTextColor( context.getResources().getColor( R.color.black ) );
+        title.setTextSize( TypedValue.COMPLEX_UNIT_SP, 20 );
+        title.setAllCaps( true );
 
         //Set onclick listener to next screen
         Button nextButton = (Button) findViewById(R.id.nextButton);

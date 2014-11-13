@@ -5,34 +5,48 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:paddingTop="10dp"
+    android:paddingBottom="30dp"
+    android:background="@color/white"
+    android:weightSum="1"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_marginBottom="0dp" >
+
         <ImageButton
-         android:id="@+id/Delete"
-         android:layout_width="40dp"
-         android:layout_height="40dp"
-         android:background="@drawable/delete"
-         android:scaleType="fitCenter"
-         android:adjustViewBounds="true"
-         android:layout_gravity="top|left"
-         />
+             android:id="@+id/Delete"
+             android:layout_width="25dp"
+             android:layout_height="25dp"
+             android:background="@drawable/delete"
+             android:scaleType="fitCenter"
+             android:adjustViewBounds="true"
+             android:layout_alignParentStart="true"
+             />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:textSize="30sp"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="0.1"
-        android:layout_gravity="top|center"
+        android:layout_marginBottom="5dp"
         android:id="@+id/popupTitle" />
 
     <ImageView
         android:id="@+id/largeView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/gridBackground"
-        android:layout_weight="0.7"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.6"
         />
 
     <TextView
@@ -44,16 +58,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.0">
+        android:layout_weight="0.1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
 
         <Button
             android:id="@+id/Modify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modify"
-            android:background="@android:color/holo_green_light"/>
+            android:text="EDIT PROFILE"
+            android:textColor="@drawable/text_colors"
+            android:background="@drawable/button_pressed"/>
     </LinearLayout>
 
 </LinearLayout>

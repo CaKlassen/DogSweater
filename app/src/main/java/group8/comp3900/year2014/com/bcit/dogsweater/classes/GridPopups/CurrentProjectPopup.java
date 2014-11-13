@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
@@ -67,7 +68,7 @@ public class CurrentProjectPopup extends Dialog {
         int h = dm.heightPixels;
 
         // set grid_layout window
-        getWindow().setLayout(( w/100)*75, ( h/100)*75);
+        getWindow().setLayout((w/100)*85, ( h/100)*70);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setCancelable(true);
 
@@ -92,6 +93,14 @@ public class CurrentProjectPopup extends Dialog {
 
         // setting title text
         tv.setText(titleText);
+        // Set the custom font
+        Typeface titleTF = Typeface.createFromAsset( context.getAssets(), "Proxima Nova Bold.otf" );
+        tv.setTypeface( titleTF );
+        tv.setAllCaps(true);
+
+        // Set the custom font for the button
+        Button conButton = (Button) findViewById(R.id.Continue);
+        conButton.setTypeface(titleTF);
 
     }
 
