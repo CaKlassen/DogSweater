@@ -17,7 +17,11 @@ import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 public class ProfileSelection extends Activity {
 
 
-
+    ///////////////////
+    // instance data //
+    ///////////////////
+    /** adapter for the activity's GridView */
+    private ProfileSelectionGridAdapter mGridAdapter;
 
 
     // -------------------------------------------------------------------------
@@ -33,8 +37,8 @@ public class ProfileSelection extends Activity {
 
 
         GridView gridview = (GridView) findViewById(R.id.profileGridView);
-        final ProfileSelectionGridAdapter gridAdapter = new ProfileSelectionGridAdapter(this);
-        gridview.setAdapter(gridAdapter);
+        mGridAdapter = new ProfileSelectionGridAdapter(this);
+        gridview.setAdapter(mGridAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -47,7 +51,7 @@ public class ProfileSelection extends Activity {
                 }
                 else
                 {
-                    Dialogable dialogable = (Dialogable) gridAdapter.getItem(position);
+                    Dialogable dialogable = (Dialogable) mGridAdapter.getItem(position);
                     Popup popup = new Popup(v.getContext());
                     popup.setButtonText("SELECT THIS PROFILE");
                     popup.setDescriptionText("");
@@ -59,7 +63,7 @@ public class ProfileSelection extends Activity {
                             Intent i = new Intent(ProfileSelection.this,
                                     StyleSelection.class);
                             i.putExtra(StyleSelection.KEY_PROFILE_ID,
-                                    gridAdapter.getItemId(position));
+                                    mGridAdapter.getItemId(position));
                             startActivity(i);
                         }
                     });
@@ -67,6 +71,12 @@ public class ProfileSelection extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mGridAdapter.buildImageList();
     }
 
 

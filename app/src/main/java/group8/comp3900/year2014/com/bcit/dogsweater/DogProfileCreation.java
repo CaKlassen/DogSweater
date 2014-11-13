@@ -143,9 +143,21 @@ public class DogProfileCreation extends Activity {
         //Create the menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
-        parseStartingIntent(getIntent());
+        parseStartingIntent();
         initializeGUIReferences();
         updateGUI();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // when we come back to this activity; no profile creation is in
+        // progress, finish
+        if (!ProfileName.isProfileCreationInProgress()) {
+            finish();
+        }
 
     }
 
@@ -232,6 +244,12 @@ public class DogProfileCreation extends Activity {
                 next stage so we can associate it with the project instance to
                 be created
                  */
+
+                // we finished creating the profile; tell the ProfileName object
+                ProfileName.finishProfileCreation(this);
+
+                // start the next activity to move on with the project creation
+                // process
                 in = new Intent(this, StyleSelection.class);
 
                 try {
@@ -286,13 +304,13 @@ public class DogProfileCreation extends Activity {
      * author: Eric Tsang
      * date: October 18 2014
      * revisions: none
-     * @param startIntent reference to intent used to start this activity
      *
      * parses the activity's starting intent's extras, and assigns them to our
      * starting intent instance data fields as needed
      */
-    private void parseStartingIntent(Intent startIntent) {
+    private void parseStartingIntent() {
 
+        Intent startIntent = getIntent();
         defaultValueExpressions = startIntent.getStringArrayExtra(
                 KEY_DEFAULT_VALUE_EXPRESSIONS);
         dimensionKeys = startIntent.getStringArrayExtra(

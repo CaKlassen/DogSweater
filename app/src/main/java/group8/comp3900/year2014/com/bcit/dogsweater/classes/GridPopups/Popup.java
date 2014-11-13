@@ -52,7 +52,7 @@ public class Popup extends Dialog {
         //Set custom dialog information
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.info_popup);
-        initializeGUIRefereces();
+        initializeGUIReferences();
 
         //get current screen's height and width
         DisplayMetrics dm = new DisplayMetrics();
@@ -186,7 +186,7 @@ public class Popup extends Dialog {
      *
      * initializes dialog's View references
      */
-    private void initializeGUIRefereces() {
+    private void initializeGUIReferences() {
         titleText = (TextView) findViewById(R.id.popupTitle);
         image = (ImageView) findViewById(R.id.largeView);
         descriptionText = (TextView) findViewById(R.id.descriptionText);

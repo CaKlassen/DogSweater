@@ -1,6 +1,7 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -43,15 +44,31 @@ public class ProfileName extends Activity {
 
 
 
-    ////////////////////////
-    // user inputted data //
-    ////////////////////////
+
+    ////////////////
+    // class data //
+    ////////////////
+    /**
+     * true if a new profile is being created; the user is entering information
+     * about a profile, but it's not saved into the database yet
+     *
+     * this is set to true whenever a new instance of this activity is created,
+     * and set to false when the last DogProfileCreation is left.
+     */
+    private static boolean profileCreationInProgress;
+
+
+
+    ///////////////////
+    // instance data //
+    ///////////////////
     /**
      * URI to image chosen by user for the profile that's being created. value
      * it is initialized with is a uri to a default image if the user doesn't
      * pick an image themselves.
      */
     private String profileImageUri = "android.resource://group8.comp3900.year2014.com.bcit.dogsweater/drawable/dog_silhouette";
+
 
 
 
@@ -66,9 +83,24 @@ public class ProfileName extends Activity {
         //Create the menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
+        // set this to true whenever this activity is created from nothing
+        // because we are creating a new Profile
+        profileCreationInProgress = true;
+
         initializeGUIReferences();
         configureGUIReferences();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // when we come back to this activity; no profile creation is in
+        // progress, finish
+        if (!profileCreationInProgress) {
+            finish();
+        }
     }
 
 
@@ -150,6 +182,33 @@ public class ProfileName extends Activity {
     // -------------------------------------------------------------------------
     // interface methods
     // -------------------------------------------------------------------------
+    /**
+     * sets profileCreationInProgress to false to signal that no more profile
+     * creation is in progress. only instances of the DogProfileCreation should
+     * be invoking this method because that activity is the last activity that's
+     * used in the profile creation process.
+     *
+     * @param caller Activity that is calling thia method
+     */
+    public static void finishProfileCreation(Activity caller) {
+        try {
+            DogProfileCreation activity = (DogProfileCreation) caller;
+            profileCreationInProgress = false;
+        } catch(ClassCastException e) {
+            throw new RuntimeException("the activity invokes this method must be DogProfileCreation");
+        }
+    }
+
+    /**
+     * returns true if a new profile is currently being created; false
+     * otherwise.
+     *
+     * @return true if a new profile is being created; false otherwise.
+     */
+    public static boolean isProfileCreationInProgress() {
+        return profileCreationInProgress;
+    }
+
     /**
      * author: Eric Tsang
      * date: October 18 2014

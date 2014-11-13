@@ -27,14 +27,11 @@ import java.util.concurrent.TimeUnit;
 public class ThreadManager {
 
 
-
     /////////////////////////////
     // DEFINE STATIC CONSTANTS //
     /////////////////////////////
 
-
     // ThreadPoolExecutor constructor parameters
-
     /**
      * Gets the number of available cores
      * (not always the same as the maximum number of cores)
@@ -48,9 +45,7 @@ public class ThreadManager {
     /** Sets the Time Unit to seconds */
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
 
-
     // CustomHandler message types
-
     /**
      * Message type describing a message that is a runnable, that must be run
      * on some sort of worker thread. Such message types will be assigned to a
@@ -63,13 +58,10 @@ public class ThreadManager {
      * executed on the same thread as this class. Such message types must
      * implement the UpdateUITask interface. The updateUI method will be run on
      * the UI thread.
-     * @see ThreadManager.UpdateUITask
      */
     public static final int UPDATE_UI_TASK = 1;
 
-
     // Image processing
-
     /** specifies the ways that images can be cropped */
     public enum CropPattern {
 
@@ -81,12 +73,10 @@ public class ThreadManager {
     }
 
 
-
     ////////////////////////////////////////
     // INSTANTIATE STATIC SUPPORT OBJECTS //
     ////////////////////////////////////////
-
-    /** A queue of Runnables instantiated as a LinkedBlockingQueue */
+    /** A queue of Runnables to be passed to the threadPool for execution */
     private static final BlockingQueue<Runnable> workQueue =
             new LinkedBlockingQueue<Runnable>();
 
@@ -107,15 +97,10 @@ public class ThreadManager {
     /** Instantiates a single ApplicationHandler */
     static { mInstance = new ThreadManager(); }
 
-    /** a Volley request queue used to queue up network requests and such */
-    //private RequestQueue mRequestQueue;
-
-
 
     //////////////////
     // CONSTRUCTORS //
     //////////////////
-
     /**
      * Constructs the work queues and thread pools used to download
      * and decode images. Because the constructor is marked private,
@@ -128,11 +113,9 @@ public class ThreadManager {
     }
 
 
-
     ///////////////////////
     // INTERFACE METHODS //
     ///////////////////////
-
     /**
      * runs the run method of the passed Runnable instance (runnable) on a
      * worker thread when one becomes available.
@@ -152,11 +135,27 @@ public class ThreadManager {
      * @param updateUITask an UpdateUITask instance who's updateUI method will
      * be run on the main application thread; it can access UI components.
      */
-    public static void runOnMainThread(UpdateUITask updateUITask) {
+    public static void runOnMainThread(Runnable updateUITask) {
         mInstance.mHandler.obtainMessage(
                 UPDATE_UI_TASK, updateUITask).sendToTarget();
     }
 
+    /**
+     * gets the image at the passed Uri (imageUri), and decodes it on a worker
+     * thread. once the image has been decoded into a bitmap, the passed
+     * OnResponseListener's (onResponseListener) onResponse method will be
+     * invoked on the main ui thread, and passed the decoded bitmap.
+     *
+     * @param context the application's context
+     * @param imageUri Uri to the image to load on the local file system
+     * @param cropPattern pattern used to crop the bitmap (i.e.: Square, 4:3...)
+     * @param imageWidth width of the image to scale the image into; if the
+     *   decoded Bitmap has a width smaller than the passed width, then it will
+     *   be scaled up. if the width of the image is larger than the passed
+     *   width, then it will be shrunk down.
+     * @param onResponseListener an OnResponseListener who's onResponse method
+     *   will be invoked when the bitmap has been decoded successfully
+     */
     public static void loadImage(final Context context, final Uri imageUri, final CropPattern cropPattern,
             final int imageWidth, final OnResponseListener onResponseListener) {
 
@@ -184,9 +183,9 @@ public class ThreadManager {
                     final Bitmap croppedBm = bm;
 
                     // use the UI thread to display the image
-                    runOnMainThread( new ThreadManager.UpdateUITask() {
+                    runOnMainThread( new Runnable() {
                         @Override
-                        public void updateUI() {
+                        public void run() {
                             onResponseListener.onResponse(croppedBm);
                         }
                     });
@@ -202,19 +201,6 @@ public class ThreadManager {
     ////////////////
     // INTERFACES //
     ////////////////
-
-    /**
-     * Message type describing a message that needs to run on the UI thread;
-     * executed on the same thread as this class (UI thread). Such message types
-     * must implement the UpdateUITask interface. The updateUI method will be
-     * run on the UI thread.
-     */
-    public interface UpdateUITask {
-
-        /** Contains code that should be run on the UI thread. */
-        public void updateUI();
-    }
-
     /**
      * interface that provides methods that will be used as callbacks then
      * loadImage returns with its decoded bitmap.
@@ -274,7 +260,7 @@ public class ThreadManager {
                 case ThreadManager.UPDATE_UI_TASK:
 
                     // Runs task on the UI thread (this thread).
-                    ((UpdateUITask) messageIn.obj).updateUI();
+                    ((Runnable) messageIn.obj).run();
                     break;
 
                 /* Pass along other messages from the UI */

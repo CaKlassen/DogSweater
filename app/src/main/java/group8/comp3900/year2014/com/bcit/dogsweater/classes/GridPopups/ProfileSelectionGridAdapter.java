@@ -46,8 +46,6 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         // initialize instance members from constructor parameters
         context = c;
         profileDataSource = new ProfileDataSource(context);
-        // add profiles to UI
-        buildImageList();
 
     }
 
@@ -133,6 +131,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
     public void buildImageList()
     {
         // tile used to add a new profile
+        dialogables.clear();
         dialogables.add(new DialogableAdapter() {
 
             @Override
@@ -179,6 +178,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
                 }
             });
         }
+        notifyDataSetChanged();
     }
 
     public ArrayList<Dialogable<Profile>> getImageList()
