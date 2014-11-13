@@ -14,7 +14,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_yarn_selection">Yarn Selection</string>
     <string name="title_activity_style">Archetypes</string>
-    <string name="title_activity_materials">Materials</string>
+    <string name="title_activity_materials">Material Checklist</string>
     <string name="title_activity_pattern">Pattern</string>
     <string name="title_activity_current_projects">Current Projects</string>
     <string name="title_activity_manage_profiles">Manage Profiles</string>

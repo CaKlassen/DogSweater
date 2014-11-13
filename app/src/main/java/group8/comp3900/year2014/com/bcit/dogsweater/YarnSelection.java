@@ -134,7 +134,7 @@ public class YarnSelection extends Activity {
         getProfileDataSource().close();
 
         // go to the next activity
-        Intent in = new Intent(this, ProjectPattern.class);
+        Intent in = new Intent(this, Materials.class);
         in.putExtra(ProjectPattern.KEY_PROJECT_ID, newProject.getId());
         startActivity(in);
     }

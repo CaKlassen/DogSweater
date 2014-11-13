@@ -3,15 +3,16 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,8 +30,14 @@ public class Materials extends Activity {
         //Create the menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
+        TextView matsTitle = (TextView) findViewById(R.id.materialsText);
+        Typeface titleFont = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+        matsTitle.setTypeface( titleFont );
+
         //Generate list View from ArrayList
         displayListView();
+
+
 
     }
 
@@ -74,7 +81,6 @@ public class Materials extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             ViewHolder holder = null;
-            Log.v("ConvertView", String.valueOf(position));
 
             if (convertView == null) {
                 LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -88,8 +94,6 @@ public class Materials extends Activity {
                     public void onClick(View v) {
                         CheckBox cb = (CheckBox) v;
                         Material material = (Material) cb.getTag();
-                        Toast.makeText(getApplicationContext(), "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked(),
-                                Toast.LENGTH_LONG).show();
                         material.setSelected(cb.isChecked());
                     }
                 });
@@ -101,6 +105,8 @@ public class Materials extends Activity {
             holder.name.setText(material.getName());
             holder.name.setChecked(material.isSelected());
             holder.name.setTag(material);
+            holder.name.setPadding( 20, 0, 0, 0 );
+            holder.name.setTextSize( TypedValue.COMPLEX_UNIT_SP, 30 );
 
             return convertView;
 
