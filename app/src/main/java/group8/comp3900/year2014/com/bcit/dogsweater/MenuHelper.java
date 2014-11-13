@@ -48,7 +48,7 @@ public class MenuHelper extends Activity  implements group8.comp3900.year2014.co
         //slidemenu.setAsShown();
 
         // set optional header image
-        slidemenu.setHeaderImage(a.getResources().getDrawable(R.drawable.yarn));
+        //slidemenu.setHeaderImage(a.getResources().getDrawable(R.drawable.yarn));
 
         // this demonstrates how to dynamically add menu items
             /*

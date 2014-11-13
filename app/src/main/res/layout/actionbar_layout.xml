@@ -17,4 +17,16 @@
         android:background="@null"
         />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/dyi_logo_actionbar"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:background="@null"/>
+
 </RelativeLayout>

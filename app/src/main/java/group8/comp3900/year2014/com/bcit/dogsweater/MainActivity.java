@@ -19,9 +19,12 @@ public class MainActivity extends Activity {
 
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
+        // Override the default font
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "Proxima Nova Reg.otf");
+
         // Set the activity fonts
         Button b = (Button) findViewById( R.id.newProjectButton );
-        Typeface buttonTypeface = Typeface.createFromAsset( getAssets(), "ProximaNova-Bold.otf" );
+        Typeface buttonTypeface = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
         b.setTypeface( buttonTypeface );
 
         b = (Button) findViewById( R.id.manageProfilesButton );

@@ -6,10 +6,10 @@
     >
 
     <LinearLayout
-        android:layout_width="250dip"
+        android:layout_width="150dp"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:background="#2ebab5"
+        android:background="@color/teal"
        >
 
         <ImageView
@@ -23,8 +23,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:divider="@android:color/white"
-            android:dividerHeight="5dp"
-            android:background="#2ebab5" />
+            android:dividerHeight="3dp"
+            android:background="@color/teal" />
 
     </LinearLayout>
 

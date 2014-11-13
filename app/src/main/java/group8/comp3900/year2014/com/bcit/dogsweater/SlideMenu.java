@@ -82,7 +82,11 @@ public class SlideMenu extends LinearLayout {
             super(act, R.layout.slidemenu, items);
 			this.act = act;
 			this.items = items;
-			this.itemFont = itemFont;
+			//this.itemFont = itemFont;
+
+            //Set custom typeface
+            Typeface t = Typeface.createFromAsset( act.getAssets(), "Proxima Nova Bold.otf" );
+            this.itemFont = t;
 		}
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -94,14 +98,14 @@ public class SlideMenu extends LinearLayout {
 				viewHolder.label = (TextView) rowView.findViewById(R.id.menu_label);
 				if(itemFont != null)
 					viewHolder.label.setTypeface(itemFont);
-				viewHolder.icon = (ImageView) rowView.findViewById(R.id.menu_icon);
+				//viewHolder.icon = (ImageView) rowView.findViewById(R.id.menu_icon);
 				rowView.setTag(viewHolder);
 			}
 
 			MenuItemHolder holder = (MenuItemHolder) rowView.getTag();
 			String s = items[position].label;
 			holder.label.setText(s);
-			holder.icon.setImageDrawable(items[position].icon);
+			//holder.icon.setImageDrawable(items[position].icon);
 
 			return rowView;
 		}
@@ -181,7 +185,7 @@ public class SlideMenu extends LinearLayout {
 		this.callback = cb;
 
 		// set size
-		menuSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, act.getResources().getDisplayMetrics());
+		menuSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, act.getResources().getDisplayMetrics());
 
 		// create animations accordingly
 		slideRightAnim = new TranslateAnimation(-menuSize, 0, 0, 0);

@@ -5,31 +5,31 @@
     <item
         android:id="@+id/item_home"
         android:icon="@drawable/yarn"
-        android:title="Home">
+        android:title="HOME">
     </item>
 
     <item
         android:id="@+id/item_newProj"
         android:icon="@drawable/yarn"
-        android:title="New Project">
+        android:title="NEW PROJECT">
     </item>
 
     <item
         android:id="@+id/item_currentProj"
         android:icon="@drawable/yarn"
-        android:title="Current Projects">
+        android:title="CURRENT\nPROJECTS">
     </item>
 
     <item
         android:id="@+id/item_managProf"
         android:icon="@drawable/yarn"
-        android:title="Manage Profiles">
+        android:title="MANAGE\nPROFILES">
     </item>
 
     <item
         android:id="@+id/item_information"
         android:icon="@drawable/yarn"
-        android:title="Information">
+        android:title="INFORMATION">
     </item>
 
 </menu>

@@ -95,11 +95,11 @@
     <color name="appBackground">#FFFFFF</color>
 
     <!-- Main App Colors -->
-    <color name="teal">#2EBBB6</color>
+    <color name="teal">#2BB6C1</color>
     <color name="peach">#E95E53</color>
-    <color name="darkblue">#25408D</color>
-    <color name="gray">#CDCFCF</color>
+    <color name="gray">#BFBFBF</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 
     <!-- Info Page -->
     <string name="about_app">Dog Yarn It is an application designed to provide knitters with a
