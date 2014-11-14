@@ -23,7 +23,7 @@
             android:id="@+id/Delete"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/delete"
+            android:background="@drawable/dyi_icon_trashcan"
             android:scaleType="fitCenter"
             />
 
@@ -31,7 +31,7 @@
             android:id="@+id/Modify"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@android:drawable/ic_menu_edit"
+            android:background="@drawable/dyi_icon_edit"
             android:scaleType="fitCenter"
             android:layout_alignParentEnd="true"
             />
