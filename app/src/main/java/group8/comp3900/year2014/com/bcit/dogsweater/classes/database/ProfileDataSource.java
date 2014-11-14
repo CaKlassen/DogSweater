@@ -57,6 +57,8 @@ public class ProfileDataSource {
     public void open() throws SQLException {
 
         database = dbHelper.getWritableDatabase();
+
+        Log.d("Database Creation" , ""+database);
     }
 
     public void close() {
@@ -312,9 +314,9 @@ public class ProfileDataSource {
                                 cursor.getString(
                                   cursor.getColumnIndex(
                                     DogYarnItSQLHelper.PROJECT_NAME ) )
-                              , cursor.getFloat (
-                                  cursor.getColumnIndex (
-                                    DogYarnItSQLHelper.PROJECT_PERCENT ) )
+                              , cursor.getFloat(
+                cursor.getColumnIndex(
+                        DogYarnItSQLHelper.PROJECT_PERCENT))
                               , cursor.getInt (
                                   cursor.getColumnIndex (
                                     DogYarnItSQLHelper.PROJECT_ROWS ) )
@@ -355,7 +357,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.STEP_PROJECT, projNum );
         values.put( DogYarnItSQLHelper.STEP_SECTION, secNum );
         values.put( DogYarnItSQLHelper.STEP_STEP, stepNum );
-        values.put( DogYarnItSQLHelper.STEP_STATE, state );
+        values.put( DogYarnItSQLHelper.STEP_STATE, state ? 1 : 0 );
 
         if ( cursor.getCount() > 0 ) {
             database.update( DogYarnItSQLHelper.TABLE_STEPS, values, dbHelper.STEP_PROJECT + " = " + projNum +
@@ -388,7 +390,25 @@ public class ProfileDataSource {
 
     }
 
+    public float getPercentDone( long projNum ) {
+        Log.d("Database", ""+database);
+        Cursor cursor = database.rawQuery("SELECT " +
+                dbHelper.STEP_STATE + " from " +
+                dbHelper.TABLE_STEPS + " WHERE " +
+                dbHelper.STEP_PROJECT + " = " + projNum, null);
+        int doneCount = 0;
+        for( cursor.moveToFirst(); !cursor.isLast() ;cursor.moveToNext() ) {
+            if( cursor.getInt( cursor.getColumnIndex( dbHelper.STEP_STATE ) ) == 1 )
+                ++doneCount;
+        }
 
+        try {
+            return 100.0f * doneCount / cursor.getCount();
+        }
+        finally {
+            cursor.close();
+        }
+    }
 
     public static DogYarnItSQLHelper getInstance(Context context) {
 

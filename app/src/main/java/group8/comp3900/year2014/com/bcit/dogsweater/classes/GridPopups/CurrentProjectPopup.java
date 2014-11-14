@@ -13,9 +13,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
@@ -43,16 +45,21 @@ public class CurrentProjectPopup extends Dialog {
     /** reference to Modify Image button */
     private ImageButton modButton;
 
+    private ProgressBar progressBar;
+
 
 
     //////////////////
     // constructors //
     //////////////////
-    public CurrentProjectPopup(final Context context, Dialogable d) {
-        this (context, d.getDialogueImageUri(),  d.getDialogueTitle());
+    public CurrentProjectPopup(final Context context, Dialogable<Project> d) {
+        this (context
+             , d.getDialogueImageUri()
+             , d.getItem().getPercentDone()
+             , d.getDialogueTitle());
     }
 
-    public CurrentProjectPopup(final Context context, final Uri imageUri,
+    public CurrentProjectPopup(final Context context, final Uri imageUri, float percentDone,
                            String titleText) {
         super(context);
 
@@ -101,6 +108,9 @@ public class CurrentProjectPopup extends Dialog {
         // Set the custom font for the button
         Button conButton = (Button) findViewById(R.id.Continue);
         conButton.setTypeface(titleTF);
+
+        progressBar.setMax(100);
+        progressBar.setProgress((int) percentDone);
 
     }
 
@@ -151,5 +161,6 @@ public class CurrentProjectPopup extends Dialog {
         dltButton = (ImageButton) findViewById(R.id.Delete);
         cntButton = (Button) findViewById(R.id.Continue);
         modButton = (ImageButton) findViewById(R.id.Modify);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 }

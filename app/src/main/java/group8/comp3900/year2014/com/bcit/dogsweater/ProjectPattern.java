@@ -191,13 +191,14 @@ public class ProjectPattern extends Activity {
         text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.9f));
 
-        // Add the text field to the step
-        step.addView(text);
-
         // Create the checkbox and give it a unique ID
         CheckBox checkbox = new CheckBox(this);
-        checkbox.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
-                0.1f));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
+                0.1f);
+        params.setMargins(0, 0, 20, 0);
+
+        checkbox.setLayoutParams(params);
+        checkbox.setButtonDrawable( R.drawable.checkbox_selector );
         checkbox.setId(stepNum);
 
         // Check if the checkbox has been saved to the database already
@@ -233,6 +234,8 @@ public class ProjectPattern extends Activity {
 
         // Add the checkbox to the step
         step.addView(checkbox);
+        // Add the text field to the step
+        step.addView(text);
 
         // Define the functionality of the step layout
         step.setOnClickListener(new LinearLayout.OnClickListener() {
@@ -246,12 +249,12 @@ public class ProjectPattern extends Activity {
                 if (checked != 1) {
                     db.saveStepState(curProject.getId(), curSection, view.getId(), true);
                     LinearLayout s = (LinearLayout) view;
-                    CheckBox cb = (CheckBox) s.getChildAt(1);
+                    CheckBox cb = (CheckBox) s.getChildAt(0);
                     cb.setChecked(true);
                 } else {
                     db.saveStepState(curProject.getId(), curSection, view.getId(), false);
                     LinearLayout s = (LinearLayout) view;
-                    CheckBox cb = (CheckBox) s.getChildAt(1);
+                    CheckBox cb = (CheckBox) s.getChildAt(0);
                     cb.setChecked(false);
                 }
 

@@ -100,7 +100,14 @@ public class currentProjects extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
                 final CurrentProjectPopup popup;
-                popup = new CurrentProjectPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position));
+                Dialogable<Project> projectDialogable = (Dialogable<Project>) gridAdapter.getItem(position);
+                Project project = projectDialogable.getItem();
+                profileDataSource.open();
+                project.setPercentDone( profileDataSource.getPercentDone( project.getId() ) );
+                profileDataSource.close();
+                popup = new CurrentProjectPopup(v.getContext(), projectDialogable);
+
+                //project.getPercentDone();
 
 
                 popup.setOnDeleteButtonClickListener(new View.OnClickListener() {

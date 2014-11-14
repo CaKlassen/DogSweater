@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -97,6 +98,9 @@ public class ProfileName extends Activity {
         Typeface textFont = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
         nameDog.setTypeface( textFont );
         takePhoto.setTypeface( textFont );
+
+        //Auto show the keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
