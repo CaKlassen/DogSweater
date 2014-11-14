@@ -16,19 +16,17 @@
         android:layout_height="wrap_content"
         />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 
-
-    <ImageView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.30"
         android:src="@drawable/dyi_icon_collar"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.10"
         android:text="@string/nameProfileText"
         android:id="@+id/nameDog"
         android:textSize="25sp"
@@ -38,26 +36,26 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
         android:hint="@string/hintNameProfile"
         android:id="@+id/measureA"
         android:inputType="text"
         android:gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
         android:textSize="30sp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.20"
         android:text="@string/addImageButton"
         android:id="@+id/addImage"
-        android:textSize="30sp"
         android:src="@drawable/dyi_icon_camera"
         android:gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:onClick="getImageUri"
         android:background="@color/white"/>
 
@@ -70,14 +68,11 @@
         android:gravity="center_horizontal"
         />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="0.20">
 
     <ImageButton
         android:layout_width="wrap_content"
