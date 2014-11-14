@@ -1,6 +1,5 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -117,18 +115,18 @@ public class PdfPreview extends Activity {
             l.setPadding(0, 0, 0, 0);
             l.setBackgroundColor(Color.WHITE);
 
-            if (i == 0)
+            /*if (i == 0)
             {
                 // Draw the logo
                 ImageView iv = new ImageView(this);
                 iv.setImageResource(R.drawable.dog_silhouette_sweater);
-                iv.setScaleX(0.3f);
-                iv.setScaleY(0.3f);
-                iv.setScaleType( ImageView.ScaleType.CENTER );
+                iv.setScaleX(0.2f);
+                iv.setScaleY(0.2f);
+                iv.setScaleType( ImageView.ScaleType.FIT_CENTER );
                 iv.setLayoutParams( new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT ));
                 l.addView(iv);
-            }
+            }*/
 
             // Draw the section name
             TextView sHead = new TextView(this);
