@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
@@ -70,9 +72,9 @@ public class YarnSelection extends Activity {
     private EditText gaugeTextInput;
 
 
-    /////////////////////
-    // database things //
-    /////////////////////
+    ///////////////////
+    // instance data //
+    ///////////////////
     /**
      * database interface object used to save profiles to the database
      *
@@ -80,6 +82,16 @@ public class YarnSelection extends Activity {
      * instead, use the private getter getProfileDataSource().
      */
     private static ProfileDataSource profileDataSource = null;
+
+    /**
+     * regarding having the gaugeTextInput change what the yarnTypesSpinner
+     *   displays when it's modified by the user, and vice versa, this boolean
+     *   is needed to determine if a modification is done by the user, or if
+     *   it's done as the result the other input being changed.
+     *
+     * true if the input is being modified by the application; false otherwise.
+     */
+    private boolean programmaticChange = false;
 
 
     //////////////////////////
@@ -131,7 +143,15 @@ public class YarnSelection extends Activity {
     public void next(View v) {
 
         // extract yarn gauge information from the GUI
-        int gauge = getGauge((String) yarnTypesSpinner.getSelectedItem());
+        int gauge = (gaugeTextInput.getText().toString().isEmpty()) ?
+                0 : Integer.valueOf(gaugeTextInput.getText().toString());
+
+        // validate input & bail out if invalid
+        if (gauge == 0) {
+            Toast.makeText(this, "Please enter a valid gauge",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         // create the style object
         Style s = new Style(Style.getNameFromId(styleId), styleId);
@@ -214,7 +234,8 @@ public class YarnSelection extends Activity {
      * the way they need to behave for the Activity
      */
     private void configureGUIReferences() {
-        yarnTypesSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        yarnTypesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             /**
              * author: Eric Tsang
@@ -224,18 +245,26 @@ public class YarnSelection extends Activity {
              *   and display it on our gaugeTextInput
              */
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!programmaticChange) {
 
-                String selectedYarnName =
-                        (String) yarnTypesSpinner.getItemAtPosition(position);
+                    String selectedYarnName =
+                            (String) yarnTypesSpinner.getItemAtPosition(i);
+                    String selectedYarnGauge =
+                            String.valueOf(getGauge(selectedYarnName));
 
-                String selectedYarnGauge =
-                        String.valueOf(getGauge(selectedYarnName));
-
-                if (!gaugeTextInput.getText().toString().equals(selectedYarnGauge)) {
-                    gaugeTextInput.setText(selectedYarnGauge);
+                    if (!gaugeTextInput.getText().toString().equals(
+                            selectedYarnGauge)) {
+                        gaugeTextInput.setText(selectedYarnGauge);
+                    }
                 }
 
+                programmaticChange = !programmaticChange;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // do nothing
             }
         });
 
@@ -254,8 +283,13 @@ public class YarnSelection extends Activity {
              */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int selectedGauge = Integer.valueOf(s.toString());
-                yarnTypesSpinner.setSelection(getYarnType(selectedGauge), true);
+                if (!programmaticChange) {
+                    int selectedGauge = (s.toString().isEmpty())?
+                            0 : Integer.valueOf(s.toString());
+                    yarnTypesSpinner.setSelection(getYarnType(selectedGauge));
+                }
+
+                programmaticChange = !programmaticChange;
 
             }
 
