@@ -51,6 +51,9 @@
     <string name="hintNameProfile">Dog Name</string>
     <string name="hintDimension">Dimension</string>
 
+    <!-- Text box labels -->
+    <string name="labelGaugeInput">Gauge:</string>
+
     <!-- Settings button text -->
     <string name="settingsSettingsButton">Settings</string>
     <string name="yarnSelection">Yarn Selection</string>
@@ -78,17 +81,13 @@
 
     <!-- Types of Yarn Spinner text -->
     <string-array name="types">
-        <item>Baby</item>
-        <item>DK</item>
-        <item>Light Worsted</item>
+        <item>Fingering</item>
+        <item>Spot</item>
+        <item>Double Knitting</item>
         <item>Worsted</item>
-        <item>Afghan</item>
         <item>Aran</item>
-        <item>Chunky</item>
-        <item>Craft</item>
-        <item>Rug</item>
         <item>Bulky</item>
-        <item>Roving</item>
+        <item>Super Bulky</item>
     </string-array>
 
     <!-- Colors -->

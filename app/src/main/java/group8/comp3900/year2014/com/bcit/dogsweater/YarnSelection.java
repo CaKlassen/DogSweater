@@ -113,9 +113,7 @@ public class YarnSelection extends Activity {
     ///////////////
     public void next(View v) {
         // extract information from the GUI
-        // TODO: convert to a real gauge - Eric
-        String selectedItem = (String) yarnTypesSpinner.getSelectedItem();
-        Log.d("selectedItem: ", selectedItem);
+        int gauge = getGauge((String) yarnTypesSpinner.getSelectedItem());
 
         // create a style object
         Style s = new Style(Style.getNameFromId(styleId), styleId);
@@ -129,7 +127,7 @@ public class YarnSelection extends Activity {
         Project newProject = new Project(p);
         newProject.setStyle(s);
         newProject.setName(p.getName() + " - " + s.getName());
-        newProject.setGauge(11.0);  // TODO: use a real gauge - Eric
+        newProject.setGauge(gauge);
         getProfileDataSource().insertProject(newProject);
         getProfileDataSource().close();
 
@@ -183,6 +181,44 @@ public class YarnSelection extends Activity {
         }
 
         return profileDataSource;
+
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 15 2014
+     * revisions: none
+     *
+     * returns the gauge associated with the passed yarnName.
+     */
+    private int getGauge(String yarnName) {
+
+        int gauge;
+
+        // figure out what the gauge of the yarn is
+        if (yarnName.equals("Fingering")) {
+            gauge = 28;
+        } else if (yarnName.equals("Spot")) {
+            gauge = 24;
+        } else if (yarnName.equals("Double Knitting")) {
+            gauge = 22;
+        } else if (yarnName.equals("Worsted")) {
+            gauge = 20;
+        } else if (yarnName.equals("Aran")) {
+            gauge = 16;
+        } else if (yarnName.equals("Bulky")) {
+            gauge = 14;
+        } else if (yarnName.equals("Super Bulky")) {
+            gauge = 10;
+        } else {
+
+            // don't know what gauge is; throw exception with helpful message
+            throw new RuntimeException(yarnName + " is an undefined kind of " +
+                    "yarn; please define it in YarnSelection.getGauge()");
+
+        }
+
+        return gauge;
 
     }
 }
