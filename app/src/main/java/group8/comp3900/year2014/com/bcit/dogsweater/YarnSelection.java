@@ -3,10 +3,13 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
@@ -60,6 +63,12 @@ public class YarnSelection extends Activity {
     /** spinner used to select the type of yarn that's being used */
     private Spinner yarnTypesSpinner;
 
+    /**
+     * EditText used to display the gauge of the selected yarn, or for te user
+     *   to enter their own, custom gauge
+     */
+    private EditText gaugeTextInput;
+
 
     /////////////////////
     // database things //
@@ -86,6 +95,7 @@ public class YarnSelection extends Activity {
 
         parseStartingIntent(getIntent());
         initializeGUIReferences();
+        configureGUIReferences();
     }
 
 
@@ -111,11 +121,19 @@ public class YarnSelection extends Activity {
     ///////////////
     // interface //
     ///////////////
+    /**
+     * author: Eric Tsang
+     * date: November 15 2014
+     *
+     * creates a project, and associates the selected yarn type and selected
+     *   profile with it, then starts the next activity
+     */
     public void next(View v) {
-        // extract information from the GUI
+
+        // extract yarn gauge information from the GUI
         int gauge = getGauge((String) yarnTypesSpinner.getSelectedItem());
 
-        // create a style object
+        // create the style object
         Style s = new Style(Style.getNameFromId(styleId), styleId);
         s.initializeSectionList(Style.makeStyle(styleId));
 
@@ -123,7 +141,8 @@ public class YarnSelection extends Activity {
         getProfileDataSource().open();
         Profile p = getProfileDataSource().getProfile(profileId);
 
-        // create the new project
+        // create the new project, and associate the profile, style and yarn
+        // gauge with it
         Project newProject = new Project(p);
         newProject.setStyle(s);
         newProject.setName(p.getName() + " - " + s.getName());
@@ -155,6 +174,7 @@ public class YarnSelection extends Activity {
             throw new RuntimeException("startIntent was missing the long " +
                     "extras KEY_PROFILE_ID or KEY_STYLE_ID");
         }
+
     }
 
     /**
@@ -165,6 +185,8 @@ public class YarnSelection extends Activity {
      */
     private void initializeGUIReferences() {
         yarnTypesSpinner = (Spinner) findViewById(R.id.types);
+        gaugeTextInput = (EditText) findViewById(R.id.gaugeInput);
+
     }
 
     /**
@@ -182,6 +204,66 @@ public class YarnSelection extends Activity {
 
         return profileDataSource;
 
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: October 18 2014
+     *
+     * does one-time things to GUI references as necessary to make them behave
+     * the way they need to behave for the Activity
+     */
+    private void configureGUIReferences() {
+        yarnTypesSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            /**
+             * author: Eric Tsang
+             * date: November 15 2014
+             *
+             * when a new yarn type is selected, we figure out what its gauge is
+             *   and display it on our gaugeTextInput
+             */
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String selectedYarnName =
+                        (String) yarnTypesSpinner.getItemAtPosition(position);
+
+                String selectedYarnGauge =
+                        String.valueOf(getGauge(selectedYarnName));
+
+                if (!gaugeTextInput.getText().toString().equals(selectedYarnGauge)) {
+                    gaugeTextInput.setText(selectedYarnGauge);
+                }
+
+            }
+        });
+
+        gaugeTextInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // do nothing
+            }
+
+            /**
+             * author: Eric Tsang
+             * date: November 15 2014
+             *
+             * when a new gauge is entered, find the nearest YarnType name, and
+             * set our yarnTypesSpinner
+             */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int selectedGauge = Integer.valueOf(s.toString());
+                yarnTypesSpinner.setSelection(getYarnType(selectedGauge), true);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // do nothing
+            }
+        });
     }
 
     /**
@@ -219,6 +301,35 @@ public class YarnSelection extends Activity {
         }
 
         return gauge;
+
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: November 15 2014
+     * revisions: none
+     *
+     * returns the gauge associated with the passed yarnName.
+     */
+    private int getYarnType(int gauge) {
+
+        int minGaugeDiff = Integer.MAX_VALUE;
+        int minYarnType = 0;
+        String[] yarnNames = getResources().getStringArray(R.array.types);
+
+        // figure out which yarn type is nearest to the passed gauge
+        for (int i = 0; i < yarnNames.length; i++) {
+            int currGauge = getGauge(yarnNames[i]);
+            int currGaugeDiff = Math.abs(currGauge - gauge);
+
+            if (currGaugeDiff < minGaugeDiff) {
+                minGaugeDiff = currGaugeDiff;
+                minYarnType = i;
+
+            }
+        }
+
+        return minYarnType;
 
     }
 }
