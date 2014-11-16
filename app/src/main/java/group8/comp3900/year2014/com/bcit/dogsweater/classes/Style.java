@@ -201,7 +201,7 @@ public class Style {
                 "cast off [(BB-AA)/4] sts and MarkerB, knit to marker, mm, RIB to the end of the " +
                 "round marker."));
         sList.add(new Step("Then, continue in the same direction, knit to the end of the row. Turn. " +
-                "[BB-(BB-AA/2)-2] sts total, [BB-(CC-2)-(BB-AA)/2-2] sts for top section."));
+                "[BB-((BB-AA)/2)-2] sts total, [BB-(CC-2)-(BB-AA)/2-2] sts for top section."));
         sList.add(new Step("Place remaining [CC-2] chest stitches onto a stitch holder."));
         sList.add(new Step("Slip st at the beginning of the next row and all subsequent rows. Purl " +
                 "the next row. Be sure to move the markers as they occur."));
