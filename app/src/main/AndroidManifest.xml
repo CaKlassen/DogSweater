@@ -30,7 +30,7 @@
         </provider>
 
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/appName" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,60 +39,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.DogProfileCreation"
+            android:name=".DogProfileCreation"
             android:label="@string/profileCreationTitle" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ProfileName"
+            android:name=".ProfileName"
             android:label="@string/profileNameTitle" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.YarnChoice"
+            android:name=".YarnChoice"
             android:label="@string/yarnTitle" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.YarnSelection"
+            android:name=".YarnSelection"
             android:label="@string/title_activity_yarn_selection" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.StyleSelection"
+            android:name=".StyleSelection"
             android:label="@string/title_activity_style" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.Materials"
+            android:name=".Materials"
             android:label="@string/title_activity_materials" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ProjectPattern"
+            android:name=".ProjectPattern"
             android:label="@string/title_activity_project_pattern" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ProfileSelection"
+            android:name=".ProfileSelection"
             android:label="@string/title_activity_profile_selection" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.currentProjects"
+            android:name=".currentProjects"
             android:label="@string/title_activity_current_projects" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ManageProfiles"
+            android:name=".ManageProfiles"
             android:label="@string/title_activity_manage_profiles" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.Info"
+            android:name=".Info"
             android:label="@string/title_activity_info" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.PdfPreview"
+            android:name=".PdfPreview"
             android:label="@string/title_activity_pdf_preview" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ModifyProject"
+            android:name=".ModifyProject"
             android:label="@string/title_activity_modify_projects" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.ModifyProfile"
+            android:name=".ModifyProfile"
             android:label="@string/title_activity_modify_profile" >
+        </activity>
+        <activity
+            android:name=".Congratulations"
+            android:label="@string/title_activity_congratulations" >
         </activity>
     </application>
 

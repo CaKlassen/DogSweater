@@ -113,7 +113,7 @@ public class ProjectPattern extends Activity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent in = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent in = new Intent(getApplicationContext(), Congratulations.class);
 
                     // Return to the menu
                     startActivity(in);

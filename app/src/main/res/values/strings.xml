@@ -142,5 +142,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
     <string name="title_activity_modify_profile">ModifyProfile</string>
+    <string name="title_activity_congratulations">Share</string>
 
 </resources>
