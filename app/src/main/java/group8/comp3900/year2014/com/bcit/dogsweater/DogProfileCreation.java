@@ -1,6 +1,8 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -385,6 +387,27 @@ public class DogProfileCreation extends Activity {
 
         return profileDataSource;
 
+    }
+
+    /***********************************************
+     * author: Rhea Lauzon
+     * date: November 16 2014
+     *
+     * Used to create an information dialog for each
+     * measurement (Guide for users)
+     ***************************************************/
+    public void info (View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Dimension Information");
+        builder.setMessage("This is how you measure the dog!");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        AlertDialog infoDialog = builder.create();
+        infoDialog.show();
     }
 
 }
