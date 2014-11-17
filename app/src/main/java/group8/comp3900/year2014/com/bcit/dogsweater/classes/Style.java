@@ -205,14 +205,14 @@ public class Style {
         sList.add(new Step("Place remaining [CC-2] chest stitches onto a stitch holder."));
         sList.add(new Step("Slip st at the beginning of the next row and all subsequent rows. Purl " +
                 "the next row. Be sure to move the markers as they occur."));
-        sList.add(new Step("Continue in stocking stitch for a total of [(BB-AA)/2+1] rows ending on " +
-                "the wrong side."));
-        sList.add(new Step("Place the [BB-(CC-2)-(BB-AA)/2-2] stitches onto a stitch holder."));
+        sList.add(new Step("Continue in stocking stitch for a total of [(floor((BB-AA)/2)*2)+1] rows ending after a" +
+                " purl row (ws)."));
+        sList.add(new Step("Place the [BB-(CC-2)-(BB-AA)/2-2] stitches onto a stitch holder. Cut yarn."));
         sList.add(new Step("Begin working the [CC-2] sts on the chest (between the legs) portion. " +
                 "From the wrong side, join yarn, begin with a purl row. Slip st at the beginning of " +
                 "the next row and all subsequent rows."));
-        sList.add(new Step("Continue in stocking stitch for a total of [(BB-AA)/2+1] rows ending on " +
-                "the wrong side. Turn."));
+        sList.add(new Step("Continue in stocking stitch for a total of [(floor((BB-AA)/2)*2)+1] rows ending after " +
+                "a purl row (ws). Turn."));
         sList.add(new Step("Once the knitting is done for both sections, join them back onto the circular needles. " +
                 "Do this by knitting [CC-2] sts from the chest area. Join to other section by " +
                 "knitting [(BB-AA)/4] to marker, mm, knit [BB-(CC-2)-(BB-AA)-2] sts to next marker. " +
