@@ -3,6 +3,9 @@
 
     <!-- App meta data -->
     <string name="appName">Dog Yarn It</string>
+    <!-- facebook -->
+    <string name="app_id">1497949863800885</string>
+    <string name="title_facebook_login">Facebook Login</string>
 
     <!-- Page titles -->
     <string name="mainTitle">Dog Yarn It</string>
