@@ -234,8 +234,7 @@ public class ModifyProfile extends Activity {
 
                     db.open();
                     curProfile.setImageURI(imageReturnedIntent.getData().toString());
-                    //TODO: update profile function
-                    //db.updateProfile(curProfile);
+                    db.updateProfile(curProfile);
                     db.close();
                     Toast.makeText(this, imageReturnedIntent.getData().toString(), Toast.LENGTH_SHORT).show();
 
