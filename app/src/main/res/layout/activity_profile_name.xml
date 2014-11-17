@@ -80,7 +80,7 @@
         android:id="@+id/Next"
         android:textSize="30sp"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/dyi_icon_next"
+        android:src="@drawable/next_button_style"
         android:background="@color/white"
         android:onClick="dogMeasurements" />
 

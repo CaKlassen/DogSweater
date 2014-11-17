@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -185,21 +186,24 @@ public class ProjectPattern extends Activity {
 
         step.setId( stepNum );
 
-        // Assign text to the step
-        TextView text = new TextView(this);
-        text.setText(curProject.getStyle().getStep(curSection, stepNum, curProject.getDimensions()));
-        text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
-                0.9f));
 
         // Create the checkbox and give it a unique ID
         CheckBox checkbox = new CheckBox(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.1f);
-        params.setMargins(0, 0, 20, 0);
+        params.setMargins(0, 0, 0, 30);
 
         checkbox.setLayoutParams(params);
         checkbox.setButtonDrawable( R.drawable.checkbox_selector );
         checkbox.setId(stepNum);
+
+        // Assign text to the step
+        TextView text = new TextView(this);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        text.setText(curProject.getStyle().getStep(curSection, stepNum, curProject.getDimensions()));
+        text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
+                0.9f));
+
 
         // Check if the checkbox has been saved to the database already
         ProfileDataSource db = new ProfileDataSource(getApplicationContext());
