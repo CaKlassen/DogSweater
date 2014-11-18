@@ -92,11 +92,10 @@ public class StyleGridAdapter extends BaseAdapter {
     //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
     public void buildStyleList()
     {
-        styles.add(new StyleInfo("Standard Topdown", "Test description woop woop", R.drawable.style01) );
-        styles.add(new StyleInfo("Astor's secret new one", "???? A CHALLLENGER IS APPROACHING", R.drawable.style02) );
+        styles.add(new StyleInfo("Standard Top Down", "A simple top down sweater that wraps around the belly.", R.drawable.style01) );
         numStyles++;
-
-
+        styles.add(new StyleInfo("Standard Dog Sweater", "The dog sweater seen in Hip Knitting.", R.drawable.style02) );
+        numStyles++;
     }
 
     public ArrayList<StyleInfo> getStyleList()

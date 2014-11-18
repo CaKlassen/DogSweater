@@ -218,7 +218,7 @@ public class ProfileDataSource {
         values.put( DogYarnItSQLHelper.PROJECT_PERCENT,    project.getPercentDone()     );
         values.put( DogYarnItSQLHelper.PROJECT_ROWS,       project.getRowCounter()      );
         values.put( DogYarnItSQLHelper.PROJECT_PROFILE,    project.getProfile().getId() );
-        values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getName() );
+        values.put( DogYarnItSQLHelper.PROJECT_STYLE,      project.getStyle().getStyleNumber() );
         values.put( DogYarnItSQLHelper.PROJECT_SECTION,    project.getSection()         );
         values.put( DogYarnItSQLHelper.PROJECT_GAUGE,      project.getGauge()           );
 
