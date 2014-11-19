@@ -125,7 +125,9 @@ public class Style {
     public static String getNameFromId(int id) {
         switch(id) {
             case 0: // Style 1
-                return "Style 1";
+                return "Basic Top Down";
+            case 1: // Style 2
+                return "Simple Dog Sweater";
             default:
                 return "Invalid Style";
         }
@@ -143,6 +145,8 @@ public class Style {
         switch(styleNumber) {
             case 0: // Style 1
                 return makeStyle_1();
+            case 1: // Style 2
+                return makeStyle_2();
             default: // Incorrect Style
                 Log.d("Incorrect Style Number", "Incorrect style number entered.");
                 return null;
@@ -227,7 +231,7 @@ public class Style {
                 "joined in the round. Knit the remaining [BB-(CC-2)-(BB-AA)-2] sts."));
         sList.add(new Step("Rnd 2: RIB, mm, knit."));
         sList.add(new Step("Continue in this pattern until sweater measures [X+Y] from the top."));
-        sList.add(new Step("Cast off [(CC-2)+(BB-AA)/2] sts to the 2nd marker. Turn. [BB-(CC-2)-(BB-AA)-2] sts."));
+        sList.add(new Step("Cast off [(CC-2)+(BB-AA)/2] sts to the 2nd marker, knit to end. Turn. [BB-(CC-2)-(BB-AA)-2] sts."));
 
         style_1.add(new Section("Mid-Section", sList));
 
@@ -244,5 +248,84 @@ public class Style {
         return style_1;
     }
 
-    // TODO: Get materials list for a style
+    /**
+     * Author: Chris Klassen
+     *
+     * Creates and returns a reference to a fully formed list of
+     * steps divided into sections.
+     *
+     * @return a list of sections
+     */
+    public static ArrayList<Section> makeStyle_2() {
+        ArrayList<Section> style_2 = new ArrayList<Section>(1);
+        ArrayList<Step> sList;
+
+        // Section 1
+        sList = new ArrayList<Step>(1);
+        sList.add(new Step("With larger circular needle, cast on [AA] sts. Join, taking care not to twist " +
+                "sts, pm for beg of rnds."));
+        sList.add(new Step("Next rnd: Beg with k2, work in k2, p2 rib until piece measures [C]."));
+        sList.add(new Step("Next rnd: Work in k2, p2 rib for [(AA/3*2)-2] sts, bind off 4 sts, work rem sts " +
+                "in k2, p2 rib - [AA-4] sts."));
+        sList.add(new Step("Next rnd: Work in k2, p2 rib for [(AA/3*2)-2] sts, cast on 4 sts, work rem sts " +
+                "in k2, p2 rib - [AA] sts."));
+        sList.add(new Step("Cont in k2, p2 rib for an additional 10 cm until cowl measures [AA/3-2]."));
+        style_2.add(new Section("Cowl", sList));
+
+        // Section 2
+        sList = new ArrayList<Step>(1);
+        sList.add(new Step("Rnd 1: K[AA/3-2] sts, pm, beg with k2, p2 rib until the end of the rnd. Note: " +
+                "the k2, p2 rib has reversed, creating a visual line to differentiate between the cowl and " +
+                "the body of the sweater."));
+        sList.add(new Step("Rnd (inc) 2: K1, kfb, k until 2 sts before m, M1, k2, mm, k2, p2 rib to end of rnd."));
+        sList.add(new Step("Rnd 3: Knit, mm, k2, p2 rib to end."));
+        sList.add(new Step("Repeat rnds 2-3 until there are [BB] sts on the needle, ending with rnd 3."));
+        style_2.add(new Section("Chest", sList));
+
+        // Section 3
+        sList = new ArrayList<Step>(1);
+        sList.add(new Step("Note: the center panel is knitted back and forth in stockinette stitch, k on the " +
+                "RS and p on the WS. The other sts are held on the needle and ignored until the center panel " +
+                "is done."));
+        sList.add(new Step("Next row: K35, turn, p[AA/3-2]. Continue knitting back and forth in st st " +
+                "for 15 rows. Cut yarn, leaving a 10 cm tail for darning in later. The center sts will be " +
+                "held on the needle until the next rnd."));
+        sList.add(new Step("(RS) join yarn at [BB-AA] sts from the 2nd marker. Back and shoulder " +
+                "portion is knitted back and forth in pattern for 15 rows, mm as it appears."));
+        sList.add(new Step("Next rnd: Note: the sweater is rejoined into a round. K13, k22 sts from the center " +
+                "panel, k13, mm, then continue in k2, p2 rib."));
+        sList.add(new Step("Knit in pattern straight for an additional 2.5 cm."));
+
+        style_2.add(new Section("Leg Openings", sList));
+
+        // Section 4
+        sList = new ArrayList<Step>(1);
+        sList.add(new Step("Next rnd: K2, *p1, k1, rep from *, until 2 sts before m, k2, mm, work rem sts in " +
+                "k2, p2 rib."));
+        sList.add(new Step("Dec rnd: K1, SKP, work in k1, p1 rib until 3 sts before marker, k2tog, k1, " +
+                "mm, k2, p2 rib to end."));
+        sList.add(new Step("Repeat last rnd 4 more times - [BB-10] sts."));
+        sList.add(new Step("Knit in pattern straight until underbelly measures [Y] cm."));
+        sList.add(new Step("Next rnd: Using elastic bind-off, k2, *move 2 sts on to the left-hand needle and " +
+                "insert right-hand needle to the back of the 2 sts, k2tog, k1; repeat from * to marker, " +
+                "work rem sts in k2, p2 rib - [(AA/3*2)+2] sts. Turn."));
+        sList.add(new Step("Working back and forth in k2, p2 rib until back measures [Z] cm."));
+        sList.add(new Step("Bind off in k2, p2 ribbing."));
+
+        style_2.add(new Section("Stomach", sList));
+
+        // Section 5
+        sList = new ArrayList<Step>(1);
+        sList.add(new Step("Do not block. Sweater will form to the dog's shape over time."));
+        sList.add(new Step("Using one smaller circular needle, beg along the top of the leghole, pick up and" +
+                " k15 sts along one side, then with the second smaller circular needle, pick up and " +
+                "k15 sts along the other side - 30sts. Join, pm for beg of rnds. Knit in circular using " +
+                "the two circular needles method for 5 rows. Elastic bind off."));
+        sList.add(new Step("Darn ends."));
+
+        style_2.add(new Section("Leghole Trim", sList));
+
+        // Return the section list
+        return style_2;
+    }
 }

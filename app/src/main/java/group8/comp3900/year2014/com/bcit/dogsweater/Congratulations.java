@@ -2,19 +2,47 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionLoginBehavior;
+import com.facebook.SessionState;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Congratulations extends Activity {
 
     private TextView congratulationTextView;
     private ImageView shareImage;
+    private ImageButton addShareImage;
+
+    private Uri shareImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +50,36 @@ public class Congratulations extends Activity {
         setContentView(R.layout.activity_congratulations);
 
         initializeGUIReferences();
+        configureGUIReferences();
 
         new MenuHelper(getApplicationContext(), this);
 
         Typeface textFont = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
         congratulationTextView.setTypeface( textFont );
+
+        openActiveSession(this,true,Arrays.asList(""),new Session.StatusCallback() {
+            public void call(Session session, SessionState state, Exception exception) {
+                if (state == SessionState.OPENED) {
+                    Log.d( "Facebook", "SessionState.OPENED" );
+                    Session.OpenRequest openRequest = new Session.OpenRequest(Congratulations.this);
+                    openRequest.setLoginBehavior(SessionLoginBehavior.SSO_WITH_FALLBACK);
+                    session.requestNewPublishPermissions(
+                            new Session.NewPermissionsRequest(Congratulations.this, Arrays.asList("publish_actions")));
+                }
+                else if (state == SessionState.OPENED_TOKEN_UPDATED) {
+                    Log.d( "Facebook", "Publishing" );
+                }
+                else if (state == SessionState.CLOSED_LOGIN_FAILED) {
+                    Log.d( "Facebook", "SessionState.CLOSED_LOGIN_FAILED" );
+                    session.closeAndClearTokenInformation();
+                    // Possibly finish the activity
+                }
+                else if (state == SessionState.CLOSED) {
+                    Log.d( "Facebook", "SessionState.CLOSED" );
+                    session.close();
+                    // Possibly finish the activity
+                }
+            }});
     }
 
 
@@ -50,8 +103,9 @@ public class Congratulations extends Activity {
     }
 
     private void initializeGUIReferences() {
-        congratulationTextView = (TextView)  findViewById(R.id.congratulationTextView);
-        shareImage             = (ImageView) findViewById(R.id.shareImage);
+        congratulationTextView = (TextView)    findViewById(R.id.congratulationTextView);
+        shareImage             = (ImageView)   findViewById(R.id.shareImage);
+        addShareImage          = (ImageButton) findViewById(R.id.addShareImage);
     }
 
      ///////////////////
@@ -95,9 +149,132 @@ public class Congratulations extends Activity {
                 break;
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK) {
-                    shareImage.setImageURI( imageReturnedIntent.getData() );
+                    shareImageUri = imageReturnedIntent.getData();
+                    shareImage.setImageURI( shareImageUri );
                 }
                 break;
         }
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, imageReturnedIntent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+
+        /*
+        figure out which context menu we're supposed to open by checking which
+        view invoked this method, and open the right context menu.
+         */
+        switch (v.getId()) {
+
+            case R.id.addShareImage:
+                inflater.inflate(R.menu.add_image_list, menu);
+                break;
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+
+            case R.id.menu_item_take_picture:
+                // TODO on Eric's nexus 7, this doesn't seem to start the right startActivityForResult thing.
+                return takeImage();
+
+            case R.id.menu_item_choose_image:
+                return chooseImage();
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    public void getShareImageUri(View v) {
+        Log.d("Take share image button","clicked");
+        openContextMenu(addShareImage);
+    }
+
+    private void configureGUIReferences() {
+        registerForContextMenu(addShareImage);
+
+    }
+
+    private static Session openActiveSession(Activity activity, boolean allowLoginUI, List permissions, Session.StatusCallback callback) {
+        Session.OpenRequest openRequest = new Session.OpenRequest(activity).setPermissions(permissions).setCallback(callback);
+        Session session = new Session.Builder(activity).build();
+        if (SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowLoginUI) {
+            Session.setActiveSession(session);
+            session.openForRead(openRequest);
+            return session;
+        }
+        return null;
+    }
+
+    public void shareOnFacebook( View v ) {
+
+        final Bitmap bi;
+
+        try{
+            bi = MediaStore.Images.Media.getBitmap(this.getContentResolver(), shareImageUri);
+        }
+        catch( FileNotFoundException e ) {
+            Log.e( "Congratulations", e.getMessage(), e );
+            return;
+        }
+        catch( IOException e ) {
+            Log.e( "Congratulations", e.getMessage(), e );
+            return;
+        }
+
+        final Request.Callback callback = new Request.Callback(){
+            @Override
+            public void onCompleted( Response r ) {
+                Log.d( "Request.Callback.Response", ""+r );
+            }
+        };
+
+
+        Request request = Request.newUploadPhotoRequest(Session.getActiveSession(), bi, callback);
+        request.executeAsync();
+
+
+        //printKeyHash(this);
+    }
+
+    public static String printKeyHash(Activity context) {
+        PackageInfo packageInfo;
+        String key = null;
+        try {
+
+            //getting application package name, as defined in manifest
+            String packageName = context.getApplicationContext().getPackageName();
+
+            //Retriving package info
+            packageInfo = context.getPackageManager().getPackageInfo(packageName,
+                    PackageManager.GET_SIGNATURES);
+
+            Log.e("Package Name=", context.getApplicationContext().getPackageName());
+
+            for (Signature signature : packageInfo.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                key = new String(Base64.encode(md.digest(), 0));
+
+                // String key = new String(Base64.encodeBytes(md.digest()));
+                Log.e("Key Hash=", key);
+
+            }
+        } catch (NameNotFoundException e1) {
+            Log.e("Name not found", e1.toString());
+        }
+
+        catch (NoSuchAlgorithmException e) {
+            Log.e("No such an algorithm", e.toString());
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
+
+        return key;
     }
 }

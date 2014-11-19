@@ -22,6 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':jeval')
+    compile project(':facebook')
     compile "com.android.support:support-v4:20.0.+"
 
 }
