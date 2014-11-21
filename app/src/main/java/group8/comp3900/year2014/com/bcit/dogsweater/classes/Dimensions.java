@@ -4,14 +4,14 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import java.util.NoSuchElementException;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONException;
-
 import net.sourceforge.jeval.EvaluationException;
 import net.sourceforge.jeval.Evaluator;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.NoSuchElementException;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.R;
 
@@ -139,6 +139,23 @@ public class Dimensions
         return keys;
     }
 
+    private static String getDimensionString(Context appContext, String key, String suffix) {
+        String ret;
+
+
+        try {
+            int friendlyId = R.string.class.getField(key + suffix).getInt(null);
+            ret = appContext.getResources().getString(friendlyId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+
+    }
+
     /**
      * author: Eric Tsang
      * date: October 18 2014
@@ -157,19 +174,8 @@ public class Dimensions
      * "[key]Friendly".
      */
     public static String getFriendly(Context appContext, String key) {
-        String ret;
 
-        try {
-            int friendlyId = R.string.class.getField(key + "Friendly").getInt(null);
-            ret = appContext.getResources().getString(friendlyId);
-
-        } catch(Exception e) {
-            ret = null;
-
-        }
-
-        return ret;
-
+        return getDimensionString( appContext, key, "Friendly");
     }
 
     /**
@@ -190,18 +196,31 @@ public class Dimensions
      * "[key]Description".
      */
     public static String getDescription(Context appContext, String key) {
-        String ret;
 
-        try {
-            int descriptionId = R.string.class.getField(key + "Description").getInt(null);
-            ret = appContext.getResources().getString(descriptionId);
+        return getDimensionString( appContext, key, "Description");
 
-        } catch(Exception e) {
-            ret = null;
+    }
 
-        }
+    /**
+     * author: Rhea Lauzon
+     * date: November 21 2014
+     * revisions: none
+     * @param           key   key String of the dimension we're getting the
+     *                  information name for
+     * @param           appContext   application context...
+     * @return          user friendly hint String associated with passed
+     *                  key
+     *
+     * returns a hint String associated with passed key; null
+     * if it is not defined.
+     *
+     * to define a hint it must be added to the R.string class. to do
+     * this, it must be added into strings.xml with the name format:
+     * "[key]Description".
+     */
+    public static String getHint(Context appContext, String key) {
 
-        return ret;
+        return getDimensionString( appContext, key, "Hint");
 
     }
 

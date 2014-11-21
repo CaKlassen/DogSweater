@@ -337,7 +337,7 @@ public class DogProfileCreation extends Activity {
         image.setImageDrawable(
                 Dimensions.getDrawable(this, dimensionKeys[arrayIndex]));
         dimensionInput.setHint(
-                Dimensions.getFriendly(this, dimensionKeys[arrayIndex]));
+                Dimensions.getHint(this, dimensionKeys[arrayIndex]));
         titleText.setText(
                 Dimensions.getFriendly(this, dimensionKeys[arrayIndex]) + ":");
 
@@ -399,8 +399,8 @@ public class DogProfileCreation extends Activity {
     public void info (View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Dimension Information");
-        builder.setMessage("This is how you measure the dog!");
+        builder.setTitle("Dimension Information: " + dimensionKeys[arrayIndex]);
+        builder.setMessage(Dimensions.getDescription(getApplicationContext(), dimensionKeys[arrayIndex]));
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             }
