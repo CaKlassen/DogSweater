@@ -137,13 +137,30 @@
     <string name="AFriendly">Diameter Around Neck</string>
     <string name="BFriendly">Diameter Around Chest</string>
     <string name="CFriendly">Width Between Front Legs</string>
-    <string name="XFriendly">Chin to Collar </string>
+    <string name="XFriendly">Chin to Collar</string>
     <string name="YFriendly">Length of Underbelly</string>
-    <string name="ZFriendly"> Length of Center Back </string>
+    <string name="ZFriendly">Length of Center Back</string>
+
+    <!-- Dimension descriptions for info popup -->
+    <string name="ADescription">Measure around the dog\'s collar.</string>
+    <string name="BDescription">Measure around the dog\'s.</string>
+    <string name="CDescription">Measure between two front legs.</string>
+    <string name="XDescription">Measure from the dog\'s chin to the base of the collar.</string>
+    <string name="YDescription">Measure from front leg to back legs.</string>
+    <string name="ZDescription">Measure from nape of neck to base of tail.</string>
+
+    <!-- Hints for each dimension -->
+    <string name="AHint">Diameter</string>
+    <string name="BHint">Diameter</string>
+    <string name="CHint">Width</string>
+    <string name="XHint">Length </string>
+    <string name="YHint">Length</string>
+    <string name="ZHint">Length</string>
+
+
     <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
     <string name="title_activity_modify_profile">ModifyProfile</string>
     <string name="title_activity_congratulations">Share</string>
-
 </resources>
