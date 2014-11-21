@@ -68,14 +68,20 @@ public class Style {
                     expressionGo = false;
 
                     // Replace the text with the expression return
-                    double expValue = Double.parseDouble( d.parseExpression( expression ) );
                     String replaceString;
 
-                    if ( expValue == Math.floor( expValue ) ) {
-                        // If this is an integer
-                        replaceString = "" + (int) expValue;
+                    if (expression.equals("DEFAULT_UNIT")) {
+                        // returns the unit string (i.e.: "cm", "in")
+                        replaceString = Unit.getDefaultUnit().getUnitString();
                     } else {
-                        replaceString = "" + expValue;
+                        double expValue = Double.parseDouble(d.parseExpression(expression));
+
+                        if (expValue == Math.floor(expValue)) {
+                            // If this is an integer
+                            replaceString = "" + (int) expValue;
+                        } else {
+                            replaceString = "" + expValue;
+                        }
                     }
 
                     text = text.replace("[" + expression + "]", replaceString);
@@ -239,7 +245,7 @@ public class Style {
         // Section 5
         sList = new ArrayList<Step>(1);
         sList.add(new Step("Working the remaining [BB-(CC-2)-(BB-AA)-2] sts back and forth, 1x1 RIB until sweater " +
-                "measures [X+Z] from the top."));
+                "measures [X+Z][DEFAULT_UNIT] from the top."));
         sList.add(new Step("Cast off and darn ends."));
 
         style_1.add(new Section("Bottom \"Tail\" Section", sList));

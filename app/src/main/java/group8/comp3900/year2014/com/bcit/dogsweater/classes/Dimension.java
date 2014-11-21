@@ -174,7 +174,7 @@ public class Dimension {
     public JSONObject toJSONObject() {
         try {
             JSONObject o = new JSONObject();
-            o.put(KEY_UNIT, unit.stringify());
+            o.put(KEY_UNIT, unit.getIdentifier());
             o.put(KEY_VALUE, value);
             o.put(KEY_DEFAULT_VALUE_EXPRESSION, defaultValueExpression);
             return o;
