@@ -1,6 +1,8 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -35,6 +37,75 @@ public class MainActivity extends Activity {
 
         b = (Button) findViewById( R.id.informationButton );
         b.setTypeface( buttonTypeface );
+
+
+        //TOS Popup
+        boolean TOS = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("tos", true);
+
+        //first run
+        if (TOS){
+
+            //Create the dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Terms Of Service Agreement");
+            builder.setMessage("Your Nowhere Town Terms of Service (\"Agreement\")\n" +
+                    "\n" +
+                    "This Agreement was last modified on September 20, 2013.\n" +
+                    "\n" +
+                    "Please read these Terms of Service completely using yournowheretownblog.com which is owned and operated by Your Nowhere Town. This Agreement documents the legally binding terms and conditions attached to the use of the Site at yournowheretownblog.com.\n" +
+                    "\n" +
+                    "By using or accessing the Site in any way, viewing or browsing the Site, or adding your own content to the Site, you are agreeing to be bound by these Terms of Service.\n" +
+                    "\n" +
+                    "Intellectual Property\n" +
+                    "\n" +
+                    "The Site and all of its original content are the sole property of Your Nowhere Town and are, as such, fully protected by the appropriate international copyright and other intellectual property rights laws.\n" +
+                    "\n" +
+                    "Termination\n" +
+                    "\n" +
+                    "Your Nowhere Town reserves the right to terminate your access to the Site, without any advance notice.\n" +
+                    "\n" +
+                    "Links to Other Websites\n" +
+                    "\n" +
+                    "Our Site does contain a number of links to other websites and online resources that are not owned or controlled by Your Nowhere Town.\n" +
+                    "\n" +
+                    "Your Nowhere Town has no control over, and therefore cannot assume responsibility for, the content or general practices of any of these third party sites and/or services. Therefore, we strongly advise you to read the entire terms and conditions and privacy policy of any site that you visit as a result of following a link that is posted on our site.\n" +
+                    "\n" +
+                    "Governing Law\n" +
+                    "\n" +
+                    "This Agreement is governed in accordance with the laws of New Jersey, United States.\n" +
+                    "\n" +
+                    "Changes to This Agreement\n" +
+                    "\n" +
+                    "Your Nowhere Town reserves the right to modify these Terms of Service at any time. We do so by posting and drawing attention to the updated terms on the Site. Your decision to continue to visit and make use of the Site after such changes have been made constitutes your formal acceptance of the new Terms of Service.\n" +
+                    "\n" +
+                    "Therefore, we ask that you check and review this Agreement for such changes on an occasional basis. Should you not agree to any provision of this Agreement or any changes we make to this Agreement, we ask and advise that you do not use or continue to access the Your Nowhere Town site immediately.\n" +
+                    "\n" +
+                    "Contact Us\n" +
+                    "\n" +
+                    "If you have any questions about this Agreement, please feel free to contact us at info@yournowheretown.com.\n" +
+                    "\n");
+
+            builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    finish();
+                }
+            });
+
+            builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // Save the state to never show TOS again
+                    getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("tos", false)
+                            .commit();
+                }
+            });
+
+            AlertDialog infoDialog = builder.create();
+            infoDialog.show();
+
+        }
     }
 
 
