@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
         // Override the default font
         TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "Proxima Nova Reg.otf");
 
-        // Set the activity fonts
+        // Set the home button fonts
         Button b = (Button) findViewById( R.id.newProjectButton );
         Typeface buttonTypeface = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
         b.setTypeface( buttonTypeface );

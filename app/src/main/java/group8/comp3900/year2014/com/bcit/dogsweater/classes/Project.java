@@ -108,11 +108,21 @@ public class Project {
         curSection = cs;
     }
 
+    /**
+     * author: Chris Klassen
+     *
+     * Project constructor including image URI as a URI object
+     */
     public Project(String n, float pd, int r, Profile p, Style s, Uri imageURI, int cs) {
         this( n, pd, r, p, s, cs );
         setImageURI( imageURI );
     }
 
+    /**
+     * author: Chris Klassen
+     *
+     * Project constructor including image URI as a String
+     */
     public Project(String n, float pd, int r, Profile p, Style s, String imageURI, int cs) {
         this( n, pd, r, p, s, cs );
         setImageURI( imageURI );

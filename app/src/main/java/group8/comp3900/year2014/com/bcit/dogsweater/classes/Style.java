@@ -163,7 +163,7 @@ public class Style {
      * Author: Chris Klassen
      *
      * Creates and returns a reference to a fully formed list of
-     * steps divided into sections.
+     * steps divided into sections for the Basic Top Down style.
      *
      * @return a list of sections
      */
@@ -258,7 +258,7 @@ public class Style {
      * Author: Chris Klassen
      *
      * Creates and returns a reference to a fully formed list of
-     * steps divided into sections.
+     * steps divided into sections for the Hip Knitting style.
      *
      * @return a list of sections
      */

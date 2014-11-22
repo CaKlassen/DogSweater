@@ -36,6 +36,12 @@ public class ProjectPattern extends Activity {
     private int curSection;
     private Dimensions dimension;
 
+    /**
+     * author: Chris Klassen
+     *
+     * Sets up the pattern page, loading project data from the database and
+     * displaying it on the page based on the current section.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +188,14 @@ public class ProjectPattern extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * author: Chris Klassen
+     *
+     * @param step the layout to append data too
+     * @param stepNum the current step number
+     *
+     * Creates and fills a step based on passed in data.
+     */
     public void makeStep(LinearLayout step, int stepNum) {
 
         step.setId( stepNum );
