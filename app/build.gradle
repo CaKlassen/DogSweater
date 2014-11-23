@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 19
     buildToolsVersion "20.0.0"
 
     defaultConfig {
@@ -23,6 +23,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':jeval')
     compile project(':facebook')
-    compile "com.android.support:support-v4:20.0.+"
-
+    compile 'com.android.support:support-v4:20.0.+'
+    compile files('lib/twitter4j-core-4.0.2.jar')
 }

@@ -21,7 +21,6 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.Step;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 
-
 public class ProjectPattern extends Activity {
 
 

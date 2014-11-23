@@ -24,6 +24,7 @@
     <string name="title_activity_info">Info</string>
     <string name="title_activity_project_pattern">Pattern</string>
     <string name="title_activity_profile_selection">Profile Selection</string>
+    <string name="caption_activity_congratulations">Congratulations</string>
 
     <!-- Button text -->
     <string name="newProjectButton">NEW PROJECT</string>
@@ -36,6 +37,7 @@
     <string name="haveYarnButton">I Have Yarn</string>
     <string name="nextButton">Next</string>
     <string name="addImageButton">Add Picture</string>
+    <string name="generalShareButton">Share</string>
 
     <!-- Context menu items -->
     <string name="menuItemTakePicture">Take Photo</string>
@@ -110,25 +112,19 @@
        All that Dog Yarn It needs to provide you with accurate, form-fitting sweaters is a set of
         measurements of your pet. After that, you can customize the style and yarn type for your
         sweater and get instant feedback.\n\n
-       This application was developed for knittingAstor Design Ventures Inc.
-    </string>
+       This application was developed for knittingAstor Design Ventures Inc.</string>
     <string name="about_astor">Astor Tsang is a Vancouver-based knitwear designer and knitting instructor
         who specializes in pattern design and creation.\n\nDog Yarn It represents Astor\'s desire to provide
-        a simple, appealing way for knitters to knit sweaters for dogs of all shapes and sizes.
-    </string>
-
+        a simple, appealing way for knitters to knit sweaters for dogs of all shapes and sizes.</string>
     <string name="about_vicky">Vicky Kim is a Vancouver based illustrator and graphic designer with a
     BFA from Emily Carr University of Art and Design.\n\nShe is currently working as a freelance illustrator,
-    collaborating with various companies to create personalized illustrations according to company needs.
-    </string>
-
+    collaborating with various companies to create personalized illustrations according to company needs.</string>
     <string name="about_team">This app was created by four students from the British Columbia
         Institute of Technology over a 15 week period. These team members are:\n\n\
         Georgi Hristov\n
         Christofer Klassen\n
         Rhea Lauzon\n
-        Eric Tsang
-    </string>
+        Eric Tsang</string>
 
     <!-- TODO: change following friendly string values to proper ones -->
     <!-- TODO: discuss naming convention for friendlies, drawables, and descriptions with group...should these be prefized with "Profile"? -->
@@ -145,5 +141,7 @@
     <string name="title_activity_modify_projects">ModifyProjects</string>
     <string name="title_activity_modify_profile">ModifyProfile</string>
     <string name="title_activity_congratulations">Share</string>
+    <string name="title_activity_facebook_share">FacebookShare</string>
 
+    <string name="share_caption">Look at the dog sweater I made using Dog Yarn It:</string>
 </resources>

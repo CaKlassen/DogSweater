@@ -324,6 +324,17 @@ public class Request {
         return new Request(session, MY_PHOTOS, parameters, HttpMethod.POST, callback);
     }
 
+    public static Request newMyUploadPhotoRequest(Session session,  Bitmap image, String caption,
+                                                  Callback callback)  {
+        Bundle parameters = new Bundle(3);
+        parameters.putParcelable(PICTURE_PARAM, image);
+        parameters.putString("caption",caption);
+
+        return new Request(session, MY_PHOTOS, parameters, HttpMethod.POST, callback);
+
+
+    }
+
     /**
      * Creates a new Request configured to upload a photo to the user's default photo album. The photo
      * will be read from the specified stream.

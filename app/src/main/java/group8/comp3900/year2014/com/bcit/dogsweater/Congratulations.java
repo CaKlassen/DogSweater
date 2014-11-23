@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,19 +20,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionLoginBehavior;
-import com.facebook.SessionState;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class Congratulations extends Activity {
@@ -42,6 +32,7 @@ public class Congratulations extends Activity {
     private ImageView shareImage;
     private ImageButton addShareImage;
 
+    private static final Uri DEFAULT_IMAGE = Uri.parse("android.resource://group8.comp3900.year2014.com.bcit.dogsweater/drawable/dog_silhouette_sweater");
     private Uri shareImageUri;
 
     @Override
@@ -56,30 +47,6 @@ public class Congratulations extends Activity {
 
         Typeface textFont = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
         congratulationTextView.setTypeface( textFont );
-
-        openActiveSession(this,true,Arrays.asList(""),new Session.StatusCallback() {
-            public void call(Session session, SessionState state, Exception exception) {
-                if (state == SessionState.OPENED) {
-                    Log.d( "Facebook", "SessionState.OPENED" );
-                    Session.OpenRequest openRequest = new Session.OpenRequest(Congratulations.this);
-                    openRequest.setLoginBehavior(SessionLoginBehavior.SSO_WITH_FALLBACK);
-                    session.requestNewPublishPermissions(
-                            new Session.NewPermissionsRequest(Congratulations.this, Arrays.asList("publish_actions")));
-                }
-                else if (state == SessionState.OPENED_TOKEN_UPDATED) {
-                    Log.d( "Facebook", "Publishing" );
-                }
-                else if (state == SessionState.CLOSED_LOGIN_FAILED) {
-                    Log.d( "Facebook", "SessionState.CLOSED_LOGIN_FAILED" );
-                    session.closeAndClearTokenInformation();
-                    // Possibly finish the activity
-                }
-                else if (state == SessionState.CLOSED) {
-                    Log.d( "Facebook", "SessionState.CLOSED" );
-                    session.close();
-                    // Possibly finish the activity
-                }
-            }});
     }
 
 
@@ -154,7 +121,6 @@ public class Congratulations extends Activity {
                 }
                 break;
         }
-        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, imageReturnedIntent);
     }
 
     @Override
@@ -200,46 +166,16 @@ public class Congratulations extends Activity {
 
     }
 
-    private static Session openActiveSession(Activity activity, boolean allowLoginUI, List permissions, Session.StatusCallback callback) {
-        Session.OpenRequest openRequest = new Session.OpenRequest(activity).setPermissions(permissions).setCallback(callback);
-        Session session = new Session.Builder(activity).build();
-        if (SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowLoginUI) {
-            Session.setActiveSession(session);
-            session.openForRead(openRequest);
-            return session;
-        }
-        return null;
-    }
-
     public void shareOnFacebook( View v ) {
-
-        final Bitmap bi;
-
-        try{
-            bi = MediaStore.Images.Media.getBitmap(this.getContentResolver(), shareImageUri);
-        }
-        catch( FileNotFoundException e ) {
-            Log.e( "Congratulations", e.getMessage(), e );
+        if( shareImageUri == null )
+        {
+            Toast.makeText(this,"Please take an image", Toast.LENGTH_LONG).show();
             return;
         }
-        catch( IOException e ) {
-            Log.e( "Congratulations", e.getMessage(), e );
-            return;
-        }
-
-        final Request.Callback callback = new Request.Callback(){
-            @Override
-            public void onCompleted( Response r ) {
-                Log.d( "Request.Callback.Response", ""+r );
-            }
-        };
-
-
-        Request request = Request.newUploadPhotoRequest(Session.getActiveSession(), bi, callback);
-        request.executeAsync();
-
-
-        //printKeyHash(this);
+        Intent i = new Intent(getApplicationContext(), FacebookShare.class);
+        i.putExtra("ImageURI", ( shareImageUri != null ? shareImageUri : DEFAULT_IMAGE ).toString());
+        startActivity(i);
+        printKeyHash(this);
     }
 
     public static String printKeyHash(Activity context) {
@@ -276,5 +212,19 @@ public class Congratulations extends Activity {
         }
 
         return key;
+    }
+
+    public void GeneralShare(View v) {
+        if( shareImageUri == null )
+        {
+            Toast.makeText(this,"Please take an image", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("image/*");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_caption));
+        sendIntent.putExtra(Intent.EXTRA_STREAM, ( shareImageUri != null ? shareImageUri : DEFAULT_IMAGE ));
+        startActivity(Intent.createChooser(sendIntent,"Share with"));
     }
 }
