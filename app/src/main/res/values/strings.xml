@@ -157,13 +157,17 @@
     <string name="YHint">Length</string>
     <string name="ZHint">Length</string>
 
-
     <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
     <string name="title_activity_modify_profile">ModifyProfile</string>
     <string name="title_activity_congratulations">Share</string>
     <string name="title_activity_facebook_share">FacebookShare</string>
+
+    <!-- do not commit the following additions -->
+    <string name="caption_activity_congratulations">caption_activity_congratulations</string>
+    <string name="generalShareButton">generalShareButton</string>
+    <!-- do not commit the above additions -->
 
     <string name="share_caption">Look at the dog sweater I made using Dog Yarn It:</string>
 </resources>

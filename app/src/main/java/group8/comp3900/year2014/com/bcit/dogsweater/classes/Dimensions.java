@@ -149,23 +149,6 @@ public class Dimensions
         return keys;
     }
 
-    private static String getDimensionString(Context appContext, String key, String suffix) {
-        String ret;
-
-
-        try {
-            int friendlyId = R.string.class.getField(key + suffix).getInt(null);
-            ret = appContext.getResources().getString(friendlyId);
-
-        } catch(Exception e) {
-            ret = null;
-
-        }
-
-        return ret;
-
-    }
-
     /**
      * author: Eric Tsang
      * date: October 18 2014
@@ -396,9 +379,27 @@ public class Dimensions
      * @return  String       the calculated expression result
      *
      * returns the result of an expression passed in containing dimension
-     * variables.
+     *   variables. the units used in the calculation will be the default unit
+     *   for the app.
      */
     public String parseExpression( String expression )
+    {
+        return parseExpression(expression, Unit.getDefaultUnit());
+    }
+
+    /**
+     * author: Chris Klassen
+     * date: October 17 2014
+     * revisions: none
+     * @param expression a string passed in from an Archetype step that must be
+     *   calculated and returned.
+     * @param expressionBaseUnit units used in the calculation.
+     * @return  String       the calculated expression result
+     *
+     * returns the result of an expression passed in containing dimension
+     * variables.
+     */
+    public String parseExpression( String expression, Unit expressionBaseUnit )
     {
         Log.d(" input: ", expression);
         String result;
@@ -408,7 +409,8 @@ public class Dimensions
         String[] keys = getDimensionKeys();
         for (String key : keys) {
             expression = expression.replaceAll(key,
-                    String.valueOf(getDimension(key).getValue()));
+                    String.valueOf(getDimension(key).getValue(
+                            expressionBaseUnit)));
         }
 
         // evaluate the expression
@@ -423,6 +425,44 @@ public class Dimensions
         // return...
         Log.d("output: ", result);
         return result;
+    }
+
+
+
+    ////////////////////
+    // helper methods //
+    ////////////////////
+    /**
+     * author: Rhea Lauzon
+     * date: November 21 2014
+     * revisions: none
+     * @param key key String of the dimension we're getting the
+     *                  information name for
+     * @param appContext application context...
+     * @param suffix suffix appended to passed key, used to get the resource.
+     * @return String resource associated with passed key
+     *
+     * returns the String associated with passed key; null if it is not defined.
+     *
+     * to define a hint it must be added to the R.string class. to do
+     * this, it must be added into strings.xml with the name format:
+     * "[key][suffix]".
+     */
+    private static String getDimensionString(Context appContext, String key, String suffix) {
+        String ret;
+
+
+        try {
+            int friendlyId = R.string.class.getField(key + suffix).getInt(null);
+            ret = appContext.getResources().getString(friendlyId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+
     }
 
 

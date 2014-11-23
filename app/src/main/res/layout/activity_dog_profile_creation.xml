@@ -29,20 +29,34 @@
         android:layout_height="wrap_content"
         android:id="@+id/profileText"
         android:textSize="30sp"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@id/imageView"
         android:layout_alignParentStart="true" />
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number|numberDecimal"
-        android:ems="10"
-        android:textSize="30sp"
-        android:hint="@string/hintDimension"
-        android:id="@+id/measureA"
         android:layout_below="@+id/profileText"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal" >
 
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number|numberDecimal"
+            android:ems="10"
+            android:textSize="30sp"
+            android:hint="@string/hintDimension"
+            android:id="@+id/measureA" />
+
+        <TextView
+            android:text="Unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/unit_text"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
     <ImageButton
         android:layout_width="wrap_content"

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Dimensions;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Unit;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 /**
@@ -119,6 +120,9 @@ public class DogProfileCreation extends Activity {
 
     /** text input reference on activity */
     private EditText dimensionInput;
+
+    /** TextView used to display what unit the dimension should be entered in */
+    private TextView unitText;
 
 
 
@@ -300,6 +304,7 @@ public class DogProfileCreation extends Activity {
         titleText = (TextView) findViewById(R.id.profileText);
         image = (ImageView) findViewById(R.id.imageView);
         dimensionInput = (EditText) findViewById(R.id.measureA);
+        unitText = (TextView) findViewById(R.id.unit_text);
 
     }
 
@@ -339,7 +344,10 @@ public class DogProfileCreation extends Activity {
         dimensionInput.setHint(
                 Dimensions.getHint(this, dimensionKeys[arrayIndex]));
         titleText.setText(
-                Dimensions.getFriendly(this, dimensionKeys[arrayIndex]) + ":");
+                Dimensions.getFriendly(this, dimensionKeys[arrayIndex])
+                + " (" + (arrayIndex+1) + "/" + dimensionKeys.length + "):");
+        unitText.setText(
+                Unit.getDefaultUnit().getUnitString());
 
         // if there is a default for this dimension, prefill the input
         if (defaultValueExpressions[arrayIndex] != null) {
@@ -349,7 +357,8 @@ public class DogProfileCreation extends Activity {
         }
 
         //Auto show the keyboard
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
     }
 
