@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 import org.json.JSONArray;
@@ -25,11 +27,13 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
  *
  * {
  *     "dimensionKey1":{
- *         "value":"5"
+ *         "value":"5",
+ *         "unit":"CENTIMETRES",
  *         "defaultValueExpression":""
  *     }
  *     "dimensionKey2":{
- *         "value":"19"
+ *         "value":"19",
+ *         "unit":"INCHES",
  *         "defaultValueExpression":"dimensionKey1 + 5"
  *     }
  * }
@@ -127,7 +131,7 @@ public class Dimensions
         String[] keys = new String[len];    // will contain all measurement keys
 
         // populate the keys array with the keys
-        for (int i = len - 1; i >= 0; --i) {
+        for (int i = 0; i < len; ++i) {
             try {
                 keys[i] = names.getString(i);
             } catch (JSONException e) {
@@ -136,7 +140,30 @@ public class Dimensions
         }
 
         // return...
+        Arrays.sort(keys, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s2.length() - s1.length();
+            }
+        });
         return keys;
+    }
+
+    private static String getDimensionString(Context appContext, String key, String suffix) {
+        String ret;
+
+
+        try {
+            int friendlyId = R.string.class.getField(key + suffix).getInt(null);
+            ret = appContext.getResources().getString(friendlyId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+
     }
 
     /**
@@ -157,19 +184,8 @@ public class Dimensions
      * "[key]Friendly".
      */
     public static String getFriendly(Context appContext, String key) {
-        String ret;
 
-        try {
-            int friendlyId = R.string.class.getField(key + "Friendly").getInt(null);
-            ret = appContext.getResources().getString(friendlyId);
-
-        } catch(Exception e) {
-            ret = null;
-
-        }
-
-        return ret;
-
+        return getDimensionString( appContext, key, "Friendly");
     }
 
     /**
@@ -190,18 +206,31 @@ public class Dimensions
      * "[key]Description".
      */
     public static String getDescription(Context appContext, String key) {
-        String ret;
 
-        try {
-            int descriptionId = R.string.class.getField(key + "Description").getInt(null);
-            ret = appContext.getResources().getString(descriptionId);
+        return getDimensionString( appContext, key, "Description");
 
-        } catch(Exception e) {
-            ret = null;
+    }
 
-        }
+    /**
+     * author: Rhea Lauzon
+     * date: November 21 2014
+     * revisions: none
+     * @param           key   key String of the dimension we're getting the
+     *                  information name for
+     * @param           appContext   application context...
+     * @return          user friendly hint String associated with passed
+     *                  key
+     *
+     * returns a hint String associated with passed key; null
+     * if it is not defined.
+     *
+     * to define a hint it must be added to the R.string class. to do
+     * this, it must be added into strings.xml with the name format:
+     * "[key]Description".
+     */
+    public static String getHint(Context appContext, String key) {
 
-        return ret;
+        return getDimensionString( appContext, key, "Hint");
 
     }
 
@@ -362,15 +391,18 @@ public class Dimensions
      * author: Chris Klassen
      * date: October 17 2014
      * revisions: none
-     * @param           expression   a string passed in from an Archetype
+     * @param   expression   a string passed in from an Archetype
      *                               step that must be calculated and returned.
-     * @return          String       the calculated expression result
+     * @return  String       the calculated expression result
      *
      * returns the result of an expression passed in containing dimension
      * variables.
      */
     public String parseExpression( String expression )
     {
+        Log.d(" input: ", expression);
+        String result;
+
         // replace variables with values
         Log.d("expression: ", expression);
         String[] keys = getDimensionKeys();
@@ -380,15 +412,16 @@ public class Dimensions
         }
 
         // evaluate the expression
-        String result;
+        Log.d("parses expression: ", expression);
         try {
             Log.d("expression: ", expression);
             result = mEvaluator.evaluate(expression);
-        } catch(EvaluationException e) {
+        } catch (EvaluationException e) {
             throw new RuntimeException(e);
         }
 
         // return...
+        Log.d("output: ", result);
         return result;
     }
 

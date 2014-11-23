@@ -189,6 +189,12 @@ public class ProfileDataSource {
      * PROJECT METHODS
      *******************************************/
 
+    /**
+     * author: Chris Klassen
+     * @param project a passed in project
+     *
+     * Saves a project to the database for the first time.
+     */
     public void insertProject(Project project) {
 
         ContentValues values = new ContentValues();
@@ -209,6 +215,12 @@ public class ProfileDataSource {
         project.setId(insertId);
     }
 
+    /**
+     * author: Chris Klassen
+     * @param project a passed in project
+     *
+     * Updates the status of a project in the database.
+     */
     public void updateProject(Project project) {
 
         ContentValues values = new ContentValues();
@@ -227,6 +239,12 @@ public class ProfileDataSource {
 
     }
 
+    /**
+     * author: Chris Klassen
+     * @param project a passed in project
+     *
+     * Removes a project from the database.
+     */
     public void deleteProject(Project project) {
 
         long projectId = project.getId();
@@ -236,6 +254,12 @@ public class ProfileDataSource {
                 , null );
     }
 
+    /**
+     * author: Chris Klassen
+     * @return a list of projects created
+     *
+     * Returns a List of all projects in the database.
+     */
     public List<Project> getAllProjects() {
 
         List<Project> projects = new ArrayList<Project>();
@@ -255,14 +279,18 @@ public class ProfileDataSource {
             cursor.close();
 
         }
-        else
-        {
-            //No projects available
-        }
 
         return projects;
     }
 
+    /**
+     * author: Chris Klassen
+     * @param projectId the ID number of the requested project
+     * @return the project returned
+     *
+     * Retrieves a project from the database and returns it, or a null reference
+     * if no project with that ID exists.
+     */
     public Project getProject(long projectId) {
 
         Project project;
@@ -289,6 +317,13 @@ public class ProfileDataSource {
         return project;
     }
 
+    /**
+     * author: Chris Klassen
+     * @param cursor the database row containing the project information
+     * @return the created project object
+     *
+     * Constructs a project from database values.
+     */
     private Project cursorToProject(Cursor cursor) {
         // Retrieve the linked profile from the database
         Profile p = getProfile(
@@ -347,6 +382,16 @@ public class ProfileDataSource {
     /*******************************************
      * STEP METHODS
      *******************************************/
+
+    /**
+     * author: Chris Klassen
+     * @param projNum the desired project
+     * @param secNum the desired section
+     * @param stepNum the desired step
+     * @param state the state of the step to save
+     *
+     * Saves the state of a specific project step.
+     */
     public void saveStepState( long projNum, int secNum, int stepNum, boolean state ) {
 
         ContentValues values = new ContentValues();
@@ -372,6 +417,15 @@ public class ProfileDataSource {
         cursor.close();
     }
 
+    /**
+     * author: Chris Klassen
+     * @param projNum the desired project
+     * @param secNum the desired section
+     * @param stepNum the desired step
+     * @return the state of the step
+     *
+     * Returns the state of a specific project step.
+     */
     public int getStepState( long projNum, int secNum, int stepNum ) {
         Cursor cursor = database.rawQuery("SELECT " + dbHelper.STEP_STATE + " from " + dbHelper.TABLE_STEPS + " WHERE " +
                 dbHelper.STEP_PROJECT + " = " + projNum + " AND " + dbHelper.STEP_SECTION +
@@ -390,6 +444,13 @@ public class ProfileDataSource {
 
     }
 
+    /**
+     * author: Chris Klassen
+     * @param projNum the desired project
+     * @return the percent completion of a specific project
+     *
+     * Returns the percent completion of a project.
+     */
     public float getPercentDone( long projNum ) {
         Log.d("Database", ""+database);
         Cursor cursor = database.rawQuery("SELECT " +
@@ -409,6 +470,7 @@ public class ProfileDataSource {
             cursor.close();
         }
     }
+
 
     public static DogYarnItSQLHelper getInstance(Context context) {
 

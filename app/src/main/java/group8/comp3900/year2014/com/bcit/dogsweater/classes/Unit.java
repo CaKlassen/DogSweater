@@ -14,20 +14,27 @@ public enum Unit
     // -------------------------------------------------------------------------
     // enumeration declarations
     // -------------------------------------------------------------------------
-    CENTIMETRES( 1 /* centimetres per centimetre */, "CENTIMETRES" ),
-    INCHES( 0.393701 /* inches per centimetre */, "INCHES" );
+    CENTIMETRES( 1 /* centimetres per centimetre */, "CENTIMETRES", "cm" ),
+    INCHES( 0.393701 /* inches per centimetre */, "INCHES", "in" );
 
     /** amount of this unit is needed to make up 1 inch */
     private final double coefficient;
 
-    /** value returned in the toString method */
-    private final String string;
+    /** value returned in the getIdentifier method */
+    private final String identifier;
+
+    /**
+     * string displayed in the knitting instructions to identify what unit this
+     *   is (i.e. "cm" or "in" or "ft")
+     */
+    private final String unit;
 
     /** enum constructor, initializes enum members */
-    Unit( double coefficient , String string )
+    Unit( double coefficient , String identifier, String unit )
     {
         this.coefficient = coefficient;
-        this.string = string;
+        this.identifier = identifier;
+        this.unit = unit;
     }
 
     /** converts value of this unit to equivalent value in target unit */
@@ -36,9 +43,13 @@ public enum Unit
         return target.coefficient * value / coefficient;
     }
 
-    /** returns the string of version of the unit */
-    public String stringify() {
-        return string;
+    /** returns the identifier of version of the unit */
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public String getUnitString() {
+        return unit;
     }
 
 
@@ -53,12 +64,12 @@ public enum Unit
     /** returns the unit associated with the passed String (stringified) */
     public static Unit parseStringified(String stringified) {
         for (Unit unit : Unit.values()) {
-            if (unit.stringify().equals(stringified)) {
+            if (unit.getIdentifier().equals(stringified)) {
                 return unit;
             }
         }
-        throw new NoSuchElementException("the passed string does not match " +
-                "any stringified enumerations.");
+        throw new NoSuchElementException("the passed identifier does not mat" +
+                "ch any stringified enumerations.");
     }
 
     /** returns the current default unit */

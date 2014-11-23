@@ -24,7 +24,6 @@
     <string name="title_activity_info">Info</string>
     <string name="title_activity_project_pattern">Pattern</string>
     <string name="title_activity_profile_selection">Profile Selection</string>
-    <string name="caption_activity_congratulations">Congratulations</string>
 
     <!-- Button text -->
     <string name="newProjectButton">NEW PROJECT</string>
@@ -37,7 +36,6 @@
     <string name="haveYarnButton">I Have Yarn</string>
     <string name="nextButton">Next</string>
     <string name="addImageButton">Add Picture</string>
-    <string name="generalShareButton">Share</string>
 
     <!-- Context menu items -->
     <string name="menuItemTakePicture">Take Photo</string>
@@ -112,19 +110,25 @@
        All that Dog Yarn It needs to provide you with accurate, form-fitting sweaters is a set of
         measurements of your pet. After that, you can customize the style and yarn type for your
         sweater and get instant feedback.\n\n
-       This application was developed for knittingAstor Design Ventures Inc.</string>
+       This application was developed for knittingAstor Design Ventures Inc.
+    </string>
     <string name="about_astor">Astor Tsang is a Vancouver-based knitwear designer and knitting instructor
         who specializes in pattern design and creation.\n\nDog Yarn It represents Astor\'s desire to provide
-        a simple, appealing way for knitters to knit sweaters for dogs of all shapes and sizes.</string>
+        a simple, appealing way for knitters to knit sweaters for dogs of all shapes and sizes.
+    </string>
+
     <string name="about_vicky">Vicky Kim is a Vancouver based illustrator and graphic designer with a
     BFA from Emily Carr University of Art and Design.\n\nShe is currently working as a freelance illustrator,
-    collaborating with various companies to create personalized illustrations according to company needs.</string>
+    collaborating with various companies to create personalized illustrations according to company needs.
+    </string>
+
     <string name="about_team">This app was created by four students from the British Columbia
         Institute of Technology over a 15 week period. These team members are:\n\n\
         Georgi Hristov\n
         Christofer Klassen\n
         Rhea Lauzon\n
-        Eric Tsang</string>
+        Eric Tsang
+    </string>
 
     <!-- TODO: change following friendly string values to proper ones -->
     <!-- TODO: discuss naming convention for friendlies, drawables, and descriptions with group...should these be prefized with "Profile"? -->
@@ -133,9 +137,27 @@
     <string name="AFriendly">Diameter Around Neck</string>
     <string name="BFriendly">Diameter Around Chest</string>
     <string name="CFriendly">Width Between Front Legs</string>
-    <string name="XFriendly">Chin to Collar </string>
+    <string name="XFriendly">Chin to Collar</string>
     <string name="YFriendly">Length of Underbelly</string>
-    <string name="ZFriendly"> Length of Center Back </string>
+    <string name="ZFriendly">Length of Center Back</string>
+
+    <!-- Dimension descriptions for info popup -->
+    <string name="ADescription">Measure around the dog\'s collar.</string>
+    <string name="BDescription">Measure around the dog\'s.</string>
+    <string name="CDescription">Measure between two front legs.</string>
+    <string name="XDescription">Measure from the dog\'s chin to the base of the collar.</string>
+    <string name="YDescription">Measure from front leg to back legs.</string>
+    <string name="ZDescription">Measure from nape of neck to base of tail.</string>
+
+    <!-- Hints for each dimension -->
+    <string name="AHint">Diameter</string>
+    <string name="BHint">Diameter</string>
+    <string name="CHint">Width</string>
+    <string name="XHint">Length </string>
+    <string name="YHint">Length</string>
+    <string name="ZHint">Length</string>
+
+
     <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>

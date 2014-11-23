@@ -33,8 +33,6 @@ public class PdfPreview extends Activity {
     //For PDF generation
     private Intent mShareIntent;
     private OutputStream os;
-    private View inflatedFirstView;
-    private View inflatedViewContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,21 +170,21 @@ public class PdfPreview extends Activity {
 
     private void shareDocument(Uri uri) {
 
+        // Create a new sharing email sharing intent
         mShareIntent = new Intent();
         mShareIntent.setAction(Intent.ACTION_SEND);
         mShareIntent.setType("application/pdf");
-        // Assuming it may go via eMail:
+
+        // Assuming it may go via email:
         mShareIntent.putExtra(Intent.EXTRA_SUBJECT, "Here is a PDF from Dog Yarn it.");
+
         // Attach the PDf as a Uri, since Android can't take it as bytes yet.
         mShareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(mShareIntent);
-
-        return;
     }
 
     public void sharePDF( View view ) {
-        //new Thread().start();
-
+        // Set up the PDF page attributes
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
                 setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
@@ -199,6 +197,7 @@ public class PdfPreview extends Activity {
         int pageHeight = printAttrs.getMediaSize().getHeightMils() / 1000 * 72;
         int pageWidth = printAttrs.getMediaSize().getWidthMils() / 1000 * 72;
 
+        // Do the actual PDF filling
         generatePDF(document, pageHeight, pageWidth);
 
         File pdf = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)

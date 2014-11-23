@@ -132,7 +132,7 @@ public class ManageProfiles extends Activity {
                     }
 
                 });
-                //TODO: MODIFICATION OF PROFILES
+
                 popup.setOnModifyButtonClickListener(new View.OnClickListener() {
 
                     @Override
