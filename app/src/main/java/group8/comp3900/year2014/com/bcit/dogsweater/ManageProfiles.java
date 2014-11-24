@@ -1,6 +1,8 @@
 package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +29,12 @@ public class ManageProfiles extends Activity {
     /** reference to the one and only GridView for this activity */
     private GridView gridview;
 
+    /**
+     * dialog box used to ask if the user wants to delete the profile as this
+     *   action will force us to delete related project data from the database.
+     */
+    private AlertDialog deleteProfileDialog;
+
 
     ////////////////////////
     // instance variables //
@@ -34,8 +42,20 @@ public class ManageProfiles extends Activity {
     /** used by this activity to access the Profile database */
     private ProfileDataSource profileDataSource;
 
-    /** grid adapter for the above GridView */
+    /** grid adapter for the above GridView. */
     private ProfileManagementGridAdapter gridAdapter;
+
+    /** reference to the selected profile that needs to be deleted. */
+    private Profile profileToDelete;
+
+    /**
+     * position of the selected profile in the grid adapter that needs to be
+     *   deleted.
+     */
+    private int profileToDeletePosition;
+
+    /** popup that appears when a tile in the gridAdapter is clicked. */
+    private ManageInfoPopup popup;
 
 
     //////////////////////////
@@ -97,40 +117,15 @@ public class ManageProfiles extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
-                final ManageInfoPopup popup;
                 popup = new ManageInfoPopup(v.getContext(), (Dialogable) gridAdapter.getItem(position));
 
                 popup.setOnDeleteButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        //Delete from database
-                        profileDataSource.open();
-
-                        List<Profile> profiles = profileDataSource.getAllProfiles();
-                        Profile deletedProfile = profiles.get(position);
-//
-//                        //Delete all attached projects
-//                        List<Project> projects = profileDataSource.getAllProjects();
-//
-//                       for(Project p : projects)
-//                        {
-//                            if ( p.getProfile() == deletedProfile)
-//                            {
-//                                profileDataSource.deleteProject(p);
-//                            }
-//                        }
-
-                        profileDataSource.deleteProfile(deletedProfile);
-
-                        profileDataSource.close();
-
-                        gridAdapter.remove(position);
-                        popup.dismiss();
-
-
+                        profileToDelete = ((Dialogable<Profile>) gridAdapter.getItem(position)).getItem();
+                        profileToDeletePosition = position;
+                        getDeleteProfileDialog().show();
                     }
-
                 });
 
                 popup.setOnModifyButtonClickListener(new View.OnClickListener() {
@@ -139,12 +134,7 @@ public class ManageProfiles extends Activity {
                     public void onClick(View v) {
                         Intent in = new Intent(getApplicationContext(),ModifyProfile.class);
 
-                        profileDataSource.open();
-                        List<Profile> profiles = profileDataSource.getAllProfiles();
                         Profile curProfile = ((Dialogable<Profile>)gridAdapter.getItem( position )).getItem();
-                        profileDataSource.close();
-
-
                         in.putExtra( "Profile Id", curProfile.getId() );
                         startActivity(in);
                     }
@@ -156,6 +146,38 @@ public class ManageProfiles extends Activity {
 
         });
 
+    }
+
+    private AlertDialog getDeleteProfileDialog() {
+
+        if (deleteProfileDialog == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.delete_profile_prompt));
+            builder.setPositiveButton(
+                    R.string.delete,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //Delete from database
+                            profileDataSource.open();
+                            profileDataSource.deleteProjectsWithProfile(profileToDelete.getId());
+                            profileDataSource.deleteProfile(profileToDelete);
+                            profileDataSource.close();
+                            gridAdapter.remove(profileToDeletePosition);
+                            popup.dismiss();
+
+                        }
+
+                    });
+            builder.setNegativeButton(
+                    R.string.cancel,
+                    null);
+
+            deleteProfileDialog = builder.create();
+        }
+
+        return deleteProfileDialog;
     }
 
 }

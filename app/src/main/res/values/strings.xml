@@ -36,6 +36,8 @@
     <string name="haveYarnButton">I Have Yarn</string>
     <string name="nextButton">Next</string>
     <string name="addImageButton">Add Picture</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Context menu items -->
     <string name="menuItemTakePicture">Take Photo</string>
@@ -129,6 +131,9 @@
         Rhea Lauzon\n
         Eric Tsang
     </string>
+
+    <!-- manage profiles page -->
+    <string name="delete_profile_prompt">Are you sure you want to delete this profile?\nDoing so will delete all related projects.</string>
 
     <!-- TODO: change following friendly string values to proper ones -->
     <!-- TODO: discuss naming convention for friendlies, drawables, and descriptions with group...should these be prefized with "Profile"? -->

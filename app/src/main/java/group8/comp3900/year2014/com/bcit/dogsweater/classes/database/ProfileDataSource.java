@@ -240,6 +240,46 @@ public class ProfileDataSource {
     }
 
     /**
+     * author: Eric Tsang
+     * date: 23 November 2014
+     *
+     * returns list of projects for the passed profile
+     *
+     * @param profileId id of the profile that projects should contain
+     * @return list of projects for the passed profile
+     */
+    public List<Project> getProjectsWithProfile(long profileId) {
+
+        List<Project> projects = new ArrayList<Project>();
+
+        Cursor cursor = database.query(DogYarnItSQLHelper.TABLE_PROJECTS
+                , columnsProject
+                , DogYarnItSQLHelper.PROJECT_PROFILE + "=?"
+                , new String[] {String.valueOf(profileId)}
+                , null
+                , null
+                , null);
+        if (cursor != null && cursor.getCount() > 0 ) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Project project = cursorToProject(cursor);
+                projects.add(project);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+        return projects;
+    }
+
+    public void deleteProjectsWithProfile(long profileId) {
+
+        database.delete( DogYarnItSQLHelper.TABLE_PROJECTS
+                , DogYarnItSQLHelper.PROJECT_PROFILE + "=?"
+                , new String[] {String.valueOf(profileId)} );
+    }
+
+    /**
      * author: Chris Klassen
      * @param project a passed in project
      *
