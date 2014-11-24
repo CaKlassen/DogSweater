@@ -178,6 +178,7 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
                 }
             });
         }
+        profileDataSource.close();
         notifyDataSetChanged();
     }
 

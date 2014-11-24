@@ -498,9 +498,11 @@ public class ProfileDataSource {
                 dbHelper.TABLE_STEPS + " WHERE " +
                 dbHelper.STEP_PROJECT + " = " + projNum, null);
         int doneCount = 0;
-        for( cursor.moveToFirst(); !cursor.isLast() ;cursor.moveToNext() ) {
-            if( cursor.getInt( cursor.getColumnIndex( dbHelper.STEP_STATE ) ) == 1 )
-                ++doneCount;
+        if (cursor.getCount() > 0) {
+            for (cursor.moveToFirst(); !cursor.isLast(); cursor.moveToNext()) {
+                if (cursor.getInt(cursor.getColumnIndex(dbHelper.STEP_STATE)) == 1)
+                    ++doneCount;
+            }
         }
 
         try {
