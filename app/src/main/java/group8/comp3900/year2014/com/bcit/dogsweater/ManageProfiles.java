@@ -45,9 +45,6 @@ public class ManageProfiles extends Activity {
     /** grid adapter for the above GridView. */
     private ProfileManagementGridAdapter gridAdapter;
 
-    /** reference to the selected profile that needs to be deleted. */
-    private Profile profileToDelete;
-
     /**
      * position of the selected profile in the grid adapter that needs to be
      *   deleted.
@@ -122,7 +119,6 @@ public class ManageProfiles extends Activity {
                 popup.setOnDeleteButtonClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        profileToDelete = ((Dialogable<Profile>) gridAdapter.getItem(position)).getItem();
                         profileToDeletePosition = position;
                         getDeleteProfileDialog().show();
                     }
@@ -159,6 +155,9 @@ public class ManageProfiles extends Activity {
 
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+
+                            Profile profileToDelete = ((Dialogable<Profile>) gridAdapter.getItem(profileToDeletePosition)).getItem();
+
                             //Delete from database
                             profileDataSource.open();
                             profileDataSource.deleteProjectsWithProfile(profileToDelete.getId());
