@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 
 public class Congratulations extends Activity {
@@ -214,7 +216,7 @@ public class Congratulations extends Activity {
         return key;
     }
 
-    public void GeneralShare(View v) {
+    public void TwitterShare(View v) {
         if( shareImageUri == null )
         {
             Toast.makeText(this,"Please take an image", Toast.LENGTH_LONG).show();
@@ -225,6 +227,36 @@ public class Congratulations extends Activity {
         sendIntent.setType("image/*");
         sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_caption));
         sendIntent.putExtra(Intent.EXTRA_STREAM, ( shareImageUri != null ? shareImageUri : DEFAULT_IMAGE ));
+
+        // Narrow down to official Twitter app, if available:
+        List<ResolveInfo> matches = getPackageManager().queryIntentActivities(sendIntent, 0);
+        for (ResolveInfo info : matches) {
+            if (info.activityInfo.packageName.toLowerCase().startsWith("com.twitter")) {
+                sendIntent.setPackage(info.activityInfo.packageName);
+            }
+        }
+        startActivity(Intent.createChooser(sendIntent,"Share with"));
+    }
+
+    public void InstagramShare(View v) {
+        if( shareImageUri == null )
+        {
+            Toast.makeText(this,"Please take an image", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("image/*");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_caption));
+        sendIntent.putExtra(Intent.EXTRA_STREAM, ( shareImageUri != null ? shareImageUri : DEFAULT_IMAGE ));
+
+        // Narrow down to official Twitter app, if available:
+        List<ResolveInfo> matches = getPackageManager().queryIntentActivities(sendIntent, 0);
+        for (ResolveInfo info : matches) {
+            if (info.activityInfo.packageName.toLowerCase().startsWith("com.instagram.android")) {
+                sendIntent.setPackage(info.activityInfo.packageName);
+            }
+        }
         startActivity(Intent.createChooser(sendIntent,"Share with"));
     }
 }

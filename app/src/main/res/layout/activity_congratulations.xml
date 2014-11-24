@@ -22,51 +22,71 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05"
+        android:layout_weight="0.2"
         android:layout_marginTop="50dp"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/shareImage"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.2"
+        android:src="@drawable/dog_silhouette_sweater"
         android:layout_gravity="center_horizontal" />
 
     <ImageButton
-        android:id="@+id/addShareImage"
-        android:onClick="getShareImageUri"
         android:layout_width="100dp"
         android:layout_height="0dp"
         android:layout_weight="0.40"
         android:text="@string/addImageButton"
         android:src="@drawable/dyi_icon_camera"
-        android:background="#00000000"
+        android:background="@null"
         android:layout_gravity="center_horizontal"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:id="@+id/addShareImage"
+        android:onClick="getShareImageUri"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.2"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/facebookShareButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="shareOnFacebook"
-            android:src="@drawable/facebook_share_button"
-            android:background="#00000000"
-            android:scaleType="fitCenter"/>
-        <Button
+            android:layout_weight="0.3"
+            android:src="@drawable/fb"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:onClick="shareOnFacebook"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:src="@drawable/twit"
+            android:background="@null"
             android:id="@+id/twitterShareButton"
-            android:text="@string/generalShareButton"
-            android:onClick="GeneralShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:onClick="TwitterShare" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:src="@drawable/pint"
+            android:background="@null"
+            android:id="@+id/InstagramShareButton"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:onClick="InstagramShare" />
 
     </LinearLayout>
 
