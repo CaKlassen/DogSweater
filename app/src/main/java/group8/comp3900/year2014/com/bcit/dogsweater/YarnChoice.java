@@ -21,13 +21,21 @@ public class YarnChoice extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yarn);
 
-        //Create the menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
-
         // Get the project id from the bundle
         projId = getIntent().getExtras().getLong("Project Id");
     }
+
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+    }
+
 
 
     @Override

@@ -11,7 +11,6 @@ import android.widget.GridView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.Popup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileSelectionGridAdapter;
-import group8.comp3900.year2014.com.bcit.dogsweater.classes.ThreadManager;
 import group8.comp3900.year2014.com.bcit.dogsweater.interfaces.Dialogable;
 
 
@@ -77,6 +76,10 @@ public class ProfileSelection extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+
+            //Create menu
+            MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
         mGridAdapter.buildImageList();
     }
 

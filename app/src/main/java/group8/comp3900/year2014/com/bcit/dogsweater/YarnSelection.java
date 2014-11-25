@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,12 +101,19 @@ public class YarnSelection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yarn_selection);
 
-        //Create the menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
         parseStartingIntent(getIntent());
         initializeGUIReferences();
         configureGUIReferences();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
     }
 
 

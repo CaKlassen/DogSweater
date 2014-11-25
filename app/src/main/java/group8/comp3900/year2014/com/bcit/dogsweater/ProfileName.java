@@ -82,9 +82,6 @@ public class ProfileName extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_name);
 
-        //Create the menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
         // set this to true whenever this activity is created from nothing
         // because we are creating a new Profile
         profileCreationInProgress = true;
@@ -107,6 +104,7 @@ public class ProfileName extends Activity {
     protected void onResume() {
         super.onResume();
 
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
         // when we come back to this activity; no profile creation is in
         // progress, finish
         if (!profileCreationInProgress) {

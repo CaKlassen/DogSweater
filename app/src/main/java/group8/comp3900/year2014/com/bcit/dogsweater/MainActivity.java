@@ -19,8 +19,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
         // Override the default font
         TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "Proxima Nova Reg.otf");
 
@@ -106,6 +104,15 @@ public class MainActivity extends Activity {
             infoDialog.show();
 
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+
     }
 
 

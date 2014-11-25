@@ -147,8 +147,6 @@ public class DogProfileCreation extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile_creation);
 
-        //Create the menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
         parseStartingIntent();
         initializeGUIReferences();
@@ -159,6 +157,9 @@ public class DogProfileCreation extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Create the menu
+        MenuHelper m = new MenuHelper (getApplicationContext(), this);
 
         // when we come back to this activity; no profile creation is in
         // progress, finish

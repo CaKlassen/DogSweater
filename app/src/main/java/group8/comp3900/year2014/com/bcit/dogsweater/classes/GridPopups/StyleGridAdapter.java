@@ -82,7 +82,7 @@ public class StyleGridAdapter extends BaseAdapter {
 
         iview.setImageResource(styles.get(position).getImageUri());
 
-        tv.setText("Style");
+        tv.setText(styles.get(position).getName());
 
         return llview;
     }

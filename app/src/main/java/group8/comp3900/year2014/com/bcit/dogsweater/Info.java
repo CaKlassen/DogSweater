@@ -16,7 +16,15 @@ public class Info extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        //Create the menu
+
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
     }

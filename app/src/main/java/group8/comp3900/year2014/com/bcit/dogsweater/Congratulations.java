@@ -51,6 +51,16 @@ public class Congratulations extends Activity {
         congratulationTextView.setTypeface( textFont );
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -43,14 +43,23 @@ public class currentProjects extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_projects);
 
-        //Create menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
         //Initalize the GUI
         initializeInstanceData();
         initializeGUIReferences();
         configureGUIReferences();
     }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+    }
+
 
 
     //////////////////////////////

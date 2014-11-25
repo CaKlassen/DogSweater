@@ -27,9 +27,6 @@ public class Materials extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materials);
 
-        //Create the menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
         TextView matsTitle = (TextView) findViewById(R.id.materialsText);
         Typeface titleFont = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
         matsTitle.setTypeface( titleFont );
@@ -37,7 +34,15 @@ public class Materials extends Activity {
         //Generate list View from ArrayList
         displayListView();
 
+    }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
     }
 

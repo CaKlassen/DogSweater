@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.util.List;
-
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ManageInfoPopup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileManagementGridAdapter;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
@@ -63,14 +61,20 @@ public class ManageProfiles extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_profiles);
 
-        //Create the menu
-        MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
         initializeInstanceData();
         initializeGUIReferences();
         configureGUIReferences();
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+    }
 
     //////////////////////////////
     // android system callbacks //
