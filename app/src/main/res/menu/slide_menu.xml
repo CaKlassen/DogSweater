@@ -1,3 +1,4 @@
+<!-- Layout for the sliding menu; this is where you add more menu items -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SliderFun" >
@@ -29,7 +30,7 @@
     <item
         android:id="@+id/item_information"
         android:icon="@drawable/yarn"
-        android:title="INFORMATION">
+        android:title="ABOUT">
     </item>
 
 </menu>

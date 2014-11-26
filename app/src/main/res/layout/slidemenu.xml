@@ -1,3 +1,4 @@
+<!-- Layout for the sliding menu available on all pages -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

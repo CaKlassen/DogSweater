@@ -2,29 +2,22 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 
-public class YarnChoice extends Activity {
-
-    /////////////////////////////////
-    // parsed starting intent data //
-    /////////////////////////////////
-    /** id of a project in this application's database */
-    private long projId;
+public class About extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yarn);
+        setContentView(R.layout.activity_about);
 
-        // Get the project id from the bundle
-        projId = getIntent().getExtras().getLong("Project Id");
+
     }
-
 
     @Override
     protected void onResume()
@@ -37,11 +30,10 @@ public class YarnChoice extends Activity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.yarn, menu);
+        getMenuInflater().inflate(R.menu.about, menu);
         return true;
     }
 
@@ -54,22 +46,27 @@ public class YarnChoice extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void needYarn(View v ) {
-        Intent in = new Intent(this, YarnSelection.class);
-        // Add the project id to the bundle
-        in.putExtra("Project Id", projId);
+    public void emailAstor( View view ) {
+        Intent in = new Intent( Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "astor@knittingastor.com", null ) );
+        in.putExtra( Intent.EXTRA_SUBJECT, "Dog Yarn It Help");
 
-        startActivity(in);
+        startActivity( Intent.createChooser( in, "Email Astor" ) );
     }
 
+    public void astorWebsite( View view ) {
+        String url = "http://www.knittingastor.com/";
+        Intent in = new Intent( Intent.ACTION_VIEW );
+        in.setData( Uri.parse( url ) );
 
-    public void haveYarn(View v ) {
-        Intent in = new Intent(this, Materials.class);
-        // Add the project id to the bundle
-        in.putExtra("Project Id", projId);
-
-        startActivity(in);
+        startActivity( in );
     }
 
+    public void astorTwitter( View view ) {
+        String url = "http://twitter.com/knittingAstor/";
+        Intent in = new Intent( Intent.ACTION_VIEW );
+        in.setData( Uri.parse( url ) );
 
+        startActivity( in );
+    }
 }

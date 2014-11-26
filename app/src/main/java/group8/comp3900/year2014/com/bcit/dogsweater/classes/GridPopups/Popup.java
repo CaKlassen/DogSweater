@@ -104,7 +104,7 @@ public class Popup extends Dialog {
         ThreadManager.loadImage(
                 getContext(),                       // application context
                 imageUri,                           // local uri to image file
-                ThreadManager.CropPattern.SQUARE,   // crop pattern
+                ThreadManager.CropPattern.DEFAULT,   // crop pattern
                 getWindow().getAttributes().width,  // image width
 
                 // what to do when success

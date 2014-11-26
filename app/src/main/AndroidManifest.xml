@@ -87,7 +87,7 @@
             android:label="@string/title_activity_manage_profiles" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.Info"
+            android:name=".About"
             android:label="@string/title_activity_info" >
         </activity>
         <activity

@@ -1,9 +1,11 @@
+<!-- Layout for each item displays in the sliding menu -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:id="@+id/menuItem"
     >
 
+    <!-- Uncomment if images are to be added to the menu items-->
     <!--<ImageView-->
         <!--android:id="@+id/menu_icon"-->
         <!--android:layout_width="30dp"-->

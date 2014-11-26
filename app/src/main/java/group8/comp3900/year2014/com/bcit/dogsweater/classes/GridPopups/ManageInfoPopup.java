@@ -79,7 +79,7 @@ public class ManageInfoPopup extends Dialog {
         ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
-                ThreadManager.CropPattern.SQUARE,   // crop pattern
+                ThreadManager.CropPattern.DEFAULT,   // crop pattern
                 600,                                // image width
 
                 // what to do when success
