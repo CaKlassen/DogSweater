@@ -60,7 +60,7 @@ public class Materials extends Activity {
         material = new Material("Stitch markers", false);
         materialList.add(material);
 
-        material = new Material("Stich Holder", false);
+        material = new Material("Stitch Holder", false);
         materialList.add(material);
 
         material = new Material("Darning Needle", false);

@@ -111,8 +111,6 @@ public class MainActivity extends Activity {
     {
         super.onResume();
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
-
-
     }
 
 

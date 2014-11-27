@@ -112,25 +112,19 @@
        All that Dog Yarn It needs to provide you with accurate, form-fitting sweaters is a set of
         measurements of your pet. After that, you can customize the style and yarn type for your
         sweater and get instant feedback.\n\n
-       This application was developed for knittingAstor Design Ventures Inc.
-    </string>
+       This application was developed for knittingAstor Design Ventures Inc.</string>
     <string name="about_astor">Astor Tsang is a Vancouver-based knitwear designer and knitting instructor
         who specializes in pattern design and creation.\n\nDog Yarn It represents Astor\'s desire to provide
-        a simple, appealing way for knitters to knit sweaters for dogs of all shapes and sizes.
-    </string>
-
+        a simple, appealing way for knitters to knit sweaters for dogs of all shapes and sizes.</string>
     <string name="about_vicky">Vicky Kim is a Vancouver based illustrator and graphic designer with a
     BFA from Emily Carr University of Art and Design.\n\nShe is currently working as a freelance illustrator,
-    collaborating with various companies to create personalized illustrations according to company needs.
-    </string>
-
+    collaborating with various companies to create personalized illustrations according to company needs.</string>
     <string name="about_team">This app was created by four students from the British Columbia
         Institute of Technology over a 15 week period. These team members are:\n\n\
         Georgi Hristov\n
         Christofer Klassen\n
         Rhea Lauzon\n
-        Eric Tsang
-    </string>
+        Eric Tsang</string>
 
     <!-- manage profiles page -->
     <string name="delete_profile_prompt">Are you sure you want to delete this profile?\nDoing so will delete all related projects.</string>
@@ -161,7 +155,6 @@
     <string name="XHint">Length </string>
     <string name="YHint">Length</string>
     <string name="ZHint">Length</string>
-
     <string name="title_activity_pdf_preview">Pdf Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_modify_projects">ModifyProjects</string>
@@ -175,4 +168,6 @@
     <!-- do not commit the above additions -->
 
     <string name="share_caption">Look at the dog sweater I made using Dog Yarn It:</string>
+    <string name="title_activity_settings">settings</string>
+
 </resources>

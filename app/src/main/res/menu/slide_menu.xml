@@ -33,4 +33,10 @@
         android:title="ABOUT">
     </item>
 
+    <item
+        android:id="@+id/item_settings"
+        android:icon="@drawable/yarn"
+        android:title="SETTINGS">
+    </item>
+
 </menu>

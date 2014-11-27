@@ -55,10 +55,6 @@
             android:label="@string/profileNameTitle" >
         </activity>
         <activity
-            android:name="group8.comp3900.year2014.com.bcit.dogsweater.YarnChoice"
-            android:label="@string/yarnTitle" >
-        </activity>
-        <activity
             android:name="group8.comp3900.year2014.com.bcit.dogsweater.YarnSelection"
             android:label="@string/title_activity_yarn_selection" >
         </activity>
@@ -87,7 +83,7 @@
             android:label="@string/title_activity_manage_profiles" >
         </activity>
         <activity
-            android:name=".About"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.About"
             android:label="@string/title_activity_info" >
         </activity>
         <activity
@@ -103,12 +99,16 @@
             android:label="@string/title_activity_modify_profile" >
         </activity>
         <activity
-            android:name=".Congratulations"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.Congratulations"
             android:label="@string/title_activity_congratulations" >
         </activity>
         <activity
-            android:name=".FacebookShare"
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.FacebookShare"
             android:label="@string/title_activity_facebook_share" >
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 
