@@ -296,11 +296,20 @@ public class ProjectPattern extends Activity {
         curProject.decrementRowCounter();
 
         TextView t = (TextView) findViewById(R.id.patternRowCounter);
+        ProfileDataSource db = new ProfileDataSource(getApplicationContext());
+        db.open();
+        db.updateProject(curProject);
+        db.close();
         t.setText("" + curProject.getRowCounter());
     }
 
     public void incrementRow(View view) {
         curProject.incrementRowCounter();
+
+        ProfileDataSource db = new ProfileDataSource(getApplicationContext());
+        db.open();
+        db.updateProject(curProject);
+        db.close();
 
         TextView t = (TextView) findViewById(R.id.patternRowCounter);
         t.setText("" + curProject.getRowCounter());
