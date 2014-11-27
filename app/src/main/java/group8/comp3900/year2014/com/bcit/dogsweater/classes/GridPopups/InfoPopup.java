@@ -40,7 +40,7 @@ public class InfoPopup extends Dialog {
 
         //Set custom dialog information
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.info_popup);
+        setContentView(R.layout.popup_info);
 
         //get current screen's height and width
         DisplayMetrics dm = new DisplayMetrics();

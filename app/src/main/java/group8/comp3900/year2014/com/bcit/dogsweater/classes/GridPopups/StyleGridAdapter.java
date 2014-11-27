@@ -87,10 +87,7 @@ public class StyleGridAdapter extends BaseAdapter {
         return llview;
     }
 
-
-
-    //TODO: BUILD THIS ARRAY LIST DYNAMICALLY
-    public void buildStyleList()
+   public void buildStyleList()
     {
         styles.add(new StyleInfo("Standard Top Down", "A simple top down sweater that wraps around the belly.", R.drawable.style01) );
         numStyles++;

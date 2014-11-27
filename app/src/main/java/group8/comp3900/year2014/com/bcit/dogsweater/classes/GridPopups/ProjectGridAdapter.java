@@ -127,7 +127,6 @@ public class ProjectGridAdapter extends BaseAdapter {
 
     }
 
-    //TODO: IMAGE URI STUFF FOR PROJECTS
     public void buildImageList()
     {
 

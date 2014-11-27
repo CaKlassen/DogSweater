@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/imageDescLogo"
         android:id="@+id/imageView"
-        android:src="@drawable/dog_silhouette_sweater"
+        android:src="@drawable/dyi_main_logo"
         />
 
    <Space
@@ -47,56 +47,140 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.35"
+            android:layout_weight="0.45"
+            android:weightSum="1"
             android:orientation="vertical">
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:text="@string/newProjectButton"
-                android:id="@+id/newProjectButton"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:textColor="@drawable/text_colors"
-                android:background="@drawable/button_style"
-                android:onClick="newProject"
-                android:layout_marginBottom="10dp"/>
+            <RelativeLayout
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:layout_marginBottom="10dp">
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:text="@string/currentProjectsButton"
-                android:id="@+id/currentProjectsButton"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:textColor="@drawable/text_colors"
-                android:background="@drawable/button_style"
-                android:onClick="currentProjects"
-                android:layout_marginBottom="10dp"/>
+                <ImageView
+                    android:id="@+id/paw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/newProjectButton"
+                    android:layout_alignBottom="@+id/newProjectButton"
+                    android:src="@drawable/dyi_icon_paw"
+                    android:scaleType="centerInside"
+                   />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:text="@string/manageProfilesButton"
-                android:id="@+id/manageProfilesButton"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:textColor="@drawable/text_colors"
-                android:background="@drawable/button_style"
-                android:onClick="manageProfiles"
-                android:layout_marginBottom="10dp"/>
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/newProjectButton"
+                    android:id="@+id/newProjectButton"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/text_colors"
+                    android:layout_toEndOf="@+id/paw"
+                    android:onClick="newProject"
+                    android:background="@null"
+                    />
+            </RelativeLayout>
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:text="@string/informationButton"
-                android:id="@+id/informationButton"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:textColor="@drawable/text_colors"
-                android:background="@drawable/button_style"
-                android:onClick="info"
-                android:layout_marginBottom="10dp"/>
+
+            <RelativeLayout
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/paw2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/currentProjectsButton"
+                    android:layout_alignBottom="@+id/currentProjectsButton"
+                    android:src="@drawable/dyi_icon_paw"
+                    android:scaleType="centerInside"
+                    android:adjustViewBounds="true"/>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/currentProjectsButton"
+                    android:id="@+id/currentProjectsButton"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/text_colors"
+                    android:layout_toEndOf="@+id/paw2"
+                    android:onClick="newProject"
+                    android:background="@null"
+                    android:layout_marginBottom="10dp"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/paw3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/manageProfilesButton"
+                    android:layout_alignBottom="@+id/manageProfilesButton"
+                    android:src="@drawable/dyi_icon_paw"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manageProfilesButton"
+                    android:id="@+id/manageProfilesButton"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/text_colors"
+                    android:layout_toEndOf="@+id/paw3"
+                    android:onClick="newProject"
+                    android:background="@null"
+                    android:layout_marginBottom="10dp"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/paw4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/informationButton"
+                    android:layout_alignBottom="@+id/informationButton"
+                    android:src="@drawable/dyi_icon_paw"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/informationButton"
+                    android:id="@+id/informationButton"
+                    android:textSize="16sp"
+                    android:textColor="@drawable/text_colors"
+                    android:layout_toEndOf="@+id/paw4"
+                    android:onClick="newProject"
+                    android:background="@null"
+                    android:layout_marginBottom="10dp"
+                    />
+            </RelativeLayout>
+
 
         </LinearLayout>
 

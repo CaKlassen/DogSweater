@@ -53,7 +53,17 @@ public class Materials extends Activity {
         //Add Materials here!
         Material material = new Material("Yarn",false);
         materialList.add(material);
-        material = new Material("Knitting Needles", false);
+
+        material = new Material("16\" Circular Knitting Needles", false);
+        materialList.add(material);
+
+        material = new Material("Stitch markers", false);
+        materialList.add(material);
+
+        material = new Material("Stich Holder", false);
+        materialList.add(material);
+
+        material = new Material("Darning Needle", false);
         materialList.add(material);
 
         //create an ArrayAdapter from the String Array
@@ -111,7 +121,7 @@ public class Materials extends Activity {
             holder.name.setChecked(material.isSelected());
             holder.name.setTag(material);
             holder.name.setPadding( 20, 0, 0, 0 );
-            holder.name.setTextSize( TypedValue.COMPLEX_UNIT_SP, 30 );
+            holder.name.setTextSize( TypedValue.COMPLEX_UNIT_SP, 20 );
 
             return convertView;
 

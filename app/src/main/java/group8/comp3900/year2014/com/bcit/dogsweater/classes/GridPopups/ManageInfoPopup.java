@@ -55,7 +55,7 @@ public class ManageInfoPopup extends Dialog {
 
         // set custom dialog information
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.info_popup_managable);
+        setContentView(R.layout.popup_info_managable);
         initializeGUIReferences();
 
         // get current screen's height and width
