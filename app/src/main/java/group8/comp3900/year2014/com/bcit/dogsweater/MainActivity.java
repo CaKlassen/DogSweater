@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 
 public class MainActivity extends Activity {
@@ -35,6 +36,47 @@ public class MainActivity extends Activity {
 
         b = (Button) findViewById( R.id.informationButton );
         b.setTypeface( buttonTypeface );
+
+
+        RelativeLayout but1 = (RelativeLayout) findViewById(R.id.button1);
+        RelativeLayout but2 = (RelativeLayout) findViewById(R.id.button2);
+        RelativeLayout but3 = (RelativeLayout) findViewById(R.id.button3);
+        RelativeLayout but4 = (RelativeLayout) findViewById(R.id.button4);
+
+
+        but1.setOnClickListener( new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 newProject(v);
+             }
+         }
+        );
+
+        but2.setOnClickListener( new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                currentProjects(v);
+             }
+         }
+        );
+
+        but3.setOnClickListener( new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 manageProfiles(v);
+             }
+         }
+        );
+
+        but4.setOnClickListener( new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                info(v);
+             }
+         }
+        );
+
+
 
 
         //TOS Popup

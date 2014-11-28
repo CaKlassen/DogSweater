@@ -74,7 +74,7 @@
                     android:textColor="@drawable/text_colors_main"
                     android:textAlignment="viewStart"
                     android:layout_toEndOf="@+id/paw"
-                    android:onClick="newProject"
+                    android:clickable="false"
                     android:background="@null"
                     android:layout_marginBottom="10dp"
                     />
@@ -109,7 +109,7 @@
                     android:textColor="@drawable/text_colors_main"
                     android:textAlignment="viewStart"
                     android:layout_toEndOf="@+id/paw2"
-                    android:onClick="currentProjects"
+                    android:clickable="false"
                     android:background="@null"
                     android:layout_marginBottom="10dp"
                     />
@@ -144,7 +144,7 @@
                     android:textColor="@drawable/text_colors_main"
                     android:textAlignment="viewStart"
                     android:layout_toEndOf="@+id/paw3"
-                    android:onClick="manageProfiles"
+                    android:clickable="false"
                     android:background="@null"
                     android:layout_marginBottom="10dp"
                     />
@@ -179,7 +179,7 @@
                     android:textColor="@drawable/text_colors_main"
                     android:textAlignment="viewStart"
                     android:layout_toEndOf="@+id/paw4"
-                    android:onClick="info"
+                    android:clickable="false"
                     android:background="@null"
                     android:layout_marginBottom="10dp"
                     />
