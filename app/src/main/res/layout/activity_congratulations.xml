@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/random_confetti"
     tools:context="group8.comp3900.year2014.com.bcit.dogsweater.Congratulations">
 
     <group8.comp3900.year2014.com.bcit.dogsweater.SlideMenu
@@ -61,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:src="@drawable/fb"
+            android:src="@drawable/dyi_icon_fb"
             android:background="@null"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
@@ -71,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:src="@drawable/twit"
+            android:src="@drawable/dyi_icon_twitter"
             android:background="@null"
             android:id="@+id/twitterShareButton"
             android:scaleType="fitCenter"
@@ -82,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:src="@drawable/pint"
+            android:src="@drawable/dyi_icon_insta"
             android:background="@null"
             android:id="@+id/InstagramShareButton"
             android:scaleType="fitCenter"

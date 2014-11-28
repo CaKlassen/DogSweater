@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -71,8 +72,12 @@ public class ProjectPattern extends Activity {
         db.close();
 
         // Populate the title based on the active project
-        TextView title = (TextView) findViewById(R.id.patternTitle);
+        TextView title = (TextView) findViewById(R.id.projectName);
         title.setText(curProject.getStyle().getSection(curSection).getName());
+
+        // Populate the title based on the active project
+        TextView projName = (TextView) findViewById(R.id.patternTitle);
+        projName.setText(curProject.getName());
 
         // Populate the steps based on the active project
         LinearLayout taskList = (LinearLayout) findViewById(R.id.patternTaskList);
@@ -98,7 +103,7 @@ public class ProjectPattern extends Activity {
         // Set the path of the 'next' button
         if (curSection < curProject.getStyle().getSectionList().size() - 1) {
             // We still have sections left
-            Button b = (Button) findViewById(R.id.patternNextButton);
+            ImageButton b = (ImageButton) findViewById(R.id.patternNextButton);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -113,7 +118,7 @@ public class ProjectPattern extends Activity {
             });
         } else {
             // The project is complete
-            Button b = (Button) findViewById(R.id.patternNextButton);
+            ImageButton b = (ImageButton) findViewById(R.id.patternNextButton);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
