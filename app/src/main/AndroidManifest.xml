@@ -59,6 +59,10 @@
             android:label="@string/title_activity_yarn_selection" >
         </activity>
         <activity
+            android:name="group8.comp3900.year2014.com.bcit.dogsweater.AppSettings"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
             android:name="group8.comp3900.year2014.com.bcit.dogsweater.StyleSelection"
             android:label="@string/title_activity_style" >
         </activity>

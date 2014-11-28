@@ -160,6 +160,40 @@ public class Style {
     }
 
     /**
+     * Author: Rhea Lauzon
+     *
+     * Calculates yarn needed for the first style
+     */
+
+    public static double calculateYarnStyle_1(Profile p)
+    {
+        double length = 0;
+        double squareUnit = 0;
+
+        Dimensions pdem = p.getDimensions();
+
+        double collar = pdem.getDimension("X").getValue(Unit.getDefaultUnit()) * pdem.getDimension("A").getValue(Unit.getDefaultUnit());
+        double body  = pdem.getDimension("B").getValue(Unit.getDefaultUnit()) * pdem.getDimension("Y").getValue(Unit.getDefaultUnit());
+        double tail =  ( pdem.getDimension("B").getValue(Unit.getDefaultUnit()) -  pdem.getDimension("C").getValue(Unit.getDefaultUnit()) ) * ( pdem.getDimension("Z").getValue(Unit.getDefaultUnit()) -  pdem.getDimension("Y").getValue(Unit.getDefaultUnit()));
+
+       squareUnit = collar + body + tail;
+        Log.d("collar: ", "" + collar);
+
+        Log.d("body: ", "" + body);
+
+        Log.d("tail: ", "" + tail);
+
+        Log.d("squareUnit: ", "" + squareUnit);
+
+
+
+
+        return length;
+    }
+
+
+
+    /**
      * Author: Chris Klassen
      *
      * Creates and returns a reference to a fully formed list of

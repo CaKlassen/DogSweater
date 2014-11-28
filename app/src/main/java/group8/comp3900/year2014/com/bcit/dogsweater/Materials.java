@@ -17,6 +17,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Material;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Style;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 public class Materials extends Activity {
 
@@ -51,7 +55,20 @@ public class Materials extends Activity {
         ArrayList<Material> materialList = new ArrayList<Material>();
 
         //Add Materials here!
-        Material material = new Material("Yarn",false);
+
+        //Get the yarn calculation
+        // Build the project from the database
+
+        long projId = getIntent().getExtras().getLong(ProjectPattern.KEY_PROJECT_ID);
+        ProfileDataSource db = new ProfileDataSource(this);
+        db.open();
+        Project curProject = db.getProject(projId);
+
+        Profile p =curProject.getProfile();
+        db.close();
+
+
+        Material material = new Material( Style.calculateYarnStyle_1(p) + "Yarn",false);
         materialList.add(material);
 
         material = new Material("16\" Circular Knitting Needles", false);
