@@ -116,7 +116,7 @@ public class MenuHelper extends Activity  implements group8.comp3900.year2014.co
                 a.startActivity(in);
                 break;
             case R.id.item_settings:
-                in = new Intent(a, Settings.class);
+                in = new Intent(a, AppSettings.class);
                 a.startActivity(in);
                 break;
         }
