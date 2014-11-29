@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:paddingEnd="10dp"
-    android:paddingTop="80dp">
+    android:paddingTop="30dp">
 
     <group8.comp3900.year2014.com.bcit.dogsweater.SlideMenu
         android:id="@+id/slideMenu"
@@ -35,7 +35,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -43,6 +44,7 @@
             android:id="@+id/Next"
             android:textSize="30sp"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/dyi_icon_next"
             android:background="@color/white"
             android:onClick="startInstructions" />
