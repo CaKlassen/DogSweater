@@ -61,7 +61,7 @@
 
     <!-- Settings button text -->
     <string name="settingsSettingsButton">Settings</string>
-    <string name="yarnSelection">Yarn Selection</string>
+    <string name="yarnSelection">YARN SELECTION</string>
 
     <!-- Instructions text -->
     <string name="instructions">Instructions</string>

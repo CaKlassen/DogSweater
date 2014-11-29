@@ -2,6 +2,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
@@ -104,6 +106,21 @@ public class YarnSelection extends Activity {
         parseStartingIntent(getIntent());
         initializeGUIReferences();
         configureGUIReferences();
+
+
+        //change font of the headers
+        Typeface titles = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
+
+        TextView titleText = (TextView) findViewById(R.id.yarnText);
+        TextView gaugeText = (TextView) findViewById(R.id.gaugeTitle);
+        TextView yarnText = (TextView) findViewById(R.id.yarnType);
+
+        titleText.setTypeface( titles );
+        gaugeText.setTypeface( titles );
+        yarnText.setTypeface( titles );
+
+
+
     }
 
     @Override
