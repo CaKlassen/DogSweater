@@ -14,6 +14,9 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Material;
@@ -34,7 +37,7 @@ public class Materials extends Activity {
 
         TextView matsTitle = (TextView) findViewById(R.id.materialsText);
         Typeface titleFont = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
-        matsTitle.setTypeface( titleFont );
+        matsTitle.setTypeface(titleFont);
     }
 
     @Override
@@ -63,12 +66,11 @@ public class Materials extends Activity {
         ProfileDataSource db = new ProfileDataSource(this);
         db.open();
         Project curProject = db.getProject(projId);
-        Profile p =curProject.getProfile();
         db.close();
 
-
-        Material material = new Material( Style.calculateYardage(p,
-                curProject.getStyle().getStyleNumber()) + Unit.getDefaultUnit(this).getUnitString() + " of yarn", false);
+        Material material = new Material(Style.calculateYardage(curProject)
+                + Unit.getDefaultUnit(this).getUnitString()
+                + " of yarn", false);
         materialList.add(material);
 
         material = new Material("16\" Circular Knitting Needles", false);

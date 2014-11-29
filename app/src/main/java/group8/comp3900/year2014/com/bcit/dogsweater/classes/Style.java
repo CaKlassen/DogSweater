@@ -1,5 +1,6 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -167,15 +168,14 @@ public class Style {
      *
      * @return the yardage String
      */
-    public static String calculateYardage(Profile p, int styleNumber) {
-        switch(styleNumber) {
+    public static double calculateYardage(Project p) {
+        switch(p.getStyle().getStyleNumber()) {
             case 0: // Style 1
-                return calculateYarnStyle_1( p );
+                return calculateYarnStyle_1(p);
             case 1: // Style 2
-                return calculateYarnStyle_1( p );
+                return calculateYarnStyle_1(p);
             default: // Incorrect Style
-                Log.d("Incorrect Style Number", "Incorrect style number entered.");
-                return null;
+                throw new RuntimeException("Incorrect Style Number; incorrect style number entered.");
         }
     }
 
@@ -186,17 +186,19 @@ public class Style {
      */
     public static double calculateYarnStyle_1(Project project)
     {
-        double length = 0;
-        double squareUnit = 0;
-
         Dimensions dimensions = project.getDimensions();
 
         double styleArea = Double.parseDouble(
                 dimensions.parseExpression("X*A+B*Y+(Z-Y)*B", Unit.INCHES));
         Log.d("styleArea: ", String.valueOf(styleArea));
 
-        return Unit.INCHES.convert(Unit.getDefaultUnit(project.getContext()),
-                styleArea * project.getGauge());
+        Context context = project.getContext();
+
+        double ret = styleArea * project.getGauge();
+        ret = Unit.INCHES.convert(Unit.getDefaultUnit(context), ret);
+        ret = Math.ceil(ret);
+
+        return ret;
     }
 
 
