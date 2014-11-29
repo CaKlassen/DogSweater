@@ -1,13 +1,22 @@
 <!-- Gridview of all current projects; via current projects button on home  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 <group8.comp3900.year2014.com.bcit.dogsweater.SlideMenu
     android:id="@+id/slideMenu"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="PROJECTS"/>
 
 <GridView
     android:id="@+id/projectGridView"

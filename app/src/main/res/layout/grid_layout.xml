@@ -5,21 +5,20 @@
     android:layout_gravity="center_horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/gray"
+    android:background="@color/white"
     android:layout_marginBottom="10dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/gridImage"
-        android:layout_weight="0.8" />
+        android:adjustViewBounds="true"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/gridText"
-        android:layout_weight="0.2"
         android:gravity="center_horizontal"
         android:textSize="20sp"
         android:text=""/>
