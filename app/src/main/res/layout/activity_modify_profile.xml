@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:id="@+id/projName"
+                android:textSize="25dp"
                 android:layout_centerHorizontal="true"
                 android:text="TEMP PROJ NAME"/>
 
@@ -36,7 +37,10 @@
                 android:src="@drawable/dog_silhouette"
                 android:layout_below="@+id/projName"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/projImage" />
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:id="@+id/projImage"
+                android:layout_marginBottom="20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,11 +52,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PROFILE DIMENSIONS:"
+                    android:text="Profile Dimensions:"
+                    android:id="@+id/dimenTitle"
                     android:textStyle="bold"
                     android:textSize="30sp"
-                    android:layout_below="@+id/dimensions_content"
-                    android:layout_alignParentStart="true" />
+                    android:textColor="@color/peach"
+                 />
 
                 <!-- Layout for each edit text and the dimension -->
                 <LinearLayout
@@ -64,7 +69,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:text="@string/AFriendly"/>
 
                     <EditText
@@ -83,7 +88,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="0.75"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:text="@string/BFriendly"/>
 
                 <EditText
@@ -103,7 +108,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:text="@string/CFriendly"/>
 
                     <EditText
@@ -122,7 +127,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:text="@string/XFriendly"/>
 
                     <EditText
@@ -141,7 +146,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:text="@string/YFriendly"/>
 
                     <EditText
@@ -160,7 +165,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:textSize="30sp"
+                        android:textSize="25sp"
                         android:text="@string/ZFriendly"/>
 
                     <EditText
@@ -176,6 +181,7 @@
                     android:layout_marginTop="20dp"
                     android:text="SAVE CHANGES"
                     android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:onClick="saveDimensions"
                     android:background="@android:color/holo_green_light">
 
@@ -187,10 +193,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PROFILE IMAGE:"
+                android:text="Profile Image:"
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:layout_marginTop="30dp"
+                android:textColor="@color/peach"
                 android:id="@+id/projImageLabel"
                 android:layout_below="@+id/dimensions_content"
                 android:layout_alignParentStart="true" />
@@ -198,18 +205,24 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Take Photo"
+                android:layout_marginTop="10dp"
+                android:text="TAKE PHOTO"
                 android:id="@+id/takePhoto"
                 android:layout_below="@+id/projImageLabel"
+                android:background="@color/teal"
+                android:textColor="@color/white"
                 android:layout_alignParentEnd="true"
                 android:onClick="takePhoto"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose Existing Photo"
+                android:layout_marginTop="10dp"
+                android:text="CHOOSE EXISTING PHOTO"
                 android:id="@+id/chooseExisting"
                 android:layout_below="@+id/takePhoto"
+                android:background="@color/teal"
+                android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:onClick="chooseExisting"/>

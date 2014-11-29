@@ -76,6 +76,7 @@ public class StyleGridAdapter extends BaseAdapter {
         int height = displayMetrics.heightPixels;
 
         //Apply the images and layout constraints to the imageView
+        //NOTE LEAVE UNCOMMENTED UNLESS FUTURE ISSUES
         //iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
         //iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
