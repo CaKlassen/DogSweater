@@ -160,12 +160,32 @@ public class Style {
     }
 
     /**
+     * Author: Chris Klassen
+     *
+     * Calls the calculateYarnStyle function of a specific style and returns
+     * the associated String value
+     *
+     * @return the yardage String
+     */
+    public static String calculateYardage(Profile p, int styleNumber) {
+        switch(styleNumber) {
+            case 0: // Style 1
+                return calculateYarnStyle_1( p );
+            case 1: // Style 2
+                return calculateYarnStyle_1( p );
+            default: // Incorrect Style
+                Log.d("Incorrect Style Number", "Incorrect style number entered.");
+                return null;
+        }
+    }
+
+    /**
      * Author: Rhea Lauzon
      *
      * Calculates yarn needed for the first style
      */
 
-    public static double calculateYarnStyle_1(Profile p)
+    public static String calculateYarnStyle_1(Profile p)
     {
         double length = 0;
         double squareUnit = 0;
@@ -185,10 +205,7 @@ public class Style {
 
         Log.d("squareUnit: ", "" + squareUnit);
 
-
-
-
-        return length;
+        return "" + length;
     }
 
 
