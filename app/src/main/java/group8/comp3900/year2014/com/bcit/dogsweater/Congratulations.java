@@ -47,7 +47,7 @@ public class Congratulations extends Activity {
 
         new MenuHelper(getApplicationContext(), this);
 
-        Typeface textFont = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
+        Typeface textFont = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
         congratulationTextView.setTypeface( textFont );
     }
 
@@ -71,13 +71,6 @@ public class Congratulations extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

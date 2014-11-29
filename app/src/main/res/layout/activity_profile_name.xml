@@ -20,12 +20,12 @@
     <Space
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.1"/>
+        android:layout_weight="0.05"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.20"
+        android:layout_weight="0.30"
         android:src="@drawable/dyi_icon_collar"/>
 
     <TextView
@@ -41,8 +41,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:hint="@string/hintNameProfile"
         android:id="@+id/measureA"
         android:inputType="text"
@@ -54,7 +54,7 @@
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="0dp"
-        android:layout_weight="0.20"
+        android:layout_weight="0.15"
         android:text="@string/addImageButton"
         android:id="@+id/addImage"
         android:src="@drawable/dyi_icon_camera"
@@ -69,25 +69,30 @@
         android:layout_height="wrap_content"
         android:text="@string/takePhoto"
         android:id="@+id/takePhoto"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:gravity="center_horizontal"
         />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"/>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.30">
+        android:layout_weight="0.20">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Next"
         android:textSize="30sp"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/next_button_style"
         android:background="@color/white"
-        android:layout_alignParentBottom="true"
         android:onClick="dogMeasurements" />
     </RelativeLayout>
 

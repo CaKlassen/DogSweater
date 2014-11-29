@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/yarnText"
-        android:textSize="40sp" />
+        android:textSize="20sp" />
 
     <Space
         android:layout_width="match_parent"
@@ -31,38 +31,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TableRow>
+        <TableRow
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:layout_marginBottom="80dp">
 
             <TextView
                 android:text="@string/labelGaugeInput"
-                android:labelFor="@+id/gaugeInput"
+                android:id="@+id/gaugeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="number"
-                android:id="@id/gaugeInput" />
+                android:background="@drawable/edit_text_yarn"
+                android:id="@+id/gaugeInput" />
 
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp">
 
             <TextView
                 android:text="@string/yarnTypeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/yarnType"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <Spinner
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/types"
+                android:background="@drawable/spinner_style"
                 android:entries="@array/types"
                 android:ellipsize="marquee" />
 

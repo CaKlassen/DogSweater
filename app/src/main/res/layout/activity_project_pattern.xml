@@ -18,23 +18,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     </LinearLayout>
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
     <TextView
         android:paddingLeft="40dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:id="@+id/projectName"
-        android:text="TEMP PROJ NAME"
-        android:textSize="30sp"/>
-
-    <TextView
-        android:paddingLeft="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.1"
         android:id="@+id/patternTitle"
+        android:text="TEMP PROJ NAME"
+        android:textColor="@color/peach"
+        android:textSize="30sp"/>
+    <TextView
+        android:paddingLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/patternSection"
         android:text="TEMP"
+        android:textColor="@color/gray"
         android:textSize="20sp"/>
     <ScrollView
         android:layout_width="match_parent"
@@ -68,9 +71,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:gravity="center_horizontal"
             android:weightSum="1">
             <Button
@@ -85,9 +91,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
+                android:layout_weight="0.35"
                 android:text="0"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:gravity="center"
                 android:id="@+id/patternRowCounter"/>
             <Button
@@ -100,6 +106,9 @@
                 android:textSize="20sp"
                 android:onClick="incrementRow"/>
         </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,13 +116,15 @@
             android:orientation="horizontal"
             android:weightSum="1"
             android:gravity="center_horizontal">
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:id="@+id/patternBackButton"
                 android:layout_weight="0.35"
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:src="@drawable/next_button_style"
                 android:text="Back"/>
-
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -127,7 +138,7 @@
                 android:background="@null"
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
-               />
+                />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ManageInfoPopup;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups.ProfileManagementGridAdapter;
@@ -60,6 +62,11 @@ public class ManageProfiles extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_profiles);
+
+        // Set title font
+        TextView title = (TextView) findViewById( R.id.title);
+        Typeface titleTypeface = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
+        title.setTypeface( titleTypeface );
 
         initializeInstanceData();
         initializeGUIReferences();

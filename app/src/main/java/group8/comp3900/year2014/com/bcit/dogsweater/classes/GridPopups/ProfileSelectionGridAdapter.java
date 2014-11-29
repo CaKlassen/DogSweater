@@ -3,6 +3,7 @@ package group8.comp3900.year2014.com.bcit.dogsweater.classes.GridPopups;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -83,6 +84,9 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         iview = (ImageView) llview.findViewById(R.id.gridImage);
         tv = (TextView) llview.findViewById(R.id.gridText);
 
+        Typeface titleTypeface = Typeface.createFromAsset( context.getAssets(), "Proxima Nova Bold.otf" );
+        tv.setTypeface( titleTypeface );
+
         //Get Device sizes
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -92,8 +96,8 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         int height = displayMetrics.heightPixels;
 
         //Apply the images and layout constraints to the imageView
-        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
-        iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, height/3));
+        iview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 
         // setting dialog image...use a worker thread to load the image

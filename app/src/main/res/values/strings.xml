@@ -61,7 +61,7 @@
 
     <!-- Settings button text -->
     <string name="settingsSettingsButton">Settings</string>
-    <string name="yarnSelection">Yarn Selection</string>
+    <string name="yarnSelection">YARN SELECTION</string>
 
     <!-- Instructions text -->
     <string name="instructions">Instructions</string>
@@ -163,7 +163,7 @@
     <string name="title_activity_facebook_share">FacebookShare</string>
 
     <!-- do not commit the following additions -->
-    <string name="caption_activity_congratulations">Congratulations!</string>
+    <string name="caption_activity_congratulations">Congratulations</string>
     <string name="generalShareButton">generalShareButton</string>
     <!-- do not commit the above additions -->
 

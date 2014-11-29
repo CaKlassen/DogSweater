@@ -3,13 +3,13 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -71,13 +71,17 @@ public class ProjectPattern extends Activity {
         db.updateProject(curProject);
         db.close();
 
-        // Populate the title based on the active project
-        TextView title = (TextView) findViewById(R.id.projectName);
-        title.setText(curProject.getStyle().getSection(curSection).getName());
 
         // Populate the title based on the active project
-        TextView projName = (TextView) findViewById(R.id.patternTitle);
-        projName.setText(curProject.getName());
+        TextView title = (TextView) findViewById(R.id.patternTitle);
+        title.setText(curProject.getStyle().getName());
+        Typeface titleTypeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+        title.setTypeface( titleTypeface );
+
+        TextView secTitle = (TextView) findViewById(R.id.patternSection);
+        secTitle.setText(curProject.getStyle().getSection(curSection).getName());
+        //Typeface secTypeface = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
+        //secTitle.setTypeface( secTypeface );
 
         // Populate the steps based on the active project
         LinearLayout taskList = (LinearLayout) findViewById(R.id.patternTaskList);
@@ -133,7 +137,7 @@ public class ProjectPattern extends Activity {
         // Set the path of the 'back' button
         if (curSection > 0) {
             // This is not the first section
-            Button b = (Button) findViewById(R.id.patternBackButton);
+            ImageButton b = (ImageButton) findViewById(R.id.patternBackButton);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -148,7 +152,7 @@ public class ProjectPattern extends Activity {
             });
         } else {
             // This is the first section
-            Button b = (Button) findViewById(R.id.patternBackButton);
+            ImageButton b = (ImageButton) findViewById(R.id.patternBackButton);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -217,7 +221,7 @@ public class ProjectPattern extends Activity {
         CheckBox checkbox = new CheckBox(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.1f);
-        params.setMargins(0, 0, 0, 30);
+        params.setMargins(0, 0, 30, 40);
 
         checkbox.setLayoutParams(params);
         checkbox.setButtonDrawable( R.drawable.checkbox_selector );
@@ -225,10 +229,11 @@ public class ProjectPattern extends Activity {
 
         // Assign text to the step
         TextView text = new TextView(this);
-        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         text.setText(curProject.getStyle().getStep(curSection, stepNum, curProject.getDimensions()));
         text.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
                 0.9f));
+        text.setLineSpacing( 0f, 1.5f );
 
 
         // Check if the checkbox has been saved to the database already
