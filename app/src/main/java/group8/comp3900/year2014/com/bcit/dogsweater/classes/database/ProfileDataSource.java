@@ -12,6 +12,7 @@ import java.util.List;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Section;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Style;
 
 public class ProfileDataSource {
@@ -508,8 +509,18 @@ public class ProfileDataSource {
             }
         }
 
+        // Get total step number
+        cursor.close();
+
+        Project p = getProject( projNum );
+        int totalCount = 0;
+
+        for ( Section s : p.getStyle().getSectionList() ) {
+            totalCount += s.getStepList().size();
+        }
+
         try {
-            return 100.0f * doneCount / cursor.getCount();
+            return 100.0f * doneCount / totalCount;
         }
         finally {
             cursor.close();

@@ -123,7 +123,7 @@
                 android:layout_weight="0.35"
                 android:scaleType="fitXY"
                 android:background="@null"
-                android:src="@drawable/next_button_style"
+                android:src="@drawable/dyi_icon_back"
                 android:text="Back"/>
             <Space
                 android:layout_width="0dp"
