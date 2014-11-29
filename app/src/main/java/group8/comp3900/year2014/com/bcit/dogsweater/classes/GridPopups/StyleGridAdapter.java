@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -77,8 +76,8 @@ public class StyleGridAdapter extends BaseAdapter {
         int height = displayMetrics.heightPixels;
 
         //Apply the images and layout constraints to the imageView
-        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
-        iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        //iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
+        //iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         iview.setImageResource(styles.get(position).getImageUri());
 
