@@ -5,11 +5,13 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
  */
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Unit;
 
@@ -20,6 +22,13 @@ public class AppSettings extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+
+        // Set fonts
+        TextView title = (TextView) findViewById( R.id.title );
+        Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+        title.setTypeface( typeface );
+
 
         Unit curUnit = Unit.getDefaultUnit();
 

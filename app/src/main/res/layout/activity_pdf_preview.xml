@@ -22,7 +22,8 @@
         android:text="SHARE PDF"
         android:textColor="@color/white"
         android:background="@color/teal"
-        android:onClick="sharePDF"/>
+        android:onClick="sharePDF"
+        android:layout_marginBottom="10dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
