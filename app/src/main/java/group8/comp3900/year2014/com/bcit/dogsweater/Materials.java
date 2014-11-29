@@ -36,9 +36,6 @@ public class Materials extends Activity {
         Typeface titleFont = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
         matsTitle.setTypeface( titleFont );
 
-        //Generate list View from ArrayList
-        displayListView();
-
     }
 
     @Override
@@ -48,6 +45,9 @@ public class Materials extends Activity {
 
         //Create menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
+
+        //Generate list View from ArrayList
+        displayListView();
 
     }
 
@@ -68,7 +68,7 @@ public class Materials extends Activity {
 
 
         Material material = new Material( Style.calculateYarnStyle_1(curProject)
-                + Unit.getDefaultUnit().getUnitString() + " Yarn", false);
+                + Unit.getDefaultUnit(this).getUnitString() + " Yarn", false);
         materialList.add(material);
 
         material = new Material("16\" Circular Knitting Needles", false);

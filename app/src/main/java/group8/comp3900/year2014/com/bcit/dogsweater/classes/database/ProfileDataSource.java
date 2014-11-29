@@ -19,6 +19,7 @@ public class ProfileDataSource {
     // Database fields
     private SQLiteDatabase database;
     private static DogYarnItSQLHelper dbHelper;
+    private Context context;
 
 
     private static final String[] columns = {
@@ -51,6 +52,7 @@ public class ProfileDataSource {
 
     public ProfileDataSource(Context context) {
 
+        this.context = context;
         dbHelper = getInstance(context);
     }
 
@@ -156,6 +158,7 @@ public class ProfileDataSource {
                                           DogYarnItSQLHelper.PROFILE_DIMENSIONS
                                          )
                                        )
+                                     , context
                                      , cursor.getString (
                                          cursor.getColumnIndex (
                                           DogYarnItSQLHelper.PROFILE_IMAGE
@@ -385,8 +388,8 @@ public class ProfileDataSource {
         s.initializeSectionList(Style.makeStyle(styleNumber));
 
         // Initialize the project
-        Project project = new Project(
-                                cursor.getString(
+        Project project = new Project( context
+                              , cursor.getString(
                                   cursor.getColumnIndex(
                                     DogYarnItSQLHelper.PROJECT_NAME ) )
                               , cursor.getFloat(

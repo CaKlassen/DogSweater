@@ -102,7 +102,7 @@ public class InfoPopup extends Dialog {
                     profileDataSource.open();
 
                     //Create new project with that profile
-                    Project p = new Project(profileDataSource.getProfile(itemId));
+                    Project p = new Project(context, profileDataSource.getProfile(itemId));
                     profileDataSource.insertProject(p);
 
                     in = new Intent(context, Class.forName(nextScreen));

@@ -150,13 +150,14 @@ public class DogProfileCreation extends Activity {
 
         parseStartingIntent();
         initializeGUIReferences();
-        updateGUI();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        updateGUI();
 
         //Create the menu
         MenuHelper m = new MenuHelper (getApplicationContext(), this);
@@ -348,7 +349,7 @@ public class DogProfileCreation extends Activity {
                 Dimensions.getFriendly(this, dimensionKeys[arrayIndex])
                 + " (" + (arrayIndex+1) + "/" + dimensionKeys.length + "):");
         unitText.setText(
-                Unit.getDefaultUnit().getUnitString());
+                Unit.getDefaultUnit(this).getUnitString());
 
         // if there is a default for this dimension, prefill the input
         if (defaultValueExpressions[arrayIndex] != null) {
@@ -374,7 +375,7 @@ public class DogProfileCreation extends Activity {
     private Dimensions getDimensions() {
 
         // creating the dimension object to return & return it...
-        Dimensions profileDimensions = new Dimensions();
+        Dimensions profileDimensions = new Dimensions(this);
         for (int i = 0; i < dimensionKeys.length; i++) {
             profileDimensions.setDimension(dimensionKeys[i], dimensionValues[i],
                     defaultValueExpressions[i]);

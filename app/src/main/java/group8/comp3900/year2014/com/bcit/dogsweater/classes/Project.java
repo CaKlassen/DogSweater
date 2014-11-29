@@ -1,5 +1,6 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.content.Context;
 import android.net.Uri;
 
 /**
@@ -69,6 +70,7 @@ public class Project {
     private int curSection;
     private Profile profile;
     private Style style;
+    private Context context;
 
     private Uri imageURI = null;
 
@@ -80,8 +82,8 @@ public class Project {
      *
      * Constructor for a project object.
      */
-    public Project(Profile p, Style s) {
-        this( "Temp", 0, 0, p, s, 0 );
+    public Project(Context c, Profile p, Style s) {
+        this( c, "Temp", 0, 0, p, s, 0 );
     }
 
     /**
@@ -89,9 +91,9 @@ public class Project {
      * @param p : profile object
      *          when the profile is known but style isnt determined yet
      */
-    public Project(Profile p) {
+    public Project(Context c, Profile p) {
         //TODO: FIX LATER TO PROPER DEFAULT VAL
-        this( p, new Style("Style 1", 1) );
+        this( c, p, new Style("Style 1", 1) );
     }
 
     /**
@@ -99,7 +101,8 @@ public class Project {
      *
      * Database constructor for a project object.
      */
-    public Project(String n, float pd, int r, Profile p, Style s, int cs) {
+    public Project(Context c, String n, float pd, int r, Profile p, Style s, int cs) {
+        context = c;
         setName( n );
         setPercentDone( pd );
         rowCounter = r;
@@ -113,8 +116,8 @@ public class Project {
      *
      * Project constructor including image URI as a URI object
      */
-    public Project(String n, float pd, int r, Profile p, Style s, Uri imageURI, int cs) {
-        this( n, pd, r, p, s, cs );
+    public Project(Context c, String n, float pd, int r, Profile p, Style s, Uri imageURI, int cs) {
+        this( c, n, pd, r, p, s, cs );
         setImageURI( imageURI );
     }
 
@@ -123,8 +126,8 @@ public class Project {
      *
      * Project constructor including image URI as a String
      */
-    public Project(String n, float pd, int r, Profile p, Style s, String imageURI, int cs) {
-        this( n, pd, r, p, s, cs );
+    public Project(Context c, String n, float pd, int r, Profile p, Style s, String imageURI, int cs) {
+        this( c, n, pd, r, p, s, cs );
         setImageURI( imageURI );
     }
 
@@ -191,15 +194,14 @@ public class Project {
         // create a copy of the Profile's Dimensions object because we want to
         // access its dimensions like A, B, C and so on.
         String stringifiedDimensions = getProfile().getDimensions().stringify();
-        Dimensions dimensions = new Dimensions(stringifiedDimensions);
+        Dimensions dimensions = new Dimensions(context, stringifiedDimensions);
 
         // calculate and add project dimensions into Dimensions object & return
         dimensions.setDimension(KEY_GAUGE, getGauge());
         for (int i = 0; i < MIN_DIMENSION_KEYS.length; i++) {
             dimensions.setDimension(MIN_DIMENSION_KEYS[i],
-                    Double.valueOf(
-                            dimensions.parseExpression(
-                                    MIN_DIMENSION_EXPRESSIONS[i])));
+                    Double.valueOf(dimensions.parseExpression(
+                            MIN_DIMENSION_EXPRESSIONS[i])));
         }
         return dimensions;
     }
@@ -243,6 +245,11 @@ public class Project {
     public Uri getImageURI() {
 
         return imageURI;
+    }
+
+    public Context getContext()
+    {
+        return context;
     }
 
     @Override

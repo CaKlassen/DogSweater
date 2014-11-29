@@ -1,5 +1,7 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 /**
@@ -13,7 +15,7 @@ public class Dimension {
     /////////////////////
 
     /**
-     * key used to access the unit used to save the dimension of a Dimension in
+     * key used to access the mUnit used to save the dimension of a Dimension in
      * JSONObject form.
      */
     public static final String KEY_UNIT = "KEY_UNIT";
@@ -24,7 +26,7 @@ public class Dimension {
     public static final String KEY_VALUE = "KEY_VALUE";
 
     /**
-     * key used to access the defaultValueExpression attribute of a Dimension in
+     * key used to access the mDefaultValueExpression attribute of a Dimension in
      * JSONObject form.
      */
     public static final String KEY_DEFAULT_VALUE_EXPRESSION =
@@ -35,21 +37,24 @@ public class Dimension {
     // instance variables //
     ////////////////////////
 
-    /** unit used when the value was saved into this Dimension instance. */
-    private final Unit unit;
+    /** mUnit used when the value was saved into this Dimension instance. */
+    private final Unit mUnit;
 
     /** value of this Dimension instance in the specified units. */
-    private final double value;
+    private final double mValue;
 
     /**
      * expression used to calculate the default value for this Dimension
      * instance. May contain keys of other Dimension objects, but the expression
      * must be evaluated by a Dimensions instance.
      */
-    private final String defaultValueExpression;
+    private final String mDefaultValueExpression;
 
     /** Dimensions object that holds this dimension. */
-    private final Dimensions dimensions;
+    private final Dimensions mDimensions;
+
+    /** reference to the application context. */
+    private final Context mContext;
 
 
     /////////////////
@@ -64,7 +69,7 @@ public class Dimension {
      * instantiates an Dimension instance, and initializes its instance
      * variables from the constructor parameters.
      */
-    public Dimension(Unit unit, double value, String defaultValueExpression, Dimensions dimensions) {
+    public Dimension(Context context, Unit unit, double value, String defaultValueExpression, Dimensions dimensions) {
 
         // validate arguments
         if (dimensions == null) {
@@ -73,17 +78,18 @@ public class Dimension {
 
         // pre process arguments
         if (unit == null) {
-            unit = Unit.getDefaultUnit();
+            unit = Unit.getDefaultUnit(context);
         }
         if (defaultValueExpression == null) {
             defaultValueExpression = "";
         }
 
         // initialize instance variables from constructor parameters
-        this.unit = unit;
-        this.value = value;
-        this.defaultValueExpression = defaultValueExpression;
-        this.dimensions = dimensions;
+        mUnit = unit;
+        mValue = value;
+        mDefaultValueExpression = defaultValueExpression;
+        mDimensions = dimensions;
+        mContext = context;
     }
 
     /**
@@ -94,13 +100,14 @@ public class Dimension {
      * instantiates an Dimension instance, and initializes its instance
      * variables from the constructor parameters.
      */
-    public Dimension(JSONObject o, Dimensions dimensions) {
+    public Dimension(Context context, JSONObject o, Dimensions dimensions) {
         try {
-            this.dimensions = dimensions;
-            this.unit = Unit.parseStringified(o.getString(KEY_UNIT));
-            this.value = o.getDouble(KEY_VALUE);
-            this.defaultValueExpression = o.has(KEY_DEFAULT_VALUE_EXPRESSION) ?
+            mDimensions = dimensions;
+            mUnit = Unit.parseIdentifier(o.getString(KEY_UNIT));
+            mValue = o.getDouble(KEY_VALUE);
+            mDefaultValueExpression = o.has(KEY_DEFAULT_VALUE_EXPRESSION) ?
                     o.getString(KEY_DEFAULT_VALUE_EXPRESSION) : "";
+            mContext = context;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -113,7 +120,7 @@ public class Dimension {
 
     /** @see this.getValue(Unit) */
     public double getValue() {
-        return getValue(Unit.getDefaultUnit());
+        return getValue(Unit.getDefaultUnit(mContext));
     }
 
     /**
@@ -126,7 +133,7 @@ public class Dimension {
      * @return value associated with this Dimension instance
      */
     public double getValue(Unit targetUnit) {
-        return unit.convert(targetUnit, value);
+        return mUnit.convert(targetUnit, mValue);
     }
 
     /**
@@ -142,7 +149,7 @@ public class Dimension {
      *
      */
     public String getDefaultValueExpression() {
-        return defaultValueExpression;
+        return mDefaultValueExpression;
     }
 
     /**
@@ -158,7 +165,7 @@ public class Dimension {
      *
      */
     public String getDefaultValue() {
-        return dimensions.parseExpression(getDefaultValueExpression());
+        return mDimensions.parseExpression(getDefaultValueExpression());
     }
 
     /**
@@ -174,9 +181,9 @@ public class Dimension {
     public JSONObject toJSONObject() {
         try {
             JSONObject o = new JSONObject();
-            o.put(KEY_UNIT, unit.getIdentifier());
-            o.put(KEY_VALUE, value);
-            o.put(KEY_DEFAULT_VALUE_EXPRESSION, defaultValueExpression);
+            o.put(KEY_UNIT, mUnit.getIdentifier());
+            o.put(KEY_VALUE, mValue);
+            o.put(KEY_DEFAULT_VALUE_EXPRESSION, mDefaultValueExpression);
             return o;
         } catch (Exception e) {
             throw new RuntimeException(e);

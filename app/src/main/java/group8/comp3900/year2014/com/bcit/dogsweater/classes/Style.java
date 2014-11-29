@@ -72,7 +72,7 @@ public class Style {
 
                     if (expression.equals("DEFAULT_UNIT")) {
                         // returns the unit string (i.e.: "cm", "in")
-                        replaceString = Unit.getDefaultUnit().getUnitString();
+                        replaceString = Unit.getDefaultUnit(d.getContext()).getUnitString();
                     } else {
                         double expValue = Double.parseDouble(d.parseExpression(expression));
 
@@ -176,7 +176,7 @@ public class Style {
 
         Log.d("styleArea: ", String.valueOf(styleArea));
 
-        return Unit.INCHES.convert(Unit.getDefaultUnit(),
+        return Unit.INCHES.convert(Unit.getDefaultUnit(project.getContext()),
                 styleArea * project.getGauge());
     }
 

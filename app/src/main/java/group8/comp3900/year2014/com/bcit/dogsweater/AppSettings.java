@@ -16,12 +16,29 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.Unit;
 
 public class AppSettings extends Activity {
 
+    /**
+     * canonical name of this class (i.e.: group8.comp3900...classes.Unit)
+     *   that's used to build strings that are unique to this class.
+     */
+    public static final String CLASS_NAME =
+            AppSettings.class.getCanonicalName() + ".";
+
+    /////////////////////////////////////////
+    // preference file & app settings keys //
+    /////////////////////////////////////////
+    /** key to the preferences file that's used to save this app's settings. */
+    public static final String KEY_PREFERENCE_FILE =
+            CLASS_NAME + "KEY_PREFERENCE_FILE";
+
+    public static final String KEY_DEFAULT_UNIT =
+            CLASS_NAME + "KEY_DEFAULT_UNIT";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Unit curUnit = Unit.getDefaultUnit();
+        Unit curUnit = Unit.getDefaultUnit(this);
 
         Switch uSwitch = (Switch) findViewById(R.id.unitSwitch);
 
@@ -64,11 +81,11 @@ public class AppSettings extends Activity {
 
         if ( uSwitch.isChecked() )
         {
-            Unit.setDefaultUnit(Unit.CENTIMETRES);
+            Unit.setDefaultUnit(this, Unit.CENTIMETRES);
         }
         if ( !uSwitch.isChecked() )
         {
-            Unit.setDefaultUnit(Unit.INCHES);
+            Unit.setDefaultUnit(this, Unit.INCHES);
         }
 
     }

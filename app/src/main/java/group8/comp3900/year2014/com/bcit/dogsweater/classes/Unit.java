@@ -1,6 +1,11 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.NoSuchElementException;
+
+import group8.comp3900.year2014.com.bcit.dogsweater.AppSettings;
 
 /**
  * Created by Eric on 2014-10-01.
@@ -54,13 +59,16 @@ public enum Unit
     // -------------------------------------------------------------------------
     // static members
     // -------------------------------------------------------------------------
-    /** default unit that all things measured is to be displayed in */
-    private static Unit defaultUnits = CENTIMETRES;
 
-    /** returns the unit associated with the passed String (stringified) */
-    public static Unit parseStringified(String stringified) {
+    /**
+     * returns the unit associated with the passed (identifier) String returned
+     *   by Unit.getIdentifier()
+     * @param identifier String returned by Unit.getIdentifier().
+     * @return a Unit enumeration that corresponds to the passed identifier.
+     */
+    public static Unit parseIdentifier(String identifier) {
         for (Unit unit : Unit.values()) {
-            if (unit.getIdentifier().equals(stringified)) {
+            if (unit.getIdentifier().equals(identifier)) {
                 return unit;
             }
         }
@@ -69,17 +77,30 @@ public enum Unit
     }
 
     /** returns the current default unit */
-    public static Unit getDefaultUnit()
+    public static Unit getDefaultUnit(Context c)
     {
-        return defaultUnits;
+        // read the unit preference from preferences file
+        SharedPreferences preferences = c.getSharedPreferences(
+                AppSettings.KEY_PREFERENCE_FILE, Context.MODE_PRIVATE);
+        String unitIdentifier = preferences.getString(
+                AppSettings.KEY_DEFAULT_UNIT, Unit.CENTIMETRES.getIdentifier());
+        return Unit.parseIdentifier(unitIdentifier);
     }
 
     /** sets the default unit, cannot be null */
-    public static void setDefaultUnit( Unit defaultUnits )
+    public static void setDefaultUnit( Context c, Unit defaultUnits )
     {
         if ( defaultUnits == null )
             throw new NullPointerException( "Parameter defaultUnits cannot be "
-                    + "null!" );
-        Unit.defaultUnits = defaultUnits;
+                    + "null" );
+
+        // write the new default unit preference to preferences file
+        SharedPreferences preferences = c.getSharedPreferences(
+                AppSettings.KEY_PREFERENCE_FILE, Context.MODE_PRIVATE);
+        String unitIdentifier = defaultUnits.getIdentifier();
+        SharedPreferences.Editor preferenceEditor = preferences.edit();
+        preferenceEditor.putString(
+                AppSettings.KEY_DEFAULT_UNIT, unitIdentifier);
+        preferenceEditor.commit();
     }
 }

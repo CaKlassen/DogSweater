@@ -1,5 +1,6 @@
 package group8.comp3900.year2014.com.bcit.dogsweater.classes;
 
+import android.content.Context;
 import android.net.Uri;
 
 /**
@@ -91,9 +92,9 @@ public class Profile
      */
     private Dimensions dimensions;
 
-    public Profile( String name ) {
+    public Profile( String name, Context context ) {
 
-        this( name, new Dimensions(), (Uri)null);
+        this( name, new Dimensions(context), (Uri)null);
     }
 
     public Profile( String name, Dimensions dimensions ) {
@@ -101,14 +102,14 @@ public class Profile
         this( name, dimensions, (Uri)null );
     }
 
-    public Profile( String name, String dimensions ) {
+    public Profile( String name, String dimensions, Context context ) {
 
-        this( name, dimensions, (Uri)null );
+        this( name, dimensions, context, (Uri)null );
     }
 
-    public Profile( String name, String dimensions, Uri imageURI ) {
+    public Profile( String name, String dimensions, Context context, Uri imageURI ) {
 
-        this( name, new Dimensions( dimensions ), imageURI );
+        this( name, new Dimensions( context, dimensions ), imageURI );
     }
 
     public Profile( String name, Dimensions dimensions, String imageURI ) {
@@ -116,9 +117,9 @@ public class Profile
         this( name, dimensions, Uri.parse( imageURI ) );
     }
 
-    public Profile( String name, String dimensions, String imageURI ) {
+    public Profile( String name, String dimensions, Context context, String imageURI ) {
 
-        this( name, new Dimensions( dimensions ), imageURI );
+        this( name, new Dimensions( context, dimensions ), imageURI );
     }
 
     public Profile( String name, Dimensions dimensions, Uri imageURI ) {

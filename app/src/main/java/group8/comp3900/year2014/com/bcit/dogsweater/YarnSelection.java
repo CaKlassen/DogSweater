@@ -169,7 +169,7 @@ public class YarnSelection extends Activity {
 
         // create the new project, and associate the profile, style and yarn
         // gauge with it
-        Project newProject = new Project(p);
+        Project newProject = new Project(this, p);
         newProject.setStyle(s);
         newProject.setName(p.getName() + " - " + s.getName());
         newProject.setGauge(gauge);

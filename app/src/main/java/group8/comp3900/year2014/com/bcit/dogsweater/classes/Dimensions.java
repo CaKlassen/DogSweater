@@ -41,16 +41,21 @@ import group8.comp3900.year2014.com.bcit.dogsweater.R;
  */
 public class Dimensions
 {
+    //////////////////////
+    // static variables //
+    //////////////////////
+    /** evaluator object used to evaluate expressions. */
+    private static Evaluator sEvaluator = new Evaluator();
+
+
     ////////////////////////
     // instance variables //
     ////////////////////////
     /** underlying object used to save measurement information. */
-    private JSONObject mStorage;
+    private final JSONObject mStorage;
 
-    /** evaluator object used to evaluate expressions. */
-    private static Evaluator mEvaluator = new Evaluator();
-
-
+    /** reference to the application context. */
+    private final Context mContext;
 
 
     /////////////////
@@ -60,16 +65,29 @@ public class Dimensions
      * author: Eric Tsang
      * date: October 1 2014
      * revisions: none
-     * @param stringified a string created with the Measurements.stringify
-     * method
      *
      * instantiates an instance of Measurements with the exact same
      * measurements, and associated values as the Measurements instance that was
      * stringified.
+     *
+     * @param stringified a string created with the Measurements.stringify
+     *   method
+     * @param context reference to the application's context
      */
-    public Dimensions(String stringified)
+    public Dimensions(Context context, String stringified)
     {
-        parseStringified(stringified);
+        if (context == null)
+            throw new NullPointerException("context cannot be null");
+
+        mContext = context;
+        try
+        {
+            mStorage = new JSONObject(stringified);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -78,9 +96,15 @@ public class Dimensions
      * revisions: none
      *
      * instantiates an instance of Measurements
+     *
+     * @param context reference to the application's context
      */
-    public Dimensions()
+    public Dimensions(Context context)
     {
+        if (context == null)
+            throw new NullPointerException("context cannot be null");
+
+        mContext = context;
         mStorage = new JSONObject();
     }
 
@@ -89,6 +113,12 @@ public class Dimensions
     /////////////
     // getters //
     /////////////
+
+    /** returns the context that was passed into the instance. */
+    public Context getContext()
+    {
+        return mContext;
+    }
 
     /**
      * author: Eric Tsang
@@ -106,7 +136,7 @@ public class Dimensions
         try {
             // get and return the measurement with the key that matches the
             // passed key
-            return new Dimension(mStorage.getJSONObject(key), this);
+            return new Dimension(mContext, mStorage.getJSONObject(key), this);
         }
         catch ( JSONException e )
         {
@@ -147,6 +177,198 @@ public class Dimensions
             }
         });
         return keys;
+    }
+
+
+
+    /////////////
+    // setters //
+    /////////////
+
+    /** @see this.setDimension(String, String, double) */
+    public void setDimension(String key, double value)
+    {
+        setDimension(key, value, null);
+    }
+
+    /** @see this.setDimension(String, double, String, Unit) */
+    public void setDimension(String key, double value, String defaultValueExpression)
+    {
+        setDimension(key, value, defaultValueExpression, Unit.getDefaultUnit(mContext));
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
+     * @param           key   key used to identify to the measurement
+     * @param           value   value of the measurement in the passed units
+     *                          ( unit )
+     * @param           defaultValueExpression   expression used to calculate
+     *                  the default value for this dimension
+     * @param           unit   units that value is passed in
+     *
+     * sets the value of the dimension identified by the passed key to the
+     * passed value in the passed unit
+     */
+    public void setDimension(String key, double value, String defaultValueExpression, Unit unit)
+    {
+        // validate parameters
+        if (key == null || unit == null)
+            throw new NullPointerException("Neither key or unit parameters "
+                    + "can be null!");
+
+        // add the measurement to mStorage
+        try
+        {
+            Dimension dimension = new Dimension(
+                    mContext,
+                    unit,
+                    value,
+                    defaultValueExpression,
+                    this);
+            mStorage.put(key, dimension.toJSONObject());
+        }
+        catch( Exception e )
+        {
+            throw new RuntimeException("JSONException: " + e.toString());
+        }
+    }
+
+
+
+    /////////////////////////////
+    // other interface methods //
+    /////////////////////////////
+    /**
+     * author: Eric Tsang
+     * date: October 7 2014
+     * revisions: none
+     * @param           key   key used to identify to the measurement
+     *
+     * removes the key-value pair; throws a NoSuchElementException when the key
+     * cannot be found
+     */
+    public void deleteDimension(String key)
+    {
+        try {
+            mStorage.get( key );
+        } catch (JSONException e) {
+            throw new NoSuchElementException( "There is no measurement "
+                    + "associated with the passed key: \"" + key + "\".");
+        }
+        mStorage.remove(key);
+    }
+
+    /**
+     * author: Eric Tsang
+     * date: October 1 2014
+     * revisions: none
+     * @return          returns a string that can be used in a constructor of
+     *                  the measurements class to build a measurements class
+     *                  with the same state as it had when it was stringified.
+     *
+     * returns the value of the measurement identified by the passed key in the
+     * passed units ( unit )
+     */
+    public String stringify()
+    {
+        return mStorage.toString();
+    }
+
+    /**
+     * author: Chris Klassen
+     * date: October 17 2014
+     * revisions: none
+     * @param expression a string passed in from an Archetype
+     *                               step that must be calculated and returned.
+     * @return  String       the calculated expression result
+     *
+     * returns the result of an expression passed in containing dimension
+     *   variables. the units used in the calculation will be the default unit
+     *   for the app.
+     */
+    public String parseExpression( String expression )
+    {
+        return parseExpression(expression, Unit.getDefaultUnit(mContext));
+    }
+
+    /**
+     * author: Chris Klassen
+     * date: October 17 2014
+     * revisions: none
+     * @param expression a string passed in from an Archetype step that must be
+     *   calculated and returned.
+     * @param expressionBaseUnit the kind of unit to use in the calculation.
+     * @return  String       the calculated expression result
+     *
+     * returns the result of an expression passed in containing dimension
+     * variables.
+     */
+    public String parseExpression( String expression, Unit expressionBaseUnit )
+    {
+        Log.d(" input: ", expression);
+        String result;
+
+        // replace variables with values
+        Log.d("expression: ", expression);
+        String[] keys = getDimensionKeys();
+        for (String key : keys) {
+            expression = expression.replaceAll(key,
+                    String.valueOf(getDimension(key).getValue(
+                            expressionBaseUnit)));
+        }
+
+        // evaluate the expression
+        Log.d("parses expression: ", expression);
+        try {
+            Log.d("expression: ", expression);
+            result = sEvaluator.evaluate(expression);
+        } catch (EvaluationException e) {
+            throw new RuntimeException(e);
+        }
+
+        // return...
+        Log.d("output: ", result);
+        return result;
+    }
+
+
+
+    ////////////////////
+    // helper methods //
+    ////////////////////
+    /**
+     * author: Rhea Lauzon
+     * date: November 21 2014
+     * revisions: none
+     * @param key key String of the dimension we're getting the
+     *                  information name for
+     * @param appContext application context...
+     * @param suffix suffix appended to passed key, used to get the resource.
+     * @return String resource associated with passed key
+     *
+     * returns the String associated with passed key; null if it is not defined.
+     *
+     * to define a hint it must be added to the R.string class. to do
+     * this, it must be added into strings.xml with the name format:
+     * "[key][suffix]".
+     */
+    private static String getDimensionString(Context appContext, String key, String suffix) {
+        String ret;
+
+
+        try {
+            int friendlyId = R.string.class.getField(key + suffix).getInt(null);
+            ret = appContext.getResources().getString(friendlyId);
+
+        } catch(Exception e) {
+            ret = null;
+
+        }
+
+        return ret;
+
     }
 
     /**
@@ -251,222 +473,6 @@ public class Dimensions
 
 
 
-    /////////////
-    // setters //
-    /////////////
-
-    /** @see this.setDimension(String, String, double) */
-    public void setDimension(String key, double value)
-    {
-        setDimension(key, value, null);
-    }
-
-    /** @see this.setDimension(String, double, String, Unit) */
-    public void setDimension(String key, double value, String defaultValueExpression)
-    {
-        setDimension(key, value, defaultValueExpression, Unit.getDefaultUnit());
-    }
-
-    /**
-     * author: Eric Tsang
-     * date: October 1 2014
-     * revisions: none
-     * @param           key   key used to identify to the measurement
-     * @param           value   value of the measurement in the passed units
-     *                          ( unit )
-     * @param           defaultValueExpression   expression used to calculate
-     *                  the default value for this dimension
-     * @param           unit   units that value is passed in
-     *
-     * sets the value of the dimension identified by the passed key to the
-     * passed value in the passed unit
-     */
-    public void setDimension(String key, double value, String defaultValueExpression, Unit unit)
-    {
-        // validate parameters
-        if (key == null || unit == null)
-            throw new NullPointerException("Neither key or unit parameters "
-                    + "can be null!");
-
-        // add the measurement to mStorage
-        try
-        {
-            Dimension dimension = new Dimension(
-                    Unit.getDefaultUnit(),
-                    value,
-                    defaultValueExpression,
-                    this);
-            mStorage.put(key, dimension.toJSONObject());
-        }
-        catch( Exception e )
-        {
-            throw new RuntimeException("JSONException: " + e.toString());
-        }
-    }
-
-
-
-    /////////////////////////////
-    // other interface methods //
-    /////////////////////////////
-    /**
-     * author: Eric Tsang
-     * date: October 7 2014
-     * revisions: none
-     * @param           key   key used to identify to the measurement
-     *
-     * removes the key-value pair; throws a NoSuchElementException when the key
-     * cannot be found
-     */
-    public void deleteDimension(String key)
-    {
-        try {
-            mStorage.get( key );
-        } catch (JSONException e) {
-            throw new NoSuchElementException( "There is no measurement "
-                    + "associated with the passed key: \"" + key + "\".");
-        }
-        mStorage.remove(key);
-    }
-
-    /**
-     * author: Eric Tsang
-     * date: October 1 2014
-     * revisions: none
-     * @return          returns a string that can be used in a constructor of
-     *                  the measurements class to build a measurements class
-     *                  with the same state as it had when it was stringified.
-     *
-     * returns the value of the measurement identified by the passed key in the
-     * passed units ( unit )
-     */
-    public String stringify()
-    {
-        return mStorage.toString();
-    }
-
-    /**
-     * author: Eric Tsang
-     * date: October 1 2014
-     * revisions: none
-     * @param           stringified   a string returned by the
-     *                  Measurements.stringify method. this sets the state of
-     *                  this instance to the same state as the instance that was
-     *                  stringified, at the time that it was stringified.
-     *
-     * returns the value of the measurement identified by the passed key in the
-     * passed units ( unit )
-     */
-    public void parseStringified( String stringified )
-    {
-        try
-        {
-            mStorage = new JSONObject( stringified );
-        }
-        catch ( JSONException e )
-        {
-            throw new IllegalArgumentException("Parameter stringified was not "
-                    + "formatted correctly.");
-        }
-    }
-
-    /**
-     * author: Chris Klassen
-     * date: October 17 2014
-     * revisions: none
-     * @param   expression   a string passed in from an Archetype
-     *                               step that must be calculated and returned.
-     * @return  String       the calculated expression result
-     *
-     * returns the result of an expression passed in containing dimension
-     *   variables. the units used in the calculation will be the default unit
-     *   for the app.
-     */
-    public String parseExpression( String expression )
-    {
-        return parseExpression(expression, Unit.getDefaultUnit());
-    }
-
-    /**
-     * author: Chris Klassen
-     * date: October 17 2014
-     * revisions: none
-     * @param expression a string passed in from an Archetype step that must be
-     *   calculated and returned.
-     * @param expressionBaseUnit the kind of unit to use in the calculation.
-     * @return  String       the calculated expression result
-     *
-     * returns the result of an expression passed in containing dimension
-     * variables.
-     */
-    public String parseExpression( String expression, Unit expressionBaseUnit )
-    {
-        Log.d(" input: ", expression);
-        String result;
-
-        // replace variables with values
-        Log.d("expression: ", expression);
-        String[] keys = getDimensionKeys();
-        for (String key : keys) {
-            expression = expression.replaceAll(key,
-                    String.valueOf(getDimension(key).getValue(
-                            expressionBaseUnit)));
-        }
-
-        // evaluate the expression
-        Log.d("parses expression: ", expression);
-        try {
-            Log.d("expression: ", expression);
-            result = mEvaluator.evaluate(expression);
-        } catch (EvaluationException e) {
-            throw new RuntimeException(e);
-        }
-
-        // return...
-        Log.d("output: ", result);
-        return result;
-    }
-
-
-
-    ////////////////////
-    // helper methods //
-    ////////////////////
-    /**
-     * author: Rhea Lauzon
-     * date: November 21 2014
-     * revisions: none
-     * @param key key String of the dimension we're getting the
-     *                  information name for
-     * @param appContext application context...
-     * @param suffix suffix appended to passed key, used to get the resource.
-     * @return String resource associated with passed key
-     *
-     * returns the String associated with passed key; null if it is not defined.
-     *
-     * to define a hint it must be added to the R.string class. to do
-     * this, it must be added into strings.xml with the name format:
-     * "[key][suffix]".
-     */
-    private static String getDimensionString(Context appContext, String key, String suffix) {
-        String ret;
-
-
-        try {
-            int friendlyId = R.string.class.getField(key + suffix).getInt(null);
-            ret = appContext.getResources().getString(friendlyId);
-
-        } catch(Exception e) {
-            ret = null;
-
-        }
-
-        return ret;
-
-    }
-
-
-
     ///////////////
     // unit test //
     ///////////////
@@ -480,17 +486,17 @@ public class Dimensions
      */
     public static void main( String[] args )
     {
-        Dimensions m = new Dimensions();
+        Dimensions m = new Dimensions(null);
 
         try
         {
-            m.setDimension("Hello", 11);
-            m.setDimension("No", 12);
-            m.setDimension("Bye", 13);
+            m.setDimension("Hello", 11, null);
+            m.setDimension("No", 12, null);
+            m.setDimension("Bye", 13, null);
             m.setDimension("DefaultValue", 13, "Hello + No");
             System.out.println(m.parseExpression("4 - 5"));
-            System.out.println(m.parseExpression("floor(Hello - Bye + No + No + 0.5)"));
-            Dimensions m2 = new Dimensions(m.stringify());
+            System.out.println(m.parseExpression("floor(Hello - Bye + No + No + 0.5"));
+            Dimensions m2 = new Dimensions(null, m.stringify());
 
             System.out.println( m2.getDimension("Hello").toJSONObject().toString() );
             System.out.println( m2.getDimension("DefaultValue").getDefaultValue() );
