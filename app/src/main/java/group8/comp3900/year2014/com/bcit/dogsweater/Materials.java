@@ -20,6 +20,7 @@ import group8.comp3900.year2014.com.bcit.dogsweater.classes.Material;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Profile;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Project;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.Style;
+import group8.comp3900.year2014.com.bcit.dogsweater.classes.Unit;
 import group8.comp3900.year2014.com.bcit.dogsweater.classes.database.ProfileDataSource;
 
 public class Materials extends Activity {
@@ -63,12 +64,11 @@ public class Materials extends Activity {
         ProfileDataSource db = new ProfileDataSource(this);
         db.open();
         Project curProject = db.getProject(projId);
-
-        Profile p =curProject.getProfile();
         db.close();
 
 
-        Material material = new Material( Style.calculateYarnStyle_1(p) + "Yarn",false);
+        Material material = new Material( Style.calculateYarnStyle_1(curProject)
+                + Unit.getDefaultUnit().getUnitString() + " Yarn", false);
         materialList.add(material);
 
         material = new Material("16\" Circular Knitting Needles", false);

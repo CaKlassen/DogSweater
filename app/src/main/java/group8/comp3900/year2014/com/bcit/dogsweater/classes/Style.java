@@ -164,31 +164,20 @@ public class Style {
      *
      * Calculates yarn needed for the first style
      */
-
-    public static double calculateYarnStyle_1(Profile p)
+    public static double calculateYarnStyle_1(Project project)
     {
         double length = 0;
         double squareUnit = 0;
 
-        Dimensions pdem = p.getDimensions();
+        Dimensions dimensions = project.getDimensions();
 
-        double collar = pdem.getDimension("X").getValue(Unit.getDefaultUnit()) * pdem.getDimension("A").getValue(Unit.getDefaultUnit());
-        double body  = pdem.getDimension("B").getValue(Unit.getDefaultUnit()) * pdem.getDimension("Y").getValue(Unit.getDefaultUnit());
-        double tail =  ( pdem.getDimension("B").getValue(Unit.getDefaultUnit()) -  pdem.getDimension("C").getValue(Unit.getDefaultUnit()) ) * ( pdem.getDimension("Z").getValue(Unit.getDefaultUnit()) -  pdem.getDimension("Y").getValue(Unit.getDefaultUnit()));
+        double styleArea = Double.parseDouble(
+                dimensions.parseExpression("X*A+B*Y+(Z-Y)*B", Unit.INCHES));
 
-       squareUnit = collar + body + tail;
-        Log.d("collar: ", "" + collar);
+        Log.d("styleArea: ", String.valueOf(styleArea));
 
-        Log.d("body: ", "" + body);
-
-        Log.d("tail: ", "" + tail);
-
-        Log.d("squareUnit: ", "" + squareUnit);
-
-
-
-
-        return length;
+        return Unit.INCHES.convert(Unit.getDefaultUnit(),
+                styleArea * project.getGauge());
     }
 
 

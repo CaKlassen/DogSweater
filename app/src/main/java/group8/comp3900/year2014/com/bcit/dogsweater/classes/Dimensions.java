@@ -393,7 +393,7 @@ public class Dimensions
      * revisions: none
      * @param expression a string passed in from an Archetype step that must be
      *   calculated and returned.
-     * @param expressionBaseUnit units used in the calculation.
+     * @param expressionBaseUnit the kind of unit to use in the calculation.
      * @return  String       the calculated expression result
      *
      * returns the result of an expression passed in containing dimension
