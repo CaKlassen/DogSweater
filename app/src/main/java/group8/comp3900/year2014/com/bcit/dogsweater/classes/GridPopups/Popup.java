@@ -81,7 +81,7 @@ public class Popup extends Dialog {
      *   dialog's ImageView's image
      */
     public void setImageByDrawableId(int drawableResourceId) {
-        image.setBackgroundResource(drawableResourceId);
+        image.setImageResource(drawableResourceId);
     }
 
     /**
@@ -95,12 +95,6 @@ public class Popup extends Dialog {
      *   local file system
      */
     public void setImageByUri(Uri imageUri) {
-        if (imageUri == null)
-        {
-            image.setImageResource(R.drawable.dog_silhouette);
-        }
-
-
         ThreadManager.loadImage(
                 getContext(),                       // application context
                 imageUri,                           // local uri to image file

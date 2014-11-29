@@ -59,7 +59,8 @@ public class ProfileSelection extends Activity {
                     Popup popup = new Popup(v.getContext());
                     popup.setButtonText("SELECT THIS PROFILE");
                     popup.setDescriptionText("");
-                    popup.setImageByUri(dialogable.getDialogueImageUri());
+                    popup.setImageByDrawableId(R.drawable.dog_silhouette);  // in case no user defined image exists...
+                    popup.setImageByUri(dialogable.getDialogueImageUri());  // try to load the user defined image
                     popup.setTitleText(dialogable.getDialogueTitle());
                     popup.setButtonOnClickListener(new View.OnClickListener() {
                         @Override
@@ -81,8 +82,8 @@ public class ProfileSelection extends Activity {
     public void onResume() {
         super.onResume();
 
-            //Create menu
-            MenuHelper m = new MenuHelper(getApplicationContext(), this);
+        //Create menu
+        MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
         mGridAdapter.buildImageList();
     }

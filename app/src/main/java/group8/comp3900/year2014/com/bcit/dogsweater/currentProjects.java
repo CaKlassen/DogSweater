@@ -64,6 +64,9 @@ public class currentProjects extends Activity {
         //Create menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
+        // refresh the GUI because things may have changed
+        gridAdapter.buildImageList();
+        gridAdapter.notifyDataSetChanged();
     }
 
 

@@ -131,6 +131,7 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
 
     public void buildImageList()
     {
+        dialogables.clear();
 
         // putting other profiles onto the gridview
         profileDataSource.open();

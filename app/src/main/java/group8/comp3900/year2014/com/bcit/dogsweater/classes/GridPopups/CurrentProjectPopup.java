@@ -118,7 +118,53 @@ public class CurrentProjectPopup extends Dialog {
 
     ///////////////////////
     // interface methods //
-    ///////////////////////
+    //////////////////////////////////////////////
+    /**
+          * author: Eric Tsang
+          * date: November 6 2014
+          *
+          * sets the dialog's ImageView's image to the corresponding drawable given
+          *   its ID (i.e.: R.drawable.ic_launcher)
+          *
+          * @param drawableResourceId id that corresponds to a drawable to use as the
+          *   dialog's ImageView's image
+          */
+    public void setImageByDrawableId(int drawableResourceId) {
+        image.setBackgroundResource(drawableResourceId);
+    }
+
+    /**
+          * author: Eric Tsang
+          * date: November 6 2014
+          *
+          * gets and parses the image at the uri into a Bitmap, and sets it as the
+          *   dialog's ImageView's image
+          *
+          * @param imageUri Uri to an image to display on the dialog on the android's
+          *   local file system
+          */
+    public void setImageByUri(Uri imageUri) {
+        if (imageUri == null)
+        {
+            image.setImageResource(R.drawable.dog_silhouette);
+        }
+
+
+        ThreadManager.loadImage(
+                getContext(),                       // application context
+                imageUri,                           // local uri to image file
+                ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                getWindow().getAttributes().width,  // image width
+
+                // what to do when success
+                new ThreadManager.OnResponseListener() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        image.setImageBitmap(bitmap);
+                    }
+                });
+    }
+
     /**
      * @author          Eric Tsang
      * @date            October 19 2014
@@ -140,7 +186,6 @@ public class CurrentProjectPopup extends Dialog {
      *
      * sets the OnClickListener for the continue button
      */
-
     public void setOnContinueButtonClickListener(View.OnClickListener onClickListener) {
         cntButton.setOnClickListener(onClickListener);
     }

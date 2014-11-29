@@ -77,18 +77,18 @@ public class ManageInfoPopup extends Dialog {
 
         // setting dialog image...use a worker thread to load the image
         ThreadManager.loadImage(
-                context,                            // application context
-                imageUri,                           // local uri to image file
-                ThreadManager.CropPattern.DEFAULT,   // crop pattern
-                600,                                // image width
+                         context,                            // application context
+                         imageUri,                           // local uri to image file
+                         ThreadManager.CropPattern.DEFAULT,  // crop pattern
+                         600,                                // image width
 
-                // what to do when success
-                new ThreadManager.OnResponseListener() {
-                    @Override
-                    public void onResponse(Bitmap bitmap) {
-                        image.setImageBitmap(bitmap);
-                    }
-                });
+                         // what to do when success
+                         new ThreadManager.OnResponseListener() {
+                             @Override
+                             public void onResponse(Bitmap bitmap) {
+                                 image.setImageBitmap(bitmap);
+                             }
+                         });
 
         // setting title text
         tv.setText(titleText);
@@ -131,7 +131,6 @@ public class ManageInfoPopup extends Dialog {
     public void setOnModifyButtonClickListener(View.OnClickListener onClickListener) {
         modButton.setOnClickListener(onClickListener);
     }
-
 
     /////////////////////
     // support methods //
