@@ -2,11 +2,13 @@ package group8.comp3900.year2014.com.bcit.dogsweater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 
 public class About extends Activity {
@@ -15,6 +17,21 @@ public class About extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        // Set fonts
+        TextView title = (TextView) findViewById( R.id.title );
+        Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+        title.setTypeface( typeface );
+
+        TextView Astor = (TextView) findViewById( R.id.Astor );
+       Astor.setTypeface( typeface );
+
+        TextView Vicky = (TextView) findViewById( R.id.Vicky );
+        Vicky.setTypeface( typeface );
+
+        TextView Devs = (TextView) findViewById( R.id.Devs );
+        Devs.setTypeface( typeface );
+
 
 
     }

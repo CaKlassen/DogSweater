@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,7 +30,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/appName"
+                android:id="@+id/title"
                 android:gravity="center"
+                android:textColor="@color/peach"
                 android:textSize="40sp"/>
 
             <Space
@@ -53,6 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Astor"
+                android:id="@+id/Astor"
+                android:textColor="@color/peach"
                 android:textSize="25sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -65,21 +68,41 @@
                 android:layout_height="20dp"/>
 
             <!-- Contact buttons -->
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email Astor"
-                android:onClick="emailAstor"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Astor's Website"
-                android:onClick="astorWebsite"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Astor's Twitter"
-                android:onClick="astorTwitter"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="0.33"
+                        android:layout_height="wrap_content"
+                        android:text="EMAIL"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/teal"
+                        android:textColor="@color/white"
+                        android:onClick="emailAstor"/>
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="0.33"
+                        android:layout_height="wrap_content"
+                        android:text="WEBSITE"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/teal"
+                        android:textColor="@color/white"
+                        android:onClick="astorWebsite"/>
+
+                <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="0.33"
+                        android:layout_height="wrap_content"
+                        android:text="TWITTER"
+                        android:background="@color/teal"
+                        android:textColor="@color/white"
+                        android:onClick="astorTwitter"/>
+                </LinearLayout>
             
             <Space
                 android:layout_width="match_parent"
@@ -90,6 +113,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Vicky"
+            android:id="@+id/Vicky"
+            android:textColor="@color/peach"
             android:textSize="25sp"/>
 
             <TextView
@@ -109,6 +134,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Developers"
+                android:id="@+id/Devs"
+                android:textColor="@color/peach"
                 android:textSize="25sp"/>
             <TextView
                 android:layout_width="match_parent"
