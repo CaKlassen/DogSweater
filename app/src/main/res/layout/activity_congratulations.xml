@@ -20,11 +20,24 @@
         android:id="@+id/congratulationTextView"
         android:text="@string/caption_activity_congratulations"
         android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.15"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/teal"
+        android:textSize="40sp"
+       />
+
+    <TextView
+        android:id="@+id/shareText"
+        android:layout_marginLeft="25dp"
+        android:text="SHARE YOUR DESIGN!"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.2"
-        android:layout_marginTop="50dp"
-        android:textSize="40sp"
+        android:layout_weight="0.05"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
         android:textStyle="bold"/>
 
     <ImageView
@@ -38,7 +51,7 @@
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="0dp"
-        android:layout_weight="0.40"
+        android:layout_weight="0.30"
         android:text="@string/addImageButton"
         android:src="@drawable/dyi_icon_camera"
         android:background="@null"
@@ -47,6 +60,14 @@
         android:adjustViewBounds="true"
         android:id="@+id/addShareImage"
         android:onClick="getShareImageUri"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:text="TAKE PHOTO"
+        android:textColor="@color/peach"
+        android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"
