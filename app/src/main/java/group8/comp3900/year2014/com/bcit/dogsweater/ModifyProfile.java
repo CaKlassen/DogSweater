@@ -124,6 +124,32 @@ public class ModifyProfile extends Activity {
         //Create menu
         MenuHelper m = new MenuHelper(getApplicationContext(), this);
 
+        //Change image to the profile image
+        final ImageView iv = (ImageView) findViewById(R.id.projImage);
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        // use a worker thread to load the image
+        Uri imageUri = curProfile.getImageURI();
+        if (imageUri != null) {
+            ThreadManager.loadImage(
+
+                    getApplicationContext(),            // application context
+                    imageUri,                           // local uri to image file
+                    ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                    width / 2,                                // image width
+
+                    // what to do when success
+                    new ThreadManager.OnResponseListener() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            iv.setImageBitmap(bitmap);
+                        }
+                    });
+        }
     }
 
     @Override
@@ -153,36 +179,6 @@ public class ModifyProfile extends Activity {
 
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
-
-        //Change image to the profile image
-        final ImageView iv = (ImageView) findViewById(R.id.projImage);
-
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-
-        // setting dialog image...use a worker thread to load the image
-        Uri imageUri = curProfile.getImageURI();
-        if (imageUri != null) {
-            ThreadManager.loadImage(
-
-                    getApplicationContext(),            // application context
-                    imageUri,                           // local uri to image file
-                    ThreadManager.CropPattern.DEFAULT,   // crop pattern
-                    width / 2,                                // image width
-
-                    // what to do when success
-                    new ThreadManager.OnResponseListener() {
-                        @Override
-                        public void onResponse(Bitmap bitmap) {
-                            iv.setImageBitmap(bitmap);
-                        }
-                    });
-        }
-
-
     }
 
     public void chooseExisting(View v)
@@ -191,34 +187,6 @@ public class ModifyProfile extends Activity {
 
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-
-        //Change image to the profile image
-        final ImageView iv = (ImageView) findViewById(R.id.projImage);
-
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-
-        // setting dialog image...use a worker thread to load the image
-        Uri imageUri = curProfile.getImageURI();
-        if (imageUri != null) {
-            ThreadManager.loadImage(
-
-                    getApplicationContext(),            // application context
-                    imageUri,                           // local uri to image file
-                    ThreadManager.CropPattern.DEFAULT,   // crop pattern
-                    width / 2,                                // image width
-
-                    // what to do when success
-                    new ThreadManager.OnResponseListener() {
-                        @Override
-                        public void onResponse(Bitmap bitmap) {
-                            iv.setImageBitmap(bitmap);
-                        }
-                    });
-        }
 
     }
     public boolean chooseImage() {

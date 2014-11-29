@@ -147,6 +147,7 @@ public class ManageProfiles extends Activity {
                         Profile curProfile = ((Dialogable<Profile>)gridAdapter.getItem( position )).getItem();
                         in.putExtra( "Profile Id", curProfile.getId() );
                         startActivity(in);
+                        popup.dismiss();
                     }
 
                 });

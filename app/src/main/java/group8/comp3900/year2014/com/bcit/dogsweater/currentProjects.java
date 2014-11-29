@@ -157,6 +157,7 @@ public class currentProjects extends Activity {
                         in.putExtra( "Project Id", curProject.getId() );
                         in.putExtra( "Current Section", curProject.getSection() );
                         startActivity(in);
+                        popup.dismiss();
                     }
 
                 });
@@ -174,6 +175,7 @@ public class currentProjects extends Activity {
 
                         in.putExtra( "Project Id", curProject.getId() );
                         startActivity(in);
+                        popup.dismiss();
                     }
 
                 });
