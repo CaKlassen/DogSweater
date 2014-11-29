@@ -68,9 +68,11 @@ public class Materials extends Activity {
         Project curProject = db.getProject(projId);
         db.close();
 
-        Material material = new Material(Style.calculateYardage(curProject)
+        long yardage = (long) Style.calculateYardage(curProject);
+
+        Material material = new Material(yardage
                 + Unit.getDefaultUnit(this).getUnitString()
-                + " of yarn", false);
+                        + " of yarn", false);
         materialList.add(material);
 
         material = new Material("16\" Circular Knitting Needles", false);
