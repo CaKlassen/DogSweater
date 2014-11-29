@@ -41,13 +41,15 @@
         android:layout_weight="0.25"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
        >
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
+            android:layout_marginLeft="10dp"
+            android:paddingStart="15dp"
             android:inputType="number|numberDecimal"
             android:ems="10"
             android:textSize="30sp"
@@ -55,7 +57,7 @@
             android:id="@+id/measureA" />
 
         <TextView
-            android:text="Unit"
+            android:text="cm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -84,16 +86,16 @@
 
 
     <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Next"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/next_button_style"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:background="@color/white"
-            android:onClick="next" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Next"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/next_button_style"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:onClick="next" />
     </RelativeLayout>
 
 
