@@ -29,7 +29,7 @@
         android:id="@+id/patternTitle"
         android:text="TEMP PROJ NAME"
         android:textColor="@color/peach"
-        android:textSize="30sp"/>
+        android:textSize="28sp"/>
     <TextView
         android:paddingLeft="40dp"
         android:layout_width="match_parent"

@@ -167,7 +167,7 @@
     <string name="generalShareButton">generalShareButton</string>
     <!-- do not commit the above additions -->
 
-    <string name="share_caption">Look at the dog sweater I made using Dog Yarn It:</string>
+    <string name="share_caption">Look at the dog sweater I made using #DogYarnIt !</string>
     <string name="title_activity_settings">settings</string>
 
 </resources>
