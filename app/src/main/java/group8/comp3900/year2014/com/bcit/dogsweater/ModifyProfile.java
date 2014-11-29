@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -58,8 +59,16 @@ public class ModifyProfile extends Activity {
             TextView projName = (TextView) findViewById(R.id.projName);
             projName.setText(curProfile.getName());
 
+            // Set fonts
+            TextView title = (TextView) findViewById( R.id.dimenTitle );
+            Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+            title.setTypeface( typeface );
 
-            //Change image to the profile image
+            title = (TextView) findViewById( R.id.projImageLabel );
+            title.setTypeface( typeface );
+
+
+        //Change image to the profile image
             final ImageView iv = (ImageView) findViewById(R.id.projImage);
 
             WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);

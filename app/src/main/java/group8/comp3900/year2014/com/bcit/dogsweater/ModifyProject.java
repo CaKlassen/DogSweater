@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -58,6 +59,14 @@ public class ModifyProject extends Activity {
 
         TextView projName = (TextView) findViewById(R.id.projName);
         projName.setText(curProject.getName());
+
+        //Change fonts
+        TextView projLabel = (TextView) findViewById( R.id.projImageLabel);
+        Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+        projLabel.setTypeface( typeface );
+
+        Typeface typefaceTitle = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
+        projName.setTypeface( typefaceTitle );
 
 
         //Change image to the project image

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -96,8 +95,9 @@ public class ProfileSelectionGridAdapter extends BaseAdapter {
         int height = displayMetrics.heightPixels;
 
         //Apply the images and layout constraints to the imageView
-        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, height/3));
-        iview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        //NOTE LEAVE UNCOMMENTED UNLESS FUTURE ISSUES
+        // iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, height/3));
+        // iview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 
         // setting dialog image...use a worker thread to load the image

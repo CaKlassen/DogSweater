@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -91,8 +90,9 @@ public class ProjectGridAdapter extends BaseAdapter {
         int height = displayMetrics.heightPixels;
 
         //Apply the images and layout constraints to the imageView
-        iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
-        iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        //NOTE LEAVE UNCOMMENTED UNLESS FUTURE ISSUES
+        //iview.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height/3));
+        //iview.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
 
         // setting dialog image...use a worker thread to load the image
