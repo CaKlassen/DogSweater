@@ -118,6 +118,7 @@ public class ProjectPattern extends Activity {
                     in.putExtra("Current Section", curSection + 1);
 
                     startActivity(in);
+                    finish();
                 }
             });
         } else {
@@ -130,6 +131,7 @@ public class ProjectPattern extends Activity {
 
                     // Return to the menu
                     startActivity(in);
+                    finish();
                 }
             });
         }
@@ -148,6 +150,7 @@ public class ProjectPattern extends Activity {
                     in.putExtra("Current Section", curSection - 1);
 
                     startActivity(in);
+                    finish();
                 }
             });
         } else {
@@ -156,10 +159,9 @@ public class ProjectPattern extends Activity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent in = new Intent(getApplicationContext(), currentProjects.class);
 
                     // Return to the menu
-                    startActivity(in);
+                    finish();
                 }
             });
         }
