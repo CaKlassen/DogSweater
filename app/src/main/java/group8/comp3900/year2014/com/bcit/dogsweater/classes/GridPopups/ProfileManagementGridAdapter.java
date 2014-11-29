@@ -106,7 +106,7 @@ public class ProfileManagementGridAdapter extends BaseAdapter {
         ThreadManager.loadImage(
                 context,                            // application context
                 imageUri,                           // local uri to image file
-                ThreadManager.CropPattern.DEFAULT,   // crop pattern
+                ThreadManager.CropPattern.SQUARE,   // crop pattern
                 width/2,                                // image width
 
                 // what to do when success

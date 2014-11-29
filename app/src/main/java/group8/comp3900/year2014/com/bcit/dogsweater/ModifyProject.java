@@ -63,40 +63,10 @@ public class ModifyProject extends Activity {
         //Change fonts
         TextView projLabel = (TextView) findViewById( R.id.projImageLabel);
         Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
-        projLabel.setTypeface( typeface );
+        projLabel.setTypeface(typeface);
 
         Typeface typefaceTitle = Typeface.createFromAsset( getAssets(), "Proxima Nova Bold.otf" );
-        projName.setTypeface( typefaceTitle );
-
-
-        //Change image to the project image
-        final ImageView iv = (ImageView) findViewById(R.id.projImage);
-
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-
-        // setting dialog image...use a worker thread to load the image
-        Uri imageUri = curProject.getImageURI();
-        if (imageUri != null) {
-            ThreadManager.loadImage(
-
-                    getApplicationContext(),            // application context
-                    imageUri,                           // local uri to image file
-                    ThreadManager.CropPattern.DEFAULT,   // crop pattern
-                    width / 2,                                // image width
-
-                    // what to do when success
-                    new ThreadManager.OnResponseListener() {
-                        @Override
-                        public void onResponse(Bitmap bitmap) {
-                            iv.setImageBitmap(bitmap);
-                        }
-                    });
-        }
-
+        projName.setTypeface(typefaceTitle);
     }
 
     @Override
@@ -124,7 +94,7 @@ public class ModifyProject extends Activity {
                     getApplicationContext(),            // application context
                     imageUri,                           // local uri to image file
                     ThreadManager.CropPattern.DEFAULT,   // crop pattern
-                    width / 2,                                // image width
+                    width / 2,                          // image width
 
                     // what to do when success
                     new ThreadManager.OnResponseListener() {

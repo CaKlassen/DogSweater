@@ -48,53 +48,24 @@ public class ModifyProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_profile);
 
-            //Get Project data via the intent
-            final long projId = getIntent().getExtras().getLong(KEY_PROFILE_ID);
+        //Get Project data via the intent
+        final long projId = getIntent().getExtras().getLong(KEY_PROFILE_ID);
 
-            db = new ProfileDataSource(this);
-            db.open();
-            curProfile = db.getProfile(projId);
-            db.close();
+        db = new ProfileDataSource(this);
+        db.open();
+        curProfile = db.getProfile(projId);
+        db.close();
 
-            TextView projName = (TextView) findViewById(R.id.projName);
-            projName.setText(curProfile.getName());
+        TextView projName = (TextView) findViewById(R.id.projName);
+        projName.setText(curProfile.getName());
 
-            // Set fonts
-            TextView title = (TextView) findViewById( R.id.dimenTitle );
-            Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
-            title.setTypeface( typeface );
+        // Set fonts
+        TextView title = (TextView) findViewById( R.id.dimenTitle );
+        Typeface typeface = Typeface.createFromAsset( getAssets(), "GrandHotel-Regular.otf" );
+        title.setTypeface( typeface );
 
-            title = (TextView) findViewById( R.id.projImageLabel );
-            title.setTypeface( typeface );
-
-
-        //Change image to the profile image
-            final ImageView iv = (ImageView) findViewById(R.id.projImage);
-
-            WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            display.getMetrics(displayMetrics);
-            int width = displayMetrics.widthPixels;
-
-            // Setting project image
-            Uri imageUri = curProfile.getImageURI();
-            if (imageUri != null) {
-                ThreadManager.loadImage(
-
-                        getApplicationContext(),            // application context
-                        imageUri,                           // local uri to image file
-                        ThreadManager.CropPattern.DEFAULT,   // crop pattern
-                        width / 2,                                // image width
-
-                        // what to do when success
-                        new ThreadManager.OnResponseListener() {
-                            @Override
-                            public void onResponse(Bitmap bitmap) {
-                                iv.setImageBitmap(bitmap);
-                            }
-                        });
-            }
+        title = (TextView) findViewById( R.id.projImageLabel );
+        title.setTypeface( typeface );
 
         //Set hints for all boxes
         //A
